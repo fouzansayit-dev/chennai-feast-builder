@@ -33,6 +33,18 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --color-plum: var(--plum);
+  --color-plum-dark: var(--plum-dark);
+  --color-plum-light: var(--plum-light);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-light: var(--gold-light);
+  --color-leaf: var(--leaf);
+  --color-leaf-dark: var(--leaf-dark);
+  --color-leaf-light: var(--leaf-light);
+  --color-cream: var(--cream);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -69,26 +81,38 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.875rem;
+  /* Brand palette — Premium catering luxury */
+  --cream: oklch(0.972 0.014 84);
+  --plum: oklch(0.295 0.105 318);
+  --plum-dark: oklch(0.215 0.085 318);
+  --plum-light: oklch(0.41 0.105 318);
+  --gold: oklch(0.78 0.135 84);
+  --gold-dark: oklch(0.68 0.13 78);
+  --gold-light: oklch(0.86 0.14 88);
+  --leaf: oklch(0.42 0.105 145);
+  --leaf-dark: oklch(0.33 0.085 145);
+  --leaf-light: oklch(0.52 0.11 145);
+
+  --background: var(--cream);
+  --foreground: oklch(0.18 0.04 318);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.18 0.04 318);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.18 0.04 318);
+  --primary: var(--plum);
+  --primary-foreground: oklch(0.98 0.01 84);
+  --secondary: oklch(0.94 0.025 84);
+  --secondary-foreground: var(--plum);
+  --muted: oklch(0.94 0.02 84);
+  --muted-foreground: oklch(0.45 0.04 318);
+  --accent: var(--gold);
+  --accent-foreground: var(--plum-dark);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.88 0.03 84);
+  --input: oklch(0.88 0.03 84);
+  --ring: var(--gold);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
