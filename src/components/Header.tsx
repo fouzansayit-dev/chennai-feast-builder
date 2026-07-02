@@ -175,7 +175,7 @@ export default function Header() {
             <img 
               src={logoImg} 
               alt="MCC Logo" 
-              className="w-full h-full object-cover scale-[1.43] transition-transform duration-300 group-hover:scale-[1.50]" 
+              className="w-full h-full object-cover scale-[1.28] transition-transform duration-300 group-hover:scale-[1.35]" 
             />
           </div>
         </Link>
@@ -212,7 +212,7 @@ export default function Header() {
             <img 
               src={logoImg} 
               alt="MCC Logo" 
-              className="w-full h-full object-cover scale-[1.43] transition-transform duration-300 group-hover:scale-[1.50]" 
+              className="w-full h-full object-cover scale-[1.28] transition-transform duration-300 group-hover:scale-[1.35]" 
             />
           </div>
         </Link>
