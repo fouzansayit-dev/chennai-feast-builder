@@ -171,11 +171,13 @@ export default function Header() {
       {/* Mobile Navbar Row (Mobile Only) */}
       <div className="lg:hidden max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center group relative z-10">
-          <img 
-            src={logoImg} 
-            alt="MCC Logo" 
-            className="w-14 h-14 object-contain rounded-full bg-white border border-gold/30 shadow-md transition-transform duration-300 group-hover:scale-105" 
-          />
+          <div className="w-14 h-14 rounded-full bg-white border border-gold/30 shadow-md overflow-hidden flex items-center justify-center">
+            <img 
+              src={logoImg} 
+              alt="MCC Logo" 
+              className="w-full h-full object-cover scale-[1.12] transition-transform duration-300 group-hover:scale-[1.18]" 
+            />
+          </div>
         </Link>
 
         <div className="flex items-center gap-3">
@@ -202,13 +204,17 @@ export default function Header() {
         }`}
       >
         <Link to="/" className="group block">
-          <img 
-            src={logoImg} 
-            alt="MCC Logo" 
-            className={`object-contain rounded-full bg-white border border-gold/30 shadow-md transition-all duration-300 group-hover:scale-105 ${
+          <div 
+            className={`rounded-full bg-white border border-gold/30 shadow-md overflow-hidden flex items-center justify-center transition-all duration-300 ${
               scrolled ? "w-12 h-12 md:w-14 h-14" : "w-20 h-20 md:w-24 md:h-24"
-            }`} 
-          />
+            }`}
+          >
+            <img 
+              src={logoImg} 
+              alt="MCC Logo" 
+              className="w-full h-full object-cover scale-[1.12] transition-transform duration-300 group-hover:scale-[1.18]" 
+            />
+          </div>
         </Link>
       </div>
 
