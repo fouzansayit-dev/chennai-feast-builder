@@ -171,7 +171,7 @@ export default function Header() {
       {/* Mobile Navbar Row (Mobile Only) */}
       <div className="lg:hidden max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
         <Link to="/" className="flex items-center group relative z-10">
-          <div className="w-14 h-14 rounded-full bg-white border border-gold/30 shadow-md overflow-hidden flex items-center justify-center">
+          <div className="w-14 h-14 rounded-full bg-white border-2 border-gold shadow-md overflow-hidden flex items-center justify-center">
             <img 
               src={logoImg} 
               alt="MCC Logo" 
@@ -205,7 +205,7 @@ export default function Header() {
       >
         <Link to="/" className="group block">
           <div 
-            className={`rounded-full bg-white border border-gold/30 shadow-md overflow-hidden flex items-center justify-center transition-all duration-300 ${
+            className={`rounded-full bg-white border-2 border-gold shadow-md overflow-hidden flex items-center justify-center transition-all duration-300 ${
               scrolled ? "w-12 h-12 md:w-14 h-14" : "w-20 h-20 md:w-24 md:h-24"
             }`}
           >

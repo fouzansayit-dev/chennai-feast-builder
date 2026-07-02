@@ -67,7 +67,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10 border-t border-gold/10">
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-full bg-cream border border-gold/25 overflow-hidden flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-full bg-cream border-2 border-gold/70 overflow-hidden flex items-center justify-center shrink-0">
               <img 
                 src={logoImg} 
                 alt="MCC Logo" 
