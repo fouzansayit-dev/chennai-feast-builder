@@ -1,16 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight, Award, Leaf, Sparkles, Star, Users } from "lucide-react";
-import heroFeast from "@/assets/hero-feast.jpg";
-import weddingHall from "@/assets/wedding-hall.jpg";
-import spices from "@/assets/spices.jpg";
-import liveCounter from "@/assets/live-counter.jpg";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import {
+  ArrowRight,
+  Award,
+  Leaf,
+  Sparkles,
+  Star,
+  Users,
+  UtensilsCrossed,
+  Heart,
+  Baby,
+  Cake,
+  Briefcase,
+  Play,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
+import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
+import bananaLeafFeastBlended from "@/assets/banana-leaf-feast-blended.png";
+import bananaLeafBg from "@/assets/banana-leaf-bg.png";
+import liveCounter from "@/assets/images-31.jpeg";
+import weddingHall from "@/assets/IMG_4558.webp";
+import realFeastMeal from "@/assets/2_20260624_020643_0001.png";
+import buffetCounter from "@/assets/images-32.jpeg";
+import partyBg from "@/assets/party-bg.png";
+import partyLogo from "@/assets/party-logo.png";
 import MenuBuilder from "@/components/MenuBuilder";
 import BookingForm from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
 import { fadeInUp, leafDraw, staggerContainer } from "@/lib/animations";
+import { CenterKolam } from "@/components/Kolam";
+import MarigoldGarland from "@/components/MarigoldGarland";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,116 +48,297 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const SERVICE_CARDS = [
+  {
+    t: "Weddings",
+    d: "Traditional course-by-course Thala Vazhai Ilai Saapadu with grand mandapam dining setup.",
+    i: UtensilsCrossed,
+    link: "/services",
+    hash: undefined,
+  },
+  {
+    t: "Engagements",
+    d: "Exquisite buffets and premium plated dinners to mark the auspicious beginning of family unions.",
+    i: Heart,
+    link: "/services",
+    hash: undefined,
+  },
+  {
+    t: "Seemantham",
+    d: "Strictly Sattvik traditional baby shower menus crafted with sacred ingredients and holy naivedyam.",
+    i: Baby,
+    link: "/services",
+    hash: undefined,
+  },
+  {
+    t: "Birthdays",
+    d: "Delightful live counters, contemporary chaat stations, and children-friendly dessert displays.",
+    i: Cake,
+    link: "/",
+    hash: "book",
+  },
+  {
+    t: "Corporate Events",
+    d: "Punctual, high-quality catering, packaged lunch boxes, and elegant conference buffet stations.",
+    i: Briefcase,
+    link: "/services",
+    hash: undefined,
+  },
+  {
+    t: "Private Parties",
+    d: "Intimate family gatherings, Griha Pravesham (housewarming) poojas, and small festive feasts.",
+    i: Sparkles,
+    link: "/",
+    hash: "book",
+  },
+];
+
+interface HeroSlide {
+  t: string;
+  bg: string;
+  title: string;
+  sub: string;
+  d: string;
+  cta: string;
+  link: string;
+  logo?: string;
+}
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    t: "Weddings",
+    bg: realFeastMeal,
+    title: "Traditional Taste. Chennai's Pride.",
+    sub: "Traditional course-by-course feast served on banana leaf",
+    d: "Experience the authentic flavor of Chennai with our hygienic, delicious and memorable catering services.",
+    cta: "Our Services",
+    link: "/services",
+  },
+  {
+    t: "Engagements",
+    bg: weddingHall,
+    title: "Exquisite Buffets & Plated Dinners",
+    sub: "Creating beautiful memories for your auspicious beginnings",
+    d: "Modern reception spreads, premium buffet counters, and traditional sit-down services styled to perfection.",
+    cta: "Explore Services",
+    link: "/services",
+  },
+  {
+    t: "Pooja & Seemantham",
+    bg: brassLamps,
+    title: "Strictly Sattvik Ceremonial Catering",
+    sub: "Sacred recipes cooked under Vedic slow-cooking principles",
+    d: "Naivedyam-grade purity and hand-pounded spices prepared by experienced traditional chefs.",
+    cta: "Explore Menu",
+    link: "/menu",
+  },
+  {
+    t: "Sweets & Payasam",
+    bg: gulabJamun,
+    title: "Traditional Sweets & Desserts",
+    sub: "Delightful range of traditional payasams and premium sweets",
+    d: "Stone-ground ingredients and pure ghee preparations cooked to round off your auspicious feast perfectly.",
+    cta: "View Menu",
+    link: "/menu",
+  },
+  {
+    t: "Grand Buffets",
+    bg: buffetCounter,
+    title: "Premium Multi-Cuisine Buffets",
+    sub: "Sophisticated dining setup with professional hospitality",
+    d: "Elegant presentation, premium tableware, and custom catering menus tailored for high-profile gatherings.",
+    cta: "Get Quote",
+    link: "#book",
+  },
+  {
+    t: "Corporate Events",
+    bg: liveCounter,
+    title: "Premium Conference & Packed Meals",
+    sub: "Punctual, professional hospitality tailored for corporate events",
+    d: "Hygienic corporate lunch packs, buffet stations, and tea-break catering for offices.",
+    cta: "Book Event",
+    link: "#book",
+  },
+];
+
 function Index() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto play slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 8000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  };
 
   return (
     <>
-      {/* HERO */}
-      <section ref={ref} className="relative -mt-20 h-[100svh] min-h-[640px] overflow-hidden">
-        <motion.div style={{ y }} className="absolute inset-0">
-          <img
-            src={heroFeast}
-            alt="Traditional South Indian banana leaf feast"
-            className="w-full h-full object-cover scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-plum-dark/85 via-plum-dark/55 to-plum-dark/95" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,175,55,0.18),transparent_55%)]" />
-        </motion.div>
-
-        <motion.div
-          style={{ opacity }}
-          className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-20"
-        >
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-[11px] sm:text-xs uppercase tracking-[0.4em] text-gold border border-gold/40 rounded-full px-5 py-2 mb-8 backdrop-blur-sm"
-          >
-            ★ Chennai's Brahmin Catering Legacy · Est. 2003
-          </motion.span>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.9 }}
-            className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-cream max-w-5xl leading-[1.05]"
-          >
-            Authentic <span className="text-gold-gradient italic">Sattvik</span> Cuisines
-            <br className="hidden sm:block" /> for Sacred Celebrations
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="mt-7 text-cream/75 max-w-xl text-base sm:text-lg font-light"
-          >
-            Vedic slow-cooked, hand-pounded South Indian feasts served on banana leaf — by D. Venkat
-            and the My Chennai Catering Services family.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-10 flex flex-col sm:flex-row gap-3"
-          >
-            <Link
-              to="/contact"
-              className="px-8 py-4 bg-gold hover:bg-gold-light text-plum-dark text-sm font-semibold uppercase tracking-[0.2em] rounded-full shadow-glow-gold inline-flex items-center gap-2 group"
+      {/* HERO SECTION - CAROUSEL */}
+      <section
+        ref={ref}
+        className="relative -mt-[60px] lg:-mt-[132px] min-h-screen text-cream flex items-center justify-center pt-24 lg:pt-[180px] pb-24 overflow-hidden bg-black select-none"
+      >
+        {/* Background Image Carousel */}
+        <div className="absolute inset-0 z-0 select-none pointer-events-none">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2 }}
+              className="absolute inset-0"
             >
-              Book a Tasting
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <a
-              href="#builder"
-              className="px-8 py-4 border border-gold/50 text-cream text-sm font-medium uppercase tracking-[0.2em] rounded-full hover:bg-gold/10"
-            >
-              Build Your Menu
-            </a>
-          </motion.div>
-        </motion.div>
+              <img
+                src={HERO_SLIDES[currentSlide].bg}
+                alt=""
+                className="w-full h-full object-cover brightness-[0.35] contrast-[1.1]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 grid grid-cols-3 gap-6 sm:gap-14 px-6 py-5 bg-plum-dark/60 backdrop-blur-xl border border-gold/25 rounded-2xl"
-        >
-          {[
-            { v: "20+", l: "Years Legacy" },
-            { v: "2000+", l: "Events Delivered" },
-            { v: "100%", l: "Pure Vegetarian" },
-          ].map((s) => (
-            <div key={s.l} className="text-center">
-              <div className="font-serif text-2xl sm:text-3xl text-gold-gradient">{s.v}</div>
-              <div className="text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-cream/65 mt-1">
-                {s.l}
+        {/* Marigold Garland draped at the absolute top of the page */}
+        <MarigoldGarland count={12} className="absolute top-0 left-0 right-0 z-20 h-5" />
+
+        {/* Slide Content */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex flex-col items-center justify-center relative z-10 w-full text-center mt-8 min-h-[60vh]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -30 }}
+              transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
+              className="flex flex-col items-center max-w-3xl"
+            >
+              {/* Calligraphy script title */}
+              <div className="h-[140px] md:h-[180px] flex items-center justify-center mb-4">
+                {HERO_SLIDES[currentSlide].logo ? (
+                  <img
+                    src={HERO_SLIDES[currentSlide].logo}
+                    alt={HERO_SLIDES[currentSlide].t}
+                    className="h-28 md:h-36 object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+                  />
+                ) : (
+                  <span className="font-script text-white text-8xl sm:text-9xl md:text-[7rem] lg:text-[8rem] xl:text-[9rem] tracking-wide select-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+                    {HERO_SLIDES[currentSlide].t}
+                  </span>
+                )}
               </div>
-            </div>
+
+              {/* Subheading/Details */}
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#e0bb9b] leading-tight tracking-wide font-medium mt-2 max-w-4xl">
+                {HERO_SLIDES[currentSlide].title}
+              </h2>
+
+              {/* Gold Ornament Divider */}
+              <div className="w-24 h-[2px] bg-[#e0bb9b] my-6 opacity-75" />
+
+              {/* Description */}
+              <p className="text-cream/90 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed font-normal tracking-widest uppercase mb-8">
+                {HERO_SLIDES[currentSlide].sub}
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex gap-4">
+                {HERO_SLIDES[currentSlide].link.startsWith("#") ? (
+                  <button
+                    onClick={() => {
+                      const el = document.getElementById(HERO_SLIDES[currentSlide].link.substring(1));
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="px-10 py-3.5 bg-party-peach hover:bg-[#d6af8c] active:scale-95 text-white font-bold text-xs uppercase tracking-[0.22em] rounded-full transition-all shadow-[0_4px_15px_rgba(224,187,155,0.3)] duration-300"
+                  >
+                    {HERO_SLIDES[currentSlide].cta}
+                  </button>
+                ) : (
+                  <Link
+                    to={HERO_SLIDES[currentSlide].link}
+                    className="px-10 py-3.5 bg-party-peach hover:bg-[#d6af8c] active:scale-95 text-white font-bold text-xs uppercase tracking-[0.22em] rounded-full transition-all shadow-[0_4px_15px_rgba(224,187,155,0.3)] duration-300"
+                  >
+                    {HERO_SLIDES[currentSlide].cta}
+                  </Link>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-6 md:left-10 z-20 w-12 h-12 border border-white/20 hover:border-white/50 flex items-center justify-center text-white bg-black/10 hover:bg-black/30 transition-all rounded-sm group active:scale-90"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-6 md:right-10 z-20 w-12 h-12 border border-white/20 hover:border-white/50 flex items-center justify-center text-white bg-black/10 hover:bg-black/30 transition-all rounded-sm group active:scale-90"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+        </button>
+
+        {/* Dots Indicator */}
+        <div className="absolute bottom-12 z-20 flex gap-2.5">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                currentSlide === i ? "bg-party-peach scale-110 w-6" : "bg-white/40 hover:bg-white/60"
+              }`}
+              aria-label={`Slide ${i + 1}`}
+            />
           ))}
-        </motion.div>
+        </div>
+
+        {/* Curved Wave Divider at Bottom (concave upward / dips in middle) */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 md:h-20 w-full pointer-events-none overflow-hidden z-20">
+          <svg viewBox="0 0 1440 100" fill="none" preserveAspectRatio="none" className="w-full h-full text-[#FAF6F0] fill-current">
+            <path d="M0,40 C360,95 1080,95 1440,40 L1440,100 L0,100 Z" />
+          </svg>
+        </div>
       </section>
 
-      {/* PHILOSOPHY */}
+      {/* PHILOSOPHY SECTION */}
       <section className="relative py-28 bg-plum-dark text-cream overflow-hidden">
+        {/* Hanging marigold toran at the top of the section */}
+        <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
+
+        {/* Traditional Kolam background watermark */}
+        <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 opacity-[0.03] text-gold pointer-events-none z-0">
+          <CenterKolam size={350} />
+        </div>
+
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_80%_30%,rgba(212,175,55,0.25),transparent_60%)]" />
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center z-10">
           <Reveal>
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-gold/30">
-              <img src={spices} alt="Hand-pounded fresh South Indian spices" className="w-full h-full object-cover" loading="lazy" />
+              <img src={brassLamps} alt="Traditional South Indian brass lamps decorated with flowers" className="w-full h-full object-cover" loading="lazy" />
             </div>
           </Reveal>
 
           <div>
             <Reveal>
-              <span className="text-[11px] uppercase tracking-[0.3em] text-gold">D. Venkat's Philosophy</span>
+              <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">MCC's Philosophy</span>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="font-serif text-4xl md:text-5xl mt-4 leading-[1.1]">
@@ -174,6 +379,27 @@ function Index() {
               </p>
             </Reveal>
 
+            {/* Traditional Auspicious Brass Urli with Floating Flowers */}
+            <Reveal delay={0.15}>
+              <div className="flex items-center gap-4 my-6 py-2 border-y border-gold/15">
+                <svg width="80" height="30" viewBox="0 0 120 40" fill="none" className="text-gold shrink-0">
+                  <path d="M10,25 C10,38 110,38 110,25 C104,22 16,22 10,25 Z" fill="currentColor" opacity="0.6" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M45,35 Q60,39 75,35 L68,39 L52,39 Z" fill="currentColor" opacity="0.9" />
+                  <circle cx="6" cy="24" r="5" stroke="currentColor" strokeWidth="1.2" />
+                  <circle cx="114" cy="24" r="5" stroke="currentColor" strokeWidth="1.2" />
+                  <circle cx="45" cy="25" r="4" fill="#FF9F1C" />
+                  <circle cx="60" cy="25" r="5" fill="#FFBF00" />
+                  <circle cx="75" cy="25" r="4" fill="#FF9F1C" />
+                  <circle cx="35" cy="25" r="3" fill="#FFBF00" />
+                  <circle cx="85" cy="25" r="3" fill="#FF9F1C" />
+                  <path d="M60,18 C58,22 62,22 60,18 Z" fill="#E76F51" />
+                </svg>
+                <span className="text-xs text-gold/80 italic font-serif">
+                  A symbol of traditional South Indian hospitality & purity.
+                </span>
+              </div>
+            </Reveal>
+
             <Reveal delay={0.2}>
               <div className="grid grid-cols-3 gap-4 mt-10">
                 {[
@@ -194,48 +420,88 @@ function Index() {
 
       <MenuBuilder />
 
-      {/* SERVICES */}
-      <section className="py-24 bg-cream">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      {/* CATERING SERVICES SECTION */}
+      <section className="py-24 bg-cream relative overflow-hidden">
+        {/* Background Traditional Kolam watermark */}
+        <div className="absolute left-[-50px] bottom-10 opacity-[0.02] text-plum pointer-events-none">
+          <CenterKolam size={260} />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
           <Reveal>
-            <div className="text-center max-w-2xl mx-auto mb-14">
-              <span className="text-[11px] tracking-[0.3em] uppercase text-gold">What we cater</span>
-              <h2 className="font-serif text-4xl md:text-5xl text-plum mt-3">Crafted for every celebration</h2>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-[11px] tracking-[0.3em] uppercase text-gold font-bold">
+                SERVING HAPPINESS SINCE YEARS
+              </span>
+              <h2 className="font-serif text-4xl md:text-5xl text-plum-dark mt-3 leading-tight">
+                Our Catering Services
+              </h2>
+              {/* Gold Ornament Divider */}
+              <div className="flex items-center justify-center gap-4 mt-4 select-none pointer-events-none">
+                <div className="w-12 h-[1px] bg-gold/50" />
+                <span className="text-gold text-sm">✦</span>
+                <div className="w-12 h-[1px] bg-gold/50" />
+              </div>
             </div>
           </Reveal>
 
           <motion.div
-            variants={staggerContainer(0.1)}
+            variants={staggerContainer(0.08)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {[
-              { t: "Weddings", d: "Grand traditional banana-leaf feasts.", img: weddingHall },
-              { t: "Reception Buffets", d: "Modern luxury vegetarian spreads.", img: liveCounter },
-              { t: "Seemantham & Pooja", d: "Sattvik ceremonial menus.", img: heroFeast },
-              { t: "Corporate Events", d: "Refined tiffins & buffet stations.", img: spices },
-            ].map((s) => (
-              <motion.div
-                key={s.t}
-                variants={fadeInUp}
-                className="group relative aspect-[3/4] rounded-3xl overflow-hidden border border-plum/10 hover:border-gold transition-all"
-              >
-                <img src={s.img} alt={s.t} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-plum-dark via-plum-dark/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 text-cream">
-                  <h3 className="font-serif text-xl text-gold mb-1">{s.t}</h3>
-                  <p className="text-xs text-cream/75">{s.d}</p>
-                </div>
-              </motion.div>
-            ))}
+            {SERVICE_CARDS.map((s) => {
+              const Icon = s.i;
+              return (
+                <Link to={s.link} hash={s.hash} key={s.t} className="block">
+                  <motion.div
+                    variants={fadeInUp}
+                    className="bg-white p-10 rounded-3xl border border-gold/15 hover:border-gold/30 hover:shadow-[0_15px_30px_rgba(13,46,20,0.06)] transition-all duration-500 group flex flex-col items-center text-center relative overflow-hidden min-h-[220px] justify-center cursor-pointer"
+                  >
+                    {/* Leaf-shaped Badge for icon */}
+                    <div className="relative w-14 h-14 bg-plum rounded-tl-[24px] rounded-br-[24px] rounded-tr-[5px] rounded-bl-[5px] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform duration-500 mb-5">
+                      <Icon className="w-5 h-5" />
+                    </div>
+
+                    <h3 className="font-serif text-[15px] font-bold uppercase text-plum-dark tracking-widest mt-1">
+                      {s.t}
+                    </h3>
+
+                    {/* Gold separator ornament under card header */}
+                    <div className="flex items-center justify-center gap-1.5 mt-2.5">
+                      <div className="w-4 h-[1px] bg-gold/40" />
+                      <span className="text-[8px] text-gold">✦</span>
+                      <div className="w-4 h-[1px] bg-gold/40" />
+                    </div>
+
+                    {/* Elegant hover disclosure for description (keeps card extremely clean initially) */}
+                    <p className="text-xs text-foreground/75 leading-relaxed mt-4 max-w-[240px] opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-20 transition-all duration-500 ease-in-out">
+                      {s.d}
+                    </p>
+                  </motion.div>
+                </Link>
+              );
+            })}
           </motion.div>
+
+          <div className="text-center mt-14">
+            <Reveal>
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-plum hover:bg-plum-dark text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md transition-all group"
+              >
+                View All Services
+                <Leaf className="w-3.5 h-3.5 fill-current text-white/90 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </Reveal>
+          </div>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-24 bg-plum text-cream">
+      <section id="testimonials" className="py-24 bg-plum text-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <Reveal>
             <div className="text-center max-w-2xl mx-auto mb-14">
@@ -265,13 +531,65 @@ function Index() {
         </div>
       </section>
 
-      {/* CTA / BOOKING */}
+      {/* GALLERY SECTION */}
+      <section id="gallery" className="py-24 bg-cream relative overflow-hidden">
+        {/* Background Traditional Kolam watermark */}
+        <div className="absolute right-[-40px] top-10 opacity-[0.02] text-plum pointer-events-none">
+          <CenterKolam size={200} />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+          <Reveal>
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-[11px] tracking-[0.3em] uppercase text-gold font-bold">
+                CAPTURED MOMENTS
+              </span>
+              <h2 className="font-serif text-4xl md:text-5xl text-plum-dark mt-3 leading-tight">
+                Our Feast Gallery
+              </h2>
+              {/* Gold Ornament Divider */}
+              <div className="flex items-center justify-center gap-4 mt-4 select-none pointer-events-none">
+                <div className="w-12 h-[1px] bg-gold/50" />
+                <span className="text-gold text-sm">✦</span>
+                <div className="w-12 h-[1px] bg-gold/50" />
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { img: realFeastMeal, title: "Traditional Virundhu Saapadu" },
+              { img: liveCounter, title: "Live Chaat & Counter Stations" },
+              { img: weddingHall, title: "Grand Mandapam Setup" },
+              { img: gulabJamun, title: "Traditional Sweet Payasam" },
+            ].map((item, idx) => (
+              <Reveal key={idx} delay={idx * 0.05}>
+                <div className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-md border border-gold/15 transition-all duration-500 hover:shadow-xl hover:border-gold/30">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2A163F]/90 via-[#2A163F]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div className="text-left">
+                      <span className="text-gold text-[9px] uppercase tracking-widest font-bold">MCC Premium</span>
+                      <h4 className="font-serif text-white text-base mt-1">{item.title}</h4>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA / BOOKING & BOTTOM QUALITY BANNER */}
       <section id="book" className="py-24 bg-cream">
         <div className="max-w-6xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <Reveal>
             <span className="text-[11px] tracking-[0.3em] uppercase text-gold">Begin Your Inquiry</span>
             <h2 className="font-serif text-4xl md:text-5xl text-plum mt-3 leading-tight">
-              Let D. Venkat curate <em className="text-gold-gradient not-italic">your sacred feast.</em>
+              Let MCC curate <em className="text-gold-gradient not-italic">your sacred feast.</em>
             </h2>
             <p className="mt-5 text-foreground/70 leading-relaxed">
               Share a few details and our team will respond with a tailored proposal — menu cards,

@@ -9,6 +9,7 @@ import {
   User,
   Users,
 } from "lucide-react";
+import { CornerKolam } from "./Kolam";
 
 type FormState = {
   name: string;
@@ -66,7 +67,7 @@ export default function BookingForm() {
         </div>
         <h3 className="font-serif text-2xl text-plum mb-3">Event Inquiry Received</h3>
         <p className="text-foreground/70 text-sm mb-6 max-w-md mx-auto">
-          Dhanyavadah! D. Venkat and the MCC team will review your{" "}
+          Dhanyavadah! MCC and the team will review your{" "}
           <strong>{form.eventType}</strong> for <strong>{form.date}</strong> and reach you at{" "}
           <strong>{form.phone}</strong> with a curated proposal.
         </p>
@@ -86,8 +87,11 @@ export default function BookingForm() {
   return (
     <form
       onSubmit={submit}
-      className="bg-white rounded-3xl p-7 md:p-9 border border-gold/25 shadow-glow-plum"
+      className="relative bg-white rounded-3xl p-7 md:p-9 border border-gold/25 shadow-glow-plum overflow-hidden"
     >
+      {/* Decorative Traditional Corner Kolams */}
+      <CornerKolam size={45} color="var(--gold)" className="absolute top-2 left-2 opacity-25" />
+      <CornerKolam size={45} color="var(--gold)" className="absolute top-2 right-2 opacity-25 rotate-90" />
       <div className="flex items-center justify-between mb-7">
         <span className="text-[11px] uppercase tracking-[0.3em] text-gold-dark">
           Step {step} of 3

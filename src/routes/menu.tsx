@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import MenuBuilder from "@/components/MenuBuilder";
 import { Reveal } from "@/components/Reveal";
-import heroFeast from "@/assets/hero-feast.jpg";
+import heroFeast from "@/assets/2_20260624_020643_0001.png";
+import MarigoldGarland from "@/components/MarigoldGarland";
+import { CenterKolam } from "@/components/Kolam";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
@@ -46,19 +48,27 @@ function MenuPage() {
   return (
     <>
       <section className="relative py-24 overflow-hidden">
+        {/* Decorative marigold toran */}
+        <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
+
+        {/* Traditional Kolam watermark */}
+        <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 opacity-[0.03] text-gold pointer-events-none">
+          <CenterKolam size={300} />
+        </div>
+
         <div className="absolute inset-0">
           <img src={heroFeast} alt="" className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0 bg-plum-dark/85" />
         </div>
         <Reveal>
-          <div className="relative text-center max-w-3xl mx-auto px-6 text-cream">
-            <span className="text-[11px] uppercase tracking-[0.3em] text-gold">Feast & Menu</span>
+          <div className="relative text-center max-w-3xl mx-auto px-6 text-cream z-10">
+            <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Feast & Menu</span>
             <h1 className="font-serif text-5xl md:text-6xl mt-4">
               The <span className="text-gold-gradient italic">Saapadu</span> Catalogue
             </h1>
             <p className="mt-5 text-cream/80">
               Every dish on our menu is hand-pounded, slow-cooked and served fresh. Explore the
-              traditional and contemporary offerings curated by D. Venkat.
+              traditional and contemporary offerings curated by MCC.
             </p>
           </div>
         </Reveal>

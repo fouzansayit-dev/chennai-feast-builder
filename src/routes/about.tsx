@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import founder from "@/assets/founder.jpg";
-import spices from "@/assets/spices.jpg";
+import founder from "@/assets/IMG-20260331-WA0002.jpg.jpeg";
+import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
 import { Reveal } from "@/components/Reveal";
+import MarigoldGarland from "@/components/MarigoldGarland";
+import { CenterKolam } from "@/components/Kolam";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -27,10 +29,13 @@ function About() {
   return (
     <>
       <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">
+        {/* Drape marigold garland at top */}
+        <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
+
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(212,175,55,0.18),transparent_60%)]" />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-center">
           <Reveal>
-            <span className="text-[11px] uppercase tracking-[0.3em] text-gold">Our Legacy</span>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Our Legacy</span>
             <h1 className="font-serif text-5xl md:text-6xl mt-4 leading-[1.05]">
               A family of <span className="text-gold-gradient italic">flavour-keepers.</span>
             </h1>
@@ -47,8 +52,11 @@ function About() {
         </div>
       </section>
 
-      <section className="py-24 bg-cream">
-        <div className="max-w-4xl mx-auto px-6 lg:px-10">
+      <section className="py-24 bg-cream relative overflow-hidden">
+        {/* Drape marigold garland at top of timeline section */}
+        <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
+
+        <div className="max-w-4xl mx-auto px-6 lg:px-10 mt-6">
           <Reveal>
             <h2 className="font-serif text-4xl md:text-5xl text-plum text-center mb-16">Our Journey</h2>
           </Reveal>
@@ -56,7 +64,10 @@ function About() {
             {TIMELINE.map((t) => (
               <Reveal key={t.y}>
                 <div className="mb-12 relative">
-                  <div className="absolute -left-[2.45rem] top-1.5 w-4 h-4 rounded-full bg-gold border-4 border-cream shadow-glow-gold" />
+                  {/* Traditional rotating Kolam node instead of standard dot */}
+                  <div className="absolute -left-[3.15rem] -top-1 w-10 h-10 rounded-full bg-cream border border-gold/35 shadow-sm flex items-center justify-center">
+                    <CenterKolam size={26} color="var(--gold-dark)" className="animate-none" />
+                  </div>
                   <div className="text-[11px] uppercase tracking-[0.3em] text-gold-dark mb-1">{t.y}</div>
                   <h3 className="font-serif text-2xl text-plum mb-2">{t.t}</h3>
                   <p className="text-foreground/70 leading-relaxed">{t.d}</p>
@@ -85,7 +96,7 @@ function About() {
 
       <section className="relative py-28 bg-cream overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <img src={spices} alt="" className="w-full h-full object-cover" loading="lazy" />
+          <img src={brassLamps} alt="" className="w-full h-full object-cover" loading="lazy" />
         </div>
         <Reveal>
           <div className="relative max-w-3xl mx-auto px-6 text-center">

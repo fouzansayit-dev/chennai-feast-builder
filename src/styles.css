@@ -1,5 +1,5 @@
-@import "tailwindcss" source(none);
-@source "../src";
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Alex+Brush&display=swap');
+@import "tailwindcss";
 @import "tw-animate-css";
 @import "@fontsource/playfair-display/400.css";
 @import "@fontsource/playfair-display/600.css";
@@ -35,6 +35,7 @@
   --radius-4xl: calc(var(--radius) + 16px);
   --font-serif: "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Great Vibes", "Alex Brush", cursive;
   --color-plum: var(--plum);
   --color-plum-dark: var(--plum-dark);
   --color-plum-light: var(--plum-light);
@@ -45,6 +46,7 @@
   --color-leaf-dark: var(--leaf-dark);
   --color-leaf-light: var(--leaf-light);
   --color-cream: var(--cream);
+  --color-party-peach: #e0bb9b;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -82,36 +84,36 @@
 
 :root {
   --radius: 0.875rem;
-  /* Brand palette — Premium catering luxury */
-  --cream: oklch(0.972 0.014 84);
-  --plum: oklch(0.295 0.105 318);
-  --plum-dark: oklch(0.215 0.085 318);
-  --plum-light: oklch(0.41 0.105 318);
-  --gold: oklch(0.78 0.135 84);
-  --gold-dark: oklch(0.68 0.13 78);
-  --gold-light: oklch(0.86 0.14 88);
-  --leaf: oklch(0.42 0.105 145);
-  --leaf-dark: oklch(0.33 0.085 145);
-  --leaf-light: oklch(0.52 0.11 145);
+  /* Brand palette — Traditional South Indian Catering Visual Identity */
+  --cream: oklch(0.9723 0.0075 88.59); /* Premium Warm Cream (#FAF6F0) */
+  --plum: oklch(0.2668 0.165 306.94);       /* Royal South Indian Plum (#3A235A) */
+  --plum-dark: oklch(0.2268 0.076 312.38);  /* Deep Plum (#2A163F) */
+  --plum-light: oklch(0.4425 0.134 312.38); /* Light Plum (#513675) */
+  --gold: oklch(0.79 0.13 85);       /* Brass Gold */
+  --gold-dark: oklch(0.69 0.12 80);  /* Dark Brass Gold */
+  --gold-light: oklch(0.87 0.14 90); /* Light Brass Gold */
+  --leaf: oklch(0.45 0.12 142);      /* Banana Leaf Green */
+  --leaf-dark: oklch(0.35 0.10 142); /* Dark Banana Leaf Green */
+  --leaf-light: oklch(0.55 0.13 142);/* Light Banana Leaf Green */
 
   --background: var(--cream);
-  --foreground: oklch(0.18 0.04 318);
+  --foreground: oklch(0.1475 0.035 301.12); /* Deep Slate Charcoal (#1C1424) */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.04 318);
+  --card-foreground: oklch(0.1475 0.035 301.12);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.04 318);
+  --popover-foreground: oklch(0.1475 0.035 301.12);
   --primary: var(--plum);
-  --primary-foreground: oklch(0.98 0.01 84);
-  --secondary: oklch(0.94 0.025 84);
+  --primary-foreground: oklch(0.98 0.01 88.59);
+  --secondary: oklch(0.94 0.025 82);
   --secondary-foreground: var(--plum);
-  --muted: oklch(0.94 0.02 84);
-  --muted-foreground: oklch(0.45 0.04 318);
+  --muted: oklch(0.94 0.02 82);
+  --muted-foreground: oklch(0.48 0.03 25);
   --accent: var(--gold);
   --accent-foreground: var(--plum-dark);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.88 0.03 84);
-  --input: oklch(0.88 0.03 84);
+  --border: oklch(0.89 0.02 82);
+  --input: oklch(0.89 0.02 82);
   --ring: var(--gold);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -201,3 +203,16 @@
   background-image: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
   height: 1px;
 }
+
+@utility temple-border {
+  background-image: 
+    linear-gradient(45deg, var(--gold) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--gold) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--gold) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--gold) 75%);
+  background-size: 12px 12px;
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0px;
+  height: 6px;
+  width: 100%;
+}
+

@@ -21,7 +21,7 @@ function reply(text: string) {
     return "Yes! We specialize in chandelier-lit dining hall setups, heart-shaped rose petal decors for couples, and Rajasthani puppet-styled dessert counter themes.";
   if (/location|corridor|where|area/.test(t))
     return "Our office is in Pattabiram. We serve Avadi, Ambattur, Poonamallee, Thiruverkadu, Mogappair, Porur and all Western Chennai areas.";
-  return "I'd love to help — please call D. Venkat at +91 99403 96005 for custom menu cards & event proposals.";
+  return "I'd love to help — please call MCC at +91 99403 96005 for custom menu cards & event proposals.";
 }
 
 export default function CateringChatbot() {

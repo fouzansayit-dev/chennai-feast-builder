@@ -3,10 +3,12 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import weddingHall from "@/assets/wedding-hall.jpg";
-import liveCounter from "@/assets/live-counter.jpg";
-import heroFeast from "@/assets/hero-feast.jpg";
-import spices from "@/assets/spices.jpg";
+import weddingHall from "@/assets/IMG_4558.webp";
+import liveCounter from "@/assets/images-32.jpeg";
+import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
+import spices from "@/assets/images-31.jpeg";
+import MarigoldGarland from "@/components/MarigoldGarland";
+import { CenterKolam } from "@/components/Kolam";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -35,7 +37,7 @@ const SERVICES = [
   },
   {
     t: "Seemantham & Pooja",
-    img: heroFeast,
+    img: brassLamps,
     d: "Strictly Sattvik ceremonial menus for traditional South Indian functions.",
     bullets: ["Madisar-style serving", "Authentic curry-leaf temperings", "Naivedyam-grade purity", "Brass-vessel presentation"],
   },
@@ -50,10 +52,18 @@ const SERVICES = [
 function ServicesPage() {
   return (
     <>
-      <section className="py-24 bg-plum-dark text-cream">
+      <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">
+        {/* Hanging garlands across header */}
+        <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
+
+        {/* Kolam backdrop */}
+        <div className="absolute right-[-80px] top-1/2 -translate-y-1/2 opacity-[0.03] text-gold pointer-events-none">
+          <CenterKolam size={320} />
+        </div>
+
         <Reveal>
-          <div className="text-center max-w-3xl mx-auto px-6">
-            <span className="text-[11px] uppercase tracking-[0.3em] text-gold">Our Services</span>
+          <div className="relative text-center max-w-3xl mx-auto px-6 z-10">
+            <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Our Services</span>
             <h1 className="font-serif text-5xl md:text-6xl mt-4">Every occasion, perfectly served.</h1>
             <p className="mt-5 text-cream/75">
               From an intimate Seemantham at home to a 2000-guest grand wedding, MCC handles food,
