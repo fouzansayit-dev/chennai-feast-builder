@@ -71,7 +71,7 @@ export default function Footer() {
               <img 
                 src={logoImg} 
                 alt="MCC Logo" 
-                className="w-full h-full object-cover scale-[1.12]" 
+                className="w-full h-full object-cover scale-[1.43]" 
               />
             </div>
             <div className="font-serif text-2xl text-gold-gradient">
