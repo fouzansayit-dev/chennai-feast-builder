@@ -192,7 +192,7 @@ export default function Footer() {
                     </svg>
                   ), 
                   u: "https://wa.me/919940396005",
-                  c: "text-[#25D366] border-[#25D366]/40 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] hover:shadow-[0_4px_12px_rgba(37,211,102,0.3)]"
+                  c: "text-[#25D366] border-[#25D366]/40 hover:bg-[#25D366] hover:text-white hover:border-[#25D366] hover:shadow-[0_4px_12px_rgba(37,211,102,0.3)] group"
                 }
               ].map((soc, idx) => {
                 const Icon = soc.i;
