@@ -29,7 +29,7 @@ export default defineConfig(({ command }) => {
   if (command === "build") {
     plugins.push(
       nitro({
-        defaultPreset: "cloudflare-module",
+        defaultPreset: "node-server",
       })
     );
   }
