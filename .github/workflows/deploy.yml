@@ -33,4 +33,4 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 65002
           local_path: '.output/*'
-          remote_path: './public_html/.output/'
+          remote_path: './public_html/'
