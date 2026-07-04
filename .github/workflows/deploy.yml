@@ -25,7 +25,21 @@ jobs:
       - name: 🏗️ Build project
         run: npm run build
 
-      - name: 🚀 Deploy to Hostinger via SFTP
+      - name: 📦 Prepare all static and server assets
+        run: |
+          cp -r .output/public/* .output/ 2>/dev/null || true
+
+      - name: 🚀 Deploy to Hostinger public_html root
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 65002
+          local_path: '.output/*'
+          remote_path: './public_html/'
+
+      - name: 🚀 Deploy to Hostinger .output directory
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -34,18 +48,3 @@ jobs:
           port: 65002
           local_path: '.output/*'
           remote_path: './public_html/.output/'
-
-      - name: 🔄 Create restart trigger for Hostinger Node.js App
-        run: |
-          mkdir -p tmp
-          date > tmp/restart.txt
-
-      - name: ⚡ Trigger Hostinger App Restart
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 65002
-          local_path: 'tmp/restart.txt'
-          remote_path: './public_html/tmp/restart.txt'
