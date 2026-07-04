@@ -33,4 +33,19 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 65002
           local_path: '.output/*'
-          remote_path: './public_html/'
+          remote_path: './public_html/.output/'
+
+      - name: 🔄 Create restart trigger for Hostinger Node.js App
+        run: |
+          mkdir -p tmp
+          date > tmp/restart.txt
+
+      - name: ⚡ Trigger Hostinger App Restart
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 65002
+          local_path: 'tmp/restart.txt'
+          remote_path: './public_html/tmp/restart.txt'
