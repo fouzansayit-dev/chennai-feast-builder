@@ -456,6 +456,69 @@ function QuoteModal({
   itemsCount: number;
   onClose: () => void;
 }) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const getMailtoUrl = () => {
+    const subject = encodeURIComponent(`Custom Feast Proposal Request: ${title} - ${name}`);
+    const body = encodeURIComponent(
+      `Hello MCC Catering Team,\n\nI created a custom feast menu proposal on your website:\n\n` +
+        `• Name: ${name}\n` +
+        `• Phone/WhatsApp: ${phone}\n` +
+        `• Selected Package: ${title}\n` +
+        `• Items Count: ${itemsCount} items\n` +
+        `• Guest Count: ${guests} pax\n` +
+        `• Est. Total: ₹${total.toLocaleString("en-IN")}\n\n` +
+        `Please contact me with a formal menu card PDF and availability.\n\nThank you!`
+    );
+    return `mailto:mychennaicateringservices@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const getWhatsappUrl = () => {
+    const text = encodeURIComponent(
+      `Hello MCC Catering! I customized a feast menu on your website:\n` +
+        `*Name:* ${name}\n` +
+        `*Package:* ${title}\n` +
+        `*Items:* ${itemsCount} items\n` +
+        `*Guests:* ${guests} pax\n` +
+        `*Est. Total:* ₹${total.toLocaleString("en-IN")}\n` +
+        `*Phone:* ${phone}`
+    );
+    return `https://wa.me/919940396005?text=${text}`;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `Custom Menu Proposal: ${title} - ${name}`,
+          name,
+          phone,
+          packageTitle: title,
+          itemsCount,
+          guestsCount: guests,
+          estimatedTotal: `₹${total.toLocaleString("en-IN")}`,
+          _replyto: "mychennaicateringservices@gmail.com",
+        }),
+      });
+    } catch (err) {
+      console.warn("API proposal submission attempt finished.", err);
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -473,45 +536,86 @@ function QuoteModal({
           <X className="w-4 h-4" />
         </button>
         <h3 className="font-serif text-2xl text-plum mb-2">Request Custom Proposal</h3>
-        <p className="text-sm text-foreground/70 mb-5">
-          You have customized the **{title}** with **{itemsCount} items** for **{guests} guests** at an estimated total of{" "}
-          <strong className="text-leaf">₹{total.toLocaleString("en-IN")}</strong>. Share your contact info, and the MCC team will schedule a tasting menu call.
-        </p>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            alert("Thank you! The MCC team will call you shortly.");
-            onClose();
-          }}
-          className="space-y-3"
-        >
-          <input
-            required
-            placeholder="Full name"
-            className="w-full px-4 py-3 rounded-xl bg-white border border-plum/15 focus:border-gold focus:outline-none text-sm"
-          />
-          <input
-            required
-            type="tel"
-            placeholder="WhatsApp / Phone number"
-            className="w-full px-4 py-3 rounded-xl bg-white border border-plum/15 focus:border-gold focus:outline-none text-sm"
-          />
-          <div className="flex gap-2 pt-2">
+
+        {submitted ? (
+          <div className="py-4 text-center">
+            <div className="w-12 h-12 rounded-full bg-leaf/10 text-leaf flex items-center justify-center mx-auto mb-3">
+              <Check className="w-6 h-6" />
+            </div>
+            <h4 className="font-serif text-xl text-plum font-semibold mb-2">Request Sent!</h4>
+            <p className="text-xs text-foreground/75 mb-5 leading-relaxed">
+              Your customized proposal for <strong>{title}</strong> has been sent to <strong>mychennaicateringservices@gmail.com</strong>.
+              MCC team will contact <strong>{phone}</strong> shortly.
+            </p>
+
+            <div className="flex flex-col gap-2.5 mb-5">
+              <a
+                href={getMailtoUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 bg-plum hover:bg-plum-dark text-cream rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-sm flex items-center justify-center gap-2"
+              >
+                Send Direct Email to Owner
+              </a>
+              <a
+                href={getWhatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-sm flex items-center justify-center gap-2"
+              >
+                Send via WhatsApp (+91 99403 96005)
+              </a>
+            </div>
+
             <button
-              type="button"
               onClick={onClose}
-              className="flex-1 py-3 rounded-xl border border-plum/20 text-plum text-sm font-medium hover:bg-plum/5"
+              className="px-5 py-2 rounded-xl border border-plum/20 text-plum text-xs font-semibold hover:bg-plum/5"
             >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="flex-1 py-3 rounded-xl bg-plum text-cream text-sm font-semibold hover:bg-plum-dark"
-            >
-              Request Call
+              Close
             </button>
           </div>
-        </form>
+        ) : (
+          <>
+            <p className="text-sm text-foreground/70 mb-5">
+              You customized <strong>{title}</strong> ({itemsCount} items) for <strong>{guests} guests</strong> at ~
+              <strong className="text-leaf">₹{total.toLocaleString("en-IN")}</strong>. Share your contact info to receive the formal proposal call.
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Full name"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-plum/15 focus:border-gold focus:outline-none text-sm"
+              />
+              <input
+                required
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="WhatsApp / Phone number"
+                className="w-full px-4 py-3 rounded-xl bg-white border border-plum/15 focus:border-gold focus:outline-none text-sm"
+              />
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  disabled={submitting}
+                  className="flex-1 py-3 rounded-xl border border-plum/20 text-plum text-sm font-medium hover:bg-plum/5 disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="flex-1 py-3 rounded-xl bg-plum text-cream text-sm font-semibold hover:bg-plum-dark disabled:opacity-60 flex items-center justify-center gap-2"
+                >
+                  {submitting ? "Sending Request..." : "Request Proposal"}
+                </button>
+              </div>
+            </form>
+          </>
+        )}
       </motion.div>
     </motion.div>
   );

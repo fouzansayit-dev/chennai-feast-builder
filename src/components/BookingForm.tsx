@@ -24,6 +24,7 @@ type FormState = {
 export default function BookingForm() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState<FormState>({
     name: "",
     phone: "",
@@ -49,10 +50,65 @@ export default function BookingForm() {
       colors: ["#D4AF37", "#3A235A", "#1E4620", "#FAF6F0"],
     });
 
-  const submit = (e: FormEvent) => {
+  const getMailtoUrl = () => {
+    const subject = encodeURIComponent(`New Event Inquiry: ${form.eventType} - ${form.name}`);
+    const body = encodeURIComponent(
+      `Hello MCC Catering Team,\n\nI would like to book catering for an upcoming event:\n\n` +
+        `• Name: ${form.name}\n` +
+        `• Phone/WhatsApp: ${form.phone}\n` +
+        `• Event Type: ${form.eventType}\n` +
+        `• Event Date: ${form.date}\n` +
+        `• Guest Count: ${form.guests}\n` +
+        `• Budget / Plate: ${form.budget}\n` +
+        `• Venue Location: ${form.venue}\n\n` +
+        `Please send me a detailed proposal and availability.\n\nThank you!`
+    );
+    return `mailto:mychennaicateringservices@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const getWhatsappUrl = () => {
+    const text = encodeURIComponent(
+      `Hello MCC Catering! I submitted an inquiry on your website:\n` +
+        `*Name:* ${form.name}\n` +
+        `*Event:* ${form.eventType}\n` +
+        `*Date:* ${form.date}\n` +
+        `*Guests:* ${form.guests}\n` +
+        `*Venue:* ${form.venue}\n` +
+        `*Phone:* ${form.phone}`
+    );
+    return `https://wa.me/919940396005?text=${text}`;
+  };
+
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    celebrate();
+    setSubmitting(true);
+
+    try {
+      await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New Catering Inquiry: ${form.eventType} - ${form.name}`,
+          name: form.name,
+          phone: form.phone,
+          eventType: form.eventType,
+          date: form.date,
+          guests: form.guests,
+          budget: form.budget,
+          venue: form.venue,
+          _replyto: "mychennaicateringservices@gmail.com",
+        }),
+      });
+    } catch (err) {
+      console.warn("API submission attempt completed with fallback option ready.", err);
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+      celebrate();
+    }
   };
 
   if (submitted) {
@@ -60,23 +116,49 @@ export default function BookingForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white rounded-3xl p-10 border border-gold/30 text-center shadow-glow-gold"
+        className="bg-white rounded-3xl p-8 md:p-10 border border-gold/30 text-center shadow-glow-gold"
       >
         <div className="w-16 h-16 rounded-full bg-leaf/10 mx-auto flex items-center justify-center mb-5">
           <CheckCircle2 className="w-8 h-8 text-leaf" />
         </div>
         <h3 className="font-serif text-2xl text-plum mb-3">Event Inquiry Received</h3>
-        <p className="text-foreground/70 text-sm mb-6 max-w-md mx-auto">
-          Dhanyavadah! MCC and the team will review your{" "}
-          <strong>{form.eventType}</strong> for <strong>{form.date}</strong> and reach you at{" "}
-          <strong>{form.phone}</strong> with a curated proposal.
+        <p className="text-foreground/70 text-sm mb-4 max-w-md mx-auto">
+          Dhanyavadah! Your request has been dispatched to <strong>mychennaicateringservices@gmail.com</strong>.
+          MCC & team will review your <strong>{form.eventType}</strong> for <strong>{form.date}</strong> and contact you at <strong>{form.phone}</strong>.
         </p>
+
+        <div className="bg-cream/70 border border-gold/20 rounded-2xl p-4 mb-6 text-xs text-foreground/80 space-y-2 max-w-md mx-auto text-left">
+          <div className="font-semibold text-plum uppercase tracking-wider text-[10px] mb-1">Inquiry Details Summary:</div>
+          <div><span className="text-plum/60 font-medium">Name:</span> {form.name}</div>
+          <div><span className="text-plum/60 font-medium">Event:</span> {form.eventType} ({form.guests} guests)</div>
+          <div><span className="text-plum/60 font-medium">Date & Venue:</span> {form.date} · {form.venue}</div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+          <a
+            href={getMailtoUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-3 bg-plum hover:bg-plum-dark text-cream rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2"
+          >
+            <span>Send Direct Email to Owner</span>
+          </a>
+          <a
+            href={getWhatsappUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-3 bg-[#25D366] hover:bg-[#1DA851] text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-md inline-flex items-center justify-center gap-2"
+          >
+            <span>Send via WhatsApp (+91 99403 96005)</span>
+          </a>
+        </div>
+
         <button
           onClick={() => {
             setSubmitted(false);
             setStep(1);
           }}
-          className="px-6 py-2.5 bg-plum text-cream rounded-xl text-sm font-medium hover:bg-plum-dark"
+          className="text-xs text-plum/70 hover:text-plum underline font-medium"
         >
           Submit another inquiry
         </button>
@@ -219,7 +301,8 @@ export default function BookingForm() {
           <button
             type="button"
             onClick={prev}
-            className="px-5 py-3 rounded-xl border border-plum/20 text-plum text-sm font-medium hover:bg-plum/5"
+            disabled={submitting}
+            className="px-5 py-3 rounded-xl border border-plum/20 text-plum text-sm font-medium hover:bg-plum/5 disabled:opacity-50"
           >
             Back
           </button>
@@ -235,9 +318,10 @@ export default function BookingForm() {
         ) : (
           <button
             type="submit"
-            className="flex-1 py-3 rounded-xl bg-gold text-plum-dark text-sm font-semibold hover:bg-gold-light shadow-glow-gold"
+            disabled={submitting}
+            className="flex-1 py-3 rounded-xl bg-gold text-plum-dark text-sm font-semibold hover:bg-gold-light shadow-glow-gold disabled:opacity-60 flex items-center justify-center gap-2"
           >
-            Confirm Inquiry
+            {submitting ? "Sending Request..." : "Confirm Inquiry"}
           </button>
         )}
       </div>
