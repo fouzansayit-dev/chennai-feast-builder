@@ -31,7 +31,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          ssh_private_key: ""
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 65002
           local_path: '.output/*'
           remote_path: './public_html/.output/'
