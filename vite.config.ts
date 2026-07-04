@@ -30,6 +30,10 @@ export default defineConfig(({ command }) => {
     plugins.push(
       nitro({
         defaultPreset: "node-server",
+        prerender: {
+          crawlLinks: true,
+          routes: ["/", "/about", "/services", "/menu", "/contact"],
+        },
       })
     );
   }
