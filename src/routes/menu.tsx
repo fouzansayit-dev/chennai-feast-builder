@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import MenuBuilder from "@/components/MenuBuilder";
+import CateringMenusSection from "@/components/CateringMenusSection";
+import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import { Reveal } from "@/components/Reveal";
 import heroFeast from "@/assets/2_20260624_020643_0001.png";
 import MarigoldGarland from "@/components/MarigoldGarland";
@@ -74,6 +76,12 @@ function MenuPage() {
         </Reveal>
       </section>
 
+      {/* CATERING MENUS SECTION - THEME 1 */}
+      <CateringMenusSection />
+
+      {/* WHY CHOOSE US SECTION - THEME 2 */}
+      <WhyChooseUsSection />
+
       <section className="py-24 bg-cream">
         <div className="max-w-6xl mx-auto px-6 lg:px-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SECTIONS.map((s) => (
@@ -94,6 +102,7 @@ function MenuPage() {
         </div>
       </section>
 
+      {/* INTERACTIVE MENU CUSTOMIZER */}
       <MenuBuilder />
     </>
   );

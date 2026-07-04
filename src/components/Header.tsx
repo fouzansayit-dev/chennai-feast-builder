@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, Phone, X, MapPin, Clock } from "lucide-react";
+import { Menu, Phone, X, MapPin, Clock, Sparkles } from "lucide-react";
 import logoImg from "@/assets/mcc-logo.png";
 
 const NAV = [
@@ -8,6 +8,7 @@ const NAV = [
   { to: "/about", label: "About Us", hash: undefined },
   { to: "/services", label: "Services", hash: undefined },
   { to: "/menu", label: "Menu", hash: undefined },
+  { to: "/", hash: "builder", label: "Customizer ✦" },
   { to: "/", hash: "gallery", label: "Gallery" },
   { to: "/", hash: "testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact Us", hash: undefined },
@@ -29,6 +30,19 @@ export default function Header() {
   const rightLinks = NAV.slice(4);
 
   const renderNavLink = (n: typeof NAV[number]) => {
+    if (n.label === "Customizer ✦") {
+      return (
+        <Link
+          key={n.label}
+          to={n.to}
+          hash={n.hash}
+          className="px-3.5 py-1.5 rounded-full bg-[#3E2E23] hover:bg-[#DCA46A] text-white text-[10px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md flex items-center gap-1.5 border border-[#DCA46A]/50 hover:border-white active:scale-95"
+        >
+          <span>Customizer</span>
+          <Sparkles className="w-3 h-3 text-[#DCA46A] group-hover:text-white" />
+        </Link>
+      );
+    }
     if (n.label === "Services") {
       return (
         <div key={n.label} className="relative group/menu py-1">
@@ -218,30 +232,45 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Backdrop & Menu */}
       {open && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-zinc-150 shadow-lg">
-          <div className="px-6 py-6 flex flex-col gap-4">
-            {NAV.map((n) => (
-              <Link
-                key={n.label}
-                to={n.to}
-                hash={n.hash}
-                onClick={() => setOpen(false)}
-                className="text-zinc-800 text-sm uppercase tracking-[0.2em] py-2 border-b border-zinc-100 hover:text-gold-dark transition-colors"
-                activeProps={{ className: "text-gold-dark font-semibold" }}
+        <>
+          <div
+            className="lg:hidden fixed inset-0 top-[64px] bg-black/40 backdrop-blur-sm z-40"
+            onClick={() => setOpen(false)}
+          />
+          <div className="lg:hidden relative z-50 bg-white/98 backdrop-blur-xl border-t border-zinc-150 shadow-2xl max-h-[85vh] overflow-y-auto">
+            <div className="px-6 py-6 flex flex-col gap-3">
+              {NAV.map((n) => {
+                const isCustomizer = n.label === "Customizer ✦";
+                return (
+                  <Link
+                    key={n.label}
+                    to={n.to}
+                    hash={n.hash}
+                    onClick={() => setOpen(false)}
+                    className={
+                      isCustomizer
+                        ? "my-1 text-center px-4 py-3 rounded-xl bg-plum text-cream text-xs uppercase tracking-[0.2em] font-bold shadow-md flex items-center justify-center gap-2 border border-gold/40"
+                        : "text-zinc-800 text-xs font-bold uppercase tracking-[0.2em] py-2.5 border-b border-zinc-100 hover:text-gold-dark transition-colors flex items-center justify-between"
+                    }
+                    activeProps={{ className: isCustomizer ? "" : "text-gold-dark font-bold border-gold" }}
+                  >
+                    <span>{n.label}</span>
+                    {!isCustomizer && <span className="text-zinc-300 text-xs">→</span>}
+                  </Link>
+                );
+              })}
+              <a
+                href="tel:+919940396005"
+                className="mt-3 text-center px-5 py-3.5 rounded-full bg-gold text-plum-dark text-xs font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors flex items-center justify-center gap-2"
               >
-                {n.label}
-              </Link>
-            ))}
-            <a
-              href="tel:+919940396005"
-              className="mt-2 text-center px-5 py-3 rounded-full bg-gold text-plum-dark text-xs font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors"
-            >
-              Call: +91 99403 96005
-            </a>
+                <Phone className="w-4 h-4 fill-current text-plum-dark" />
+                <span>Call: +91 99403 96005</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

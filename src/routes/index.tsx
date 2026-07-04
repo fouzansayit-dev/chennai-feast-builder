@@ -30,6 +30,8 @@ import buffetCounter from "@/assets/images-32.jpeg";
 import partyBg from "@/assets/party-bg.png";
 import partyLogo from "@/assets/party-logo.png";
 import MenuBuilder from "@/components/MenuBuilder";
+import CateringMenusSection from "@/components/CateringMenusSection";
+import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import BookingForm from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
 import { fadeInUp, leafDraw, staggerContainer } from "@/lib/animations";
@@ -228,15 +230,15 @@ function Index() {
               className="flex flex-col items-center max-w-3xl"
             >
               {/* Calligraphy script title */}
-              <div className="h-[140px] md:h-[180px] flex items-center justify-center mb-4">
+              <div className="h-[90px] sm:h-[140px] md:h-[180px] flex items-center justify-center mb-2 sm:mb-4">
                 {HERO_SLIDES[currentSlide].logo ? (
                   <img
                     src={HERO_SLIDES[currentSlide].logo}
                     alt={HERO_SLIDES[currentSlide].t}
-                    className="h-28 md:h-36 object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
+                    className="h-20 sm:h-28 md:h-36 object-contain filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]"
                   />
                 ) : (
-                  <span className="font-script text-white text-8xl sm:text-9xl md:text-[7rem] lg:text-[8rem] xl:text-[9rem] tracking-wide select-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+                  <span className="font-script text-white text-5xl sm:text-7xl md:text-[7rem] lg:text-[8rem] xl:text-[9rem] tracking-wide select-none drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
                     {HERO_SLIDES[currentSlide].t}
                   </span>
                 )}
@@ -302,9 +304,8 @@ function Index() {
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${
-                currentSlide === i ? "bg-party-peach scale-110 w-6" : "bg-white/40 hover:bg-white/60"
-              }`}
+              className={`w-2.5 h-2.5 rounded-full transition-all ${currentSlide === i ? "bg-party-peach scale-110 w-6" : "bg-white/40 hover:bg-white/60"
+                }`}
               aria-label={`Slide ${i + 1}`}
             />
           ))}
@@ -401,15 +402,15 @@ function Index() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="grid grid-cols-3 gap-4 mt-10">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-8 sm:mt-10">
                 {[
                   { i: Leaf, t: "100% Sattvik" },
                   { i: Award, t: "20+ Years" },
                   { i: Users, t: "Family-led" },
                 ].map(({ i: Icon, t }) => (
-                  <div key={t} className="text-center p-4 rounded-2xl border border-gold/20 bg-plum/30">
-                    <Icon className="w-5 h-5 text-gold mx-auto mb-2" />
-                    <div className="text-xs uppercase tracking-widest text-cream/80">{t}</div>
+                  <div key={t} className="text-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-gold/20 bg-plum/30">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-gold mx-auto mb-1.5 sm:mb-2" />
+                    <div className="text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-cream/80">{t}</div>
                   </div>
                 ))}
               </div>
@@ -418,6 +419,13 @@ function Index() {
         </div>
       </section>
 
+      {/* WHY CHOOSE US SECTION - THEME 2 */}
+      <WhyChooseUsSection />
+
+      {/* CATERING MENUS SECTION - THEME 1 */}
+      <CateringMenusSection />
+
+      {/* INTERACTIVE MENU CUSTOMIZER */}
       <MenuBuilder />
 
       {/* CATERING SERVICES SECTION */}
@@ -458,10 +466,10 @@ function Index() {
                 <Link to={s.link} hash={s.hash} key={s.t} className="block">
                   <motion.div
                     variants={fadeInUp}
-                    className="bg-white p-10 rounded-3xl border border-gold/15 hover:border-gold/30 hover:shadow-[0_15px_30px_rgba(13,46,20,0.06)] transition-all duration-500 group flex flex-col items-center text-center relative overflow-hidden min-h-[220px] justify-center cursor-pointer"
+                    className="bg-white p-6 sm:p-10 rounded-3xl border border-gold/15 hover:border-gold/30 hover:shadow-[0_15px_30px_rgba(13,46,20,0.06)] transition-all duration-500 group flex flex-col items-center text-center relative overflow-hidden min-h-[200px] sm:min-h-[220px] justify-center cursor-pointer"
                   >
                     {/* Leaf-shaped Badge for icon */}
-                    <div className="relative w-14 h-14 bg-plum rounded-tl-[24px] rounded-br-[24px] rounded-tr-[5px] rounded-bl-[5px] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform duration-500 mb-5">
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-plum rounded-tl-[24px] rounded-br-[24px] rounded-tr-[5px] rounded-bl-[5px] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform duration-500 mb-4 sm:mb-5">
                       <Icon className="w-5 h-5" />
                     </div>
 
@@ -476,8 +484,8 @@ function Index() {
                       <div className="w-4 h-[1px] bg-gold/40" />
                     </div>
 
-                    {/* Elegant hover disclosure for description (keeps card extremely clean initially) */}
-                    <p className="text-xs text-foreground/75 leading-relaxed mt-4 max-w-[240px] opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-20 transition-all duration-500 ease-in-out">
+                    {/* Description (visible on mobile, hover disclosure on desktop) */}
+                    <p className="text-xs text-foreground/75 leading-relaxed mt-3 sm:mt-4 max-w-[240px] opacity-100 max-h-none lg:opacity-0 lg:group-hover:opacity-100 lg:max-h-0 lg:group-hover:max-h-20 transition-all duration-500 ease-in-out">
                       {s.d}
                     </p>
                   </motion.div>

@@ -182,12 +182,12 @@ export default function MenuBuilder() {
           
           {/* Column 1: Item Customizer */}
           <div className="lg:col-span-2 bg-white rounded-3xl border border-gold/15 p-6 md:p-9 shadow-glow-plum">
-            <div className="flex flex-wrap gap-2 mb-8 p-1.5 bg-plum/5 rounded-2xl border border-plum/10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-8 p-1.5 bg-plum/5 rounded-2xl border border-plum/10">
               {(Object.keys(MENU_DATA) as PackageKey[]).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPkg(p)}
-                  className={`flex-1 min-w-[120px] py-3 px-4 rounded-xl text-sm font-bold transition-all duration-300 ${
+                  className={`py-3 px-3 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 ${
                     pkg === p
                       ? "bg-plum text-cream shadow-md"
                       : "text-plum/70 hover:text-plum hover:bg-plum/5"
@@ -199,8 +199,8 @@ export default function MenuBuilder() {
             </div>
 
             <div className="flex items-center gap-2 text-plum mb-6">
-              <Sparkles className="w-4 h-4 text-gold" />
-              <h3 className="font-serif text-xl">Customize menu items ({selectedItems.length} selected)</h3>
+              <Sparkles className="w-4 h-4 text-gold shrink-0" />
+              <h3 className="font-serif text-lg sm:text-xl">Customize menu items ({selectedItems.length} selected)</h3>
             </div>
 
             <div className="space-y-7">
@@ -209,7 +209,7 @@ export default function MenuBuilder() {
                   <div className="text-[11px] uppercase tracking-[0.25em] text-gold-dark font-bold">
                     {cat}
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-2.5">
                     {items.map((item) => {
                       const sel = selectedItems.includes(item);
                       return (
@@ -217,17 +217,17 @@ export default function MenuBuilder() {
                           whileTap={{ scale: 0.96 }}
                           key={item}
                           onClick={() => toggle(item)}
-                          className={`flex items-center justify-between text-left px-3.5 py-3 rounded-xl border text-xs font-medium transition-all ${
+                          className={`flex items-center justify-between text-left px-2.5 py-2.5 sm:px-3.5 sm:py-3 rounded-xl border text-[11px] sm:text-xs font-medium transition-all ${
                             sel
                               ? "border-leaf bg-leaf/5 text-leaf font-bold shadow-sm"
                               : "border-plum/10 bg-plum/[0.015] text-plum/80 hover:border-gold hover:bg-gold/5"
                           }`}
                         >
-                          <span className="truncate">{item}</span>
+                          <span className="truncate pr-1">{item}</span>
                           {sel ? (
                             <Check className="w-3.5 h-3.5 shrink-0 text-leaf" />
                           ) : (
-                            <span className="text-[9px] text-plum/30 font-light">+ Add</span>
+                            <span className="text-[9px] text-plum/30 font-light shrink-0">+ Add</span>
                           )}
                         </motion.button>
                       );
@@ -404,11 +404,22 @@ export default function MenuBuilder() {
 
               <button
                 onClick={() => setModal(true)}
-                className="w-full py-4 bg-gold hover:bg-gold-light text-plum-dark font-semibold rounded-xl flex items-center justify-center gap-2 transition-all group text-sm"
+                className="w-full py-4 bg-gold hover:bg-gold-light text-plum-dark font-semibold rounded-xl flex items-center justify-center gap-2 transition-all group text-sm shadow-md"
               >
                 Request Custom Feast Proposal
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
+
+              <button
+                onClick={() => {
+                  const text = `Hello MCC Caterers! I customized a menu on your website:\n*Package:* ${current.title}\n*Guests:* ${guests} pax\n*Rate / Plate:* ₹${pricePerPlate}\n*Est. Total:* ₹${total.toLocaleString("en-IN")}\n*Items (${selectedItems.length}):* ${selectedItems.join(", ")}`;
+                  window.open(`https://wa.me/919940396005?text=${encodeURIComponent(text)}`, "_blank");
+                }}
+                className="w-full mt-3 py-3 bg-[#25D366] hover:bg-[#1DA851] text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all text-xs uppercase tracking-wider"
+              >
+                <span>Share Custom Menu via WhatsApp</span>
+              </button>
+
               <p className="text-[11px] text-cream/50 text-center mt-3">
                 MCC will contact you with a detailed menu pdf within 1 hour.
               </p>

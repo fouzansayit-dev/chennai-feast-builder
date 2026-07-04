@@ -14,6 +14,7 @@ import { reportAppError } from "../lib/error-reporting";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
+import MobileFloatingBar from "../components/MobileFloatingBar";
 
 function NotFoundComponent() {
   return (
@@ -121,12 +122,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <div className="min-h-screen flex flex-col bg-background text-foreground pb-16 lg:pb-0">
         <Header />
         <main className="flex-1 pt-[60px] lg:pt-[132px]">
           <Outlet />
         </main>
         <Footer />
+        <MobileFloatingBar />
         <CateringChatbot />
       </div>
     </QueryClientProvider>
