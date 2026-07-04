@@ -36,10 +36,10 @@ export default function Header() {
           key={n.label}
           to={n.to}
           hash={n.hash}
-          className="px-3.5 py-1.5 rounded-full bg-[#3E2E23] hover:bg-[#DCA46A] text-white text-[10px] uppercase tracking-[0.2em] font-bold transition-all duration-300 shadow-md flex items-center gap-1.5 border border-[#DCA46A]/50 hover:border-white active:scale-95"
+          className="px-4 py-1.5 rounded-full bg-[#3E2E23] hover:bg-[#2A1E16] text-[#FFD700] hover:text-white text-[11px] uppercase tracking-[0.2em] font-extrabold transition-all duration-300 shadow-lg flex items-center gap-1.5 border-2 border-[#FFD700] active:scale-95 shrink-0"
         >
-          <span>Customizer</span>
-          <Sparkles className="w-3 h-3 text-[#DCA46A] group-hover:text-white" />
+          <span>CUSTOMIZER</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#FFD700] animate-pulse" />
         </Link>
       );
     }
