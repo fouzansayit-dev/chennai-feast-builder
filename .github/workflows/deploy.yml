@@ -31,6 +31,9 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
           security: loose
+          log-level: verbose
           local-dir: .output/
           server-dir: ./public_html/.output/
