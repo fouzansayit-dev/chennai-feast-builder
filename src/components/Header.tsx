@@ -149,34 +149,34 @@ export default function Header() {
         {/* Curved Peach Background */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-b-[24px] md:rounded-b-[40px]">
           {/* Left Solid Part */}
-          <div className="absolute left-0 top-0 bottom-0 w-[calc(50%-100px)] bg-party-peach" />
+          <div className="absolute left-0 top-0 bottom-0 w-[calc(50%-80px)] bg-party-peach" />
           
           {/* Center Curved SVG Dip */}
           <svg 
-            viewBox="0 0 200 48" 
+            viewBox="0 0 160 48" 
             fill="none" 
             preserveAspectRatio="none" 
-            className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[200px] h-full text-party-peach fill-current"
+            className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[160px] h-full text-party-peach fill-current"
           >
-            <path d="M0,0 C60,0 60,28 100,28 C140,28 140,0 200,0 L200,48 L0,48 Z" />
+            <path d="M0,0 C50,0 50,28 80,28 C110,28 110,0 160,0 L160,48 L0,48 Z" />
           </svg>
           
           {/* Right Solid Part */}
-          <div className="absolute right-0 top-0 bottom-0 w-[calc(50%-100px)] bg-party-peach" />
+          <div className="absolute right-0 top-0 bottom-0 w-[calc(50%-80px)] bg-party-peach" />
         </div>
 
         {/* Content Row */}
-        <div className="relative max-w-7xl mx-auto px-10 h-full flex items-center justify-between z-10">
+        <div className="relative max-w-7xl mx-auto px-4 lg:px-8 h-full flex items-center justify-between z-10">
           {/* Left Side Links */}
-          <div className="flex items-center gap-8 w-[calc(50%-100px)] justify-end pr-6">
+          <div className="flex items-center gap-4 xl:gap-6 w-[calc(50%-80px)] justify-end pr-3">
             {leftLinks.map(renderNavLink)}
           </div>
 
           {/* Center Spacer for the absolutely positioned logo */}
-          <div className="w-[200px] shrink-0" />
+          <div className="w-[160px] shrink-0" />
 
           {/* Right Side Links */}
-          <div className="flex items-center gap-8 w-[calc(50%-100px)] justify-start pl-6">
+          <div className="flex items-center gap-4 xl:gap-6 w-[calc(50%-80px)] justify-start pl-3">
             {rightLinks.map(renderNavLink)}
           </div>
         </div>
