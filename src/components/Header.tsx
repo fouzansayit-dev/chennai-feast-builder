@@ -194,16 +194,24 @@ export default function Header() {
           </div>
         </Link>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <Link
+            to="/"
+            hash="builder"
+            className="px-3 py-1.5 rounded-full bg-[#3E2E23] text-[#FFD700] text-[9px] uppercase tracking-widest font-extrabold flex items-center gap-1 border border-[#FFD700] shadow-sm active:scale-95"
+          >
+            <span>Customizer</span>
+            <Sparkles className="w-3 h-3 text-[#FFD700]" />
+          </Link>
           <a
             href="tel:+919940396005"
-            className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-plum/10 bg-plum text-white hover:bg-plum-dark transition-all"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-plum/10 bg-plum text-white hover:bg-plum-dark transition-all"
           >
             <Phone className="w-3.5 h-3.5 fill-current" />
           </a>
           <button
             onClick={() => setOpen((v) => !v)}
-            className="w-9 h-9 rounded-full border border-gold/30 flex items-center justify-center text-gold-dark bg-gold/5"
+            className="w-8 h-8 rounded-full border border-gold/30 flex items-center justify-center text-gold-dark bg-gold/5"
             aria-label="Menu"
           >
             {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
