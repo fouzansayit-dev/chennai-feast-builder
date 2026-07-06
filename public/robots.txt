@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap URL
-Sitemap: https://mychennaicateringservices.com/sitemap.xml
+Sitemap: https://mychennaicatering.ask4coders.in/sitemap.xml
