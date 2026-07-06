@@ -1,13 +1,13 @@
-name: Deploy to Hostinger
+name: Deploy to Hostinger via FTP
 
 on:
   push:
     branches: [main]
 
 jobs:
-  deploy:
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,32 +21,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Nuxt/Nitro app
+      - name: Build app
         run: npm run build
 
-      - name: Package files
-        run: tar -czf deploy.tar.gz .output package.json package-lock.json public
-
-      - name: Upload to Hostinger
-        uses: appleboy/scp-action@v0.1.7
+      - name: Sync files via FTP
+        uses: SamKirland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          username: ${{ secrets.HOSTINGER_SSH_USER }}
-          password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.HOSTINGER_SSH_PORT }}
-          source: "deploy.tar.gz"
-          target: ${{ secrets.HOSTINGER_TARGET_DIR }}
-
-      - name: Extract on server
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOSTINGER_SSH_HOST }}
-          username: ${{ secrets.HOSTINGER_SSH_USER }}
-          password: ${{ secrets.HOSTINGER_SSH_PASSWORD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.HOSTINGER_SSH_PORT }}
-          script: |
-            cd ${{ secrets.HOSTINGER_TARGET_DIR }}
-            tar -xzf deploy.tar.gz
-            rm deploy.tar.gz
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: .output/public/
