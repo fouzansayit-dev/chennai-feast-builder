@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "iskY54kELn4t9PipXtjEGZiUUkiwZaJje7X4ZOefxxM" },
       { name: "google-site-verification", content: "Sf6EtASU8psKTnEPh918aHupgQ3ZU4QjB7dl3Ur1KDg" },
       { title: "MCC Catering — Authentic South Indian Wedding Catering in Chennai" },
       { name: "description", content: "20+ years of pure Sattvik vegetarian wedding & event catering across Chennai. Banana-leaf feasts, live counters and luxury reception buffets by D. Venkat." },
