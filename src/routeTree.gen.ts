@@ -9,12 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WeddingCateringServicesInChennaiRouteImport } from './routes/wedding-catering-services-in-chennai'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as MenuRouteImport } from './routes/menu'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BuilderRouteImport } from './routes/builder'
+import { Route as AboutMyChennaiCateringRouteImport } from './routes/about-my-chennai-catering'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WeddingCateringServicesInChennaiRoute =
+  WeddingCateringServicesInChennaiRouteImport.update({
+    id: '/wedding-catering-services-in-chennai',
+    path: '/wedding-catering-services-in-chennai',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -25,9 +35,24 @@ const MenuRoute = MenuRouteImport.update({
   path: '/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuilderRoute = BuilderRouteImport.update({
+  id: '/builder',
+  path: '/builder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutMyChennaiCateringRoute = AboutMyChennaiCateringRouteImport.update({
+  id: '/about-my-chennai-catering',
+  path: '/about-my-chennai-catering',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -44,43 +69,94 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-my-chennai-catering': typeof AboutMyChennaiCateringRoute
+  '/builder': typeof BuilderRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/menu': typeof MenuRoute
   '/services': typeof ServicesRoute
+  '/wedding-catering-services-in-chennai': typeof WeddingCateringServicesInChennaiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-my-chennai-catering': typeof AboutMyChennaiCateringRoute
+  '/builder': typeof BuilderRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/menu': typeof MenuRoute
   '/services': typeof ServicesRoute
+  '/wedding-catering-services-in-chennai': typeof WeddingCateringServicesInChennaiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/about-my-chennai-catering': typeof AboutMyChennaiCateringRoute
+  '/builder': typeof BuilderRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/menu': typeof MenuRoute
   '/services': typeof ServicesRoute
+  '/wedding-catering-services-in-chennai': typeof WeddingCateringServicesInChennaiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/menu' | '/services'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/about-my-chennai-catering'
+    | '/builder'
+    | '/contact'
+    | '/gallery'
+    | '/menu'
+    | '/services'
+    | '/wedding-catering-services-in-chennai'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/menu' | '/services'
-  id: '__root__' | '/' | '/about' | '/contact' | '/menu' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/about-my-chennai-catering'
+    | '/builder'
+    | '/contact'
+    | '/gallery'
+    | '/menu'
+    | '/services'
+    | '/wedding-catering-services-in-chennai'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/about-my-chennai-catering'
+    | '/builder'
+    | '/contact'
+    | '/gallery'
+    | '/menu'
+    | '/services'
+    | '/wedding-catering-services-in-chennai'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AboutMyChennaiCateringRoute: typeof AboutMyChennaiCateringRoute
+  BuilderRoute: typeof BuilderRoute
   ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
   MenuRoute: typeof MenuRoute
   ServicesRoute: typeof ServicesRoute
+  WeddingCateringServicesInChennaiRoute: typeof WeddingCateringServicesInChennaiRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wedding-catering-services-in-chennai': {
+      id: '/wedding-catering-services-in-chennai'
+      path: '/wedding-catering-services-in-chennai'
+      fullPath: '/wedding-catering-services-in-chennai'
+      preLoaderRoute: typeof WeddingCateringServicesInChennaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -95,11 +171,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/builder': {
+      id: '/builder'
+      path: '/builder'
+      fullPath: '/builder'
+      preLoaderRoute: typeof BuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-my-chennai-catering': {
+      id: '/about-my-chennai-catering'
+      path: '/about-my-chennai-catering'
+      fullPath: '/about-my-chennai-catering'
+      preLoaderRoute: typeof AboutMyChennaiCateringRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -122,9 +219,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AboutMyChennaiCateringRoute: AboutMyChennaiCateringRoute,
+  BuilderRoute: BuilderRoute,
   ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
   MenuRoute: MenuRoute,
   ServicesRoute: ServicesRoute,
+  WeddingCateringServicesInChennaiRoute: WeddingCateringServicesInChennaiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -21,7 +21,7 @@ export default function MobileFloatingBar() {
         className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full bg-plum hover:bg-plum-dark border border-gold/20 text-cream text-xs font-bold uppercase tracking-wider transition-colors active:scale-95 text-center mx-1.5"
       >
         <Sparkles className="w-3.5 h-3.5 text-gold shrink-0" />
-        <span>Customizer</span>
+        <span>Customize Menu</span>
       </Link>
 
       {/* WhatsApp Quote */}

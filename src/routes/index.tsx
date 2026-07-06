@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import {
-  ArrowRight,
   Award,
   Leaf,
   Sparkles,
@@ -14,86 +13,98 @@ import {
   Baby,
   Cake,
   Briefcase,
-  Play,
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  Target,
+  Crown,
+  ChefHat,
+  Coffee,
+  Utensils,
+  Wine,
+  IceCream,
+  Soup,
 } from "lucide-react";
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
 import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
 import bananaLeafFeastBlended from "@/assets/banana-leaf-feast-blended.png";
-import bananaLeafBg from "@/assets/banana-leaf-bg.png";
 import liveCounter from "@/assets/images-31.jpeg";
 import weddingHall from "@/assets/IMG_4558.webp";
 import realFeastMeal from "@/assets/2_20260624_020643_0001.png";
 import buffetCounter from "@/assets/images-32.jpeg";
-import partyBg from "@/assets/party-bg.png";
-import partyLogo from "@/assets/party-logo.png";
-import MenuBuilder from "@/components/MenuBuilder";
+import aiWeddingFeast from "@/assets/ai-wedding-feast.png";
+import aiTiffinFeast from "@/assets/ai-tiffin-feast.png";
+import aiSweetsFeast from "@/assets/ai-sweets-feast.png";
+import lotusIcon from "@/assets/lotus icon.png";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import BookingForm from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
-import { fadeInUp, leafDraw, staggerContainer } from "@/lib/animations";
+import { leafDraw } from "@/lib/animations";
 import { CenterKolam } from "@/components/Kolam";
 import MarigoldGarland from "@/components/MarigoldGarland";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Best Catering Services in Chennai — MCC Wedding & Event Caterers" },
-      { name: "description", content: "Authentic South Indian vegetarian wedding catering in Chennai. Pure Sattvik feasts, banana-leaf saapadu, live counters and luxury reception buffets — 20+ years legacy." },
-      { property: "og:title", content: "MCC Catering — Best Wedding Caterers in Chennai" },
-      { property: "og:description", content: "Pure Brahmin vegetarian wedding catering by D. Venkat. 2000+ events delivered across Pattabiram, Avadi, Ambattur and all Chennai." },
+      { title: "Best Catering Services in Chennai | Wedding | Event Catering" },
+      { name: "description", content: "Best catering services in Chennai for weddings and events. Trusted caters in Chennai with quality food and service. Learn more" },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" },
+      { property: "og:title", content: "Best Catering Services in Chennai | Wedding | Event Catering" },
+      { property: "og:description", content: "Best catering services in Chennai for weddings and events. Trusted caters in Chennai with quality food and service. Learn more" },
+      { property: "og:url", content: "https://mychennaicateringservices.com/" },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Best Catering Services in Chennai | Wedding | Event Catering" },
+      { name: "twitter:description", content: "Best catering services in Chennai for weddings and events. Trusted caters in Chennai with quality food and service." },
     ],
+    links: [
+      { rel: "canonical", href: "https://mychennaicateringservices.com/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CateringService",
+          "name": "My Chennai Catering Services",
+          "alternateName": "MCC Catering",
+          "image": "https://mychennaicateringservices.com/logo.png",
+          "@id": "https://mychennaicateringservices.com/#cateringservice",
+          "url": "https://mychennaicateringservices.com/",
+          "telephone": "+919940396005",
+          "priceRange": "₹₹",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Pattabiram",
+            "addressRegion": "Chennai, Tamil Nadu",
+            "postalCode": "600072",
+            "addressCountry": "IN"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "13.1256",
+            "longitude": "80.0607"
+          },
+          "areaServed": [
+            "Chennai",
+            "Pattabiram",
+            "Avadi",
+            "Ambattur",
+            "Thiruverkadu",
+            "Poonamallee"
+          ],
+          "servesCuisine": "South Indian Pure Vegetarian",
+          "founder": {
+            "@type": "Person",
+            "name": "D. Venkat"
+          }
+        })
+      }
+    ]
   }),
   component: Index,
 });
-
-const SERVICE_CARDS = [
-  {
-    t: "Weddings",
-    d: "Traditional course-by-course Thala Vazhai Ilai Saapadu with grand mandapam dining setup.",
-    i: UtensilsCrossed,
-    link: "/services",
-    hash: undefined,
-  },
-  {
-    t: "Engagements",
-    d: "Exquisite buffets and premium plated dinners to mark the auspicious beginning of family unions.",
-    i: Heart,
-    link: "/services",
-    hash: undefined,
-  },
-  {
-    t: "Seemantham",
-    d: "Strictly Sattvik traditional baby shower menus crafted with sacred ingredients and holy naivedyam.",
-    i: Baby,
-    link: "/services",
-    hash: undefined,
-  },
-  {
-    t: "Birthdays",
-    d: "Delightful live counters, contemporary chaat stations, and children-friendly dessert displays.",
-    i: Cake,
-    link: "/",
-    hash: "book",
-  },
-  {
-    t: "Corporate Events",
-    d: "Punctual, high-quality catering, packaged lunch boxes, and elegant conference buffet stations.",
-    i: Briefcase,
-    link: "/services",
-    hash: undefined,
-  },
-  {
-    t: "Private Parties",
-    d: "Intimate family gatherings, Griha Pravesham (housewarming) poojas, and small festive feasts.",
-    i: Sparkles,
-    link: "/",
-    hash: "book",
-  },
-];
 
 interface HeroSlide {
   t: string;
@@ -163,19 +174,165 @@ const HERO_SLIDES: HeroSlide[] = [
   },
 ];
 
+const PORTRAIT_SLIDES = [
+  {
+    img: aiWeddingFeast,
+    title: "Royal Banana Leaf Virundhu",
+    desc: "Grand South Indian wedding feast with 20+ Sattvik delicacies on fresh banana leaf.",
+  },
+  {
+    img: bananaLeafFeastBlended,
+    title: "Thala Vazhai Saapadu",
+    desc: "Authentic course-by-course feast served with pure ghee and hand-pounded spices.",
+  },
+  {
+    img: aiTiffinFeast,
+    title: "Mangala Udhayam Tiffin",
+    desc: "Piping hot Idlis, ghee Dosa, Medu Vada, chutneys and authentic Filter Coffee.",
+  },
+  {
+    img: realFeastMeal,
+    title: "Traditional Brahmin Feast",
+    desc: "Sacred recipes slow-cooked over traditional open flames under Vedic principles.",
+  },
+  {
+    img: aiSweetsFeast,
+    title: "Elaneer Payasam & Sweets",
+    desc: "Creamy tender coconut payasam and traditional pure ghee South Indian sweets.",
+  },
+  {
+    img: gulabJamun,
+    title: "Traditional Desserts",
+    desc: "Stone-ground ingredients and rich desserts cooked to round off your feast.",
+  },
+];
+
+// TAMIL WELCOME / PHILOSOPHY TIMED CAROUSEL STATEMENTS
+const TAMIL_MESSAGES = [
+  {
+    heading: "My Chennai Catering Services-க்கு வரவேற்கிறோம்",
+    body: "எங்கள் பாரம்பரிய உணவுகள் உங்கள் வீட்டில் நடைபெறும் புனித நிகழ்வுகளை மேலும் சிறப்படையச் செய்கின்றன.",
+    badge: "வரவேற்புச் செய்தி",
+  },
+  {
+    heading: "அனைத்து சிறப்பு நிகழ்வுகளுக்கும்",
+    body: "திருமணம், நிச்சயதார்த்தம், பிறந்தநாள் விழா, நிறுவன நிகழ்ச்சிகள், வீட்டுவிழாக்கள் என அனைத்து சிறப்பு நிகழ்வுகளுக்கும் தரமான சைவ கேட்டரிங் சேவையை வழங்கி வருகிறோம்.",
+    badge: "எங்கள் சேவைகள்",
+  },
+  {
+    heading: "எங்கள் அடையாளம்",
+    body: "பாரம்பரிய சுவை, தரமான பொருட்கள், சுத்தமான சமையல் மற்றும் அன்பான பரிமாறுதல் ஆகியவை எங்கள் அடையாளம். ஒவ்வொரு விருந்தினரும் திருப்தியுடன் உணவருந்த வேண்டும் என்பதே எங்கள் நோக்கம்.",
+    badge: "எங்கள் நோக்கம்",
+  },
+  {
+    heading: "மறக்க முடியாத அனுபவம்",
+    body: "உங்கள் நிகழ்வை சுவையான உணவுகளாலும் சிறந்த சேவையாலும் மறக்க முடியாத அனுபவமாக மாற்றுவதே எங்கள் உறுதி.",
+    badge: "எங்கள் உறுதி",
+  },
+];
+
+// SERVICES WE OFFER DATA
+const SERVICES_OFFERED = [
+  {
+    title: "WEDDINGS",
+    desc: "Complete wedding catering with traditional taste",
+    img: weddingHall,
+    icon: UtensilsCrossed,
+  },
+  {
+    title: "ENGAGEMENTS",
+    desc: "Make your engagement memorable",
+    img: aiWeddingFeast,
+    icon: Heart,
+  },
+  {
+    title: "BIRTHDAYS",
+    desc: "Delicious menus for birthday celebrations",
+    img: gulabJamun,
+    icon: Cake,
+  },
+  {
+    title: "CORPORATE EVENTS",
+    desc: "Professional catering for corporate events",
+    img: buffetCounter,
+    icon: Briefcase,
+  },
+  {
+    title: "PRIVATE PARTIES",
+    desc: "Custom menus for your special gatherings",
+    img: liveCounter,
+    icon: Sparkles,
+  },
+  {
+    title: "SEEMANTHAM",
+    desc: "Traditional & hygienic seemantham services",
+    img: brassLamps,
+    icon: Baby,
+  },
+];
+
+// EXPLORE OUR MENUS DATA
+const MENU_CATEGORIES = [
+  {
+    title: "SOUTH INDIAN MENU",
+    img: realFeastMeal,
+    icon: Utensils,
+  },
+  {
+    title: "NORTH INDIAN MENU",
+    img: buffetCounter,
+    icon: ChefHat,
+  },
+  {
+    title: "CHINESE MENU",
+    img: liveCounter,
+    icon: Soup,
+  },
+  {
+    title: "FRUITS & BEVERAGES",
+    img: aiSweetsFeast,
+    icon: Wine,
+  },
+  {
+    title: "SWEETS & DESSERTS",
+    img: gulabJamun,
+    icon: IceCream,
+  },
+  {
+    title: "SNACKS & STARTERS",
+    img: aiTiffinFeast,
+    icon: Coffee,
+  },
+];
+
 function Index() {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [portraitSlide, setPortraitSlide] = useState(0);
+  const [tamilSlide, setTamilSlide] = useState(0);
 
-  // Auto play slides
+  // Auto play hero landscape slides
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 8000);
+    }, 7000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Auto play portrait slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPortraitSlide((prev) => (prev + 1) % PORTRAIT_SLIDES.length);
+    }, 5500);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Auto play Tamil timed messages carousel (4.5 seconds interval)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTamilSlide((prev) => (prev + 1) % TAMIL_MESSAGES.length);
+    }, 4500);
     return () => clearInterval(timer);
   }, []);
 
@@ -189,7 +346,9 @@ function Index() {
 
   return (
     <>
-      {/* HERO SECTION - CAROUSEL */}
+      {/* ========================================================================= */}
+      {/* 1. HERO CAROUSEL SECTION                                                 */}
+      {/* ========================================================================= */}
       <section
         ref={ref}
         className="relative -mt-[60px] lg:-mt-[132px] min-h-screen text-cream flex items-center justify-center pt-24 lg:pt-[180px] pb-24 overflow-hidden bg-black select-none"
@@ -215,7 +374,7 @@ function Index() {
           </AnimatePresence>
         </div>
 
-        {/* Marigold Garland draped at the absolute top of the page */}
+        {/* Marigold Garland draped at top */}
         <MarigoldGarland count={12} className="absolute top-0 left-0 right-0 z-20 h-5" />
 
         {/* Slide Content */}
@@ -229,7 +388,6 @@ function Index() {
               transition={{ duration: 0.8, type: "spring", stiffness: 50 }}
               className="flex flex-col items-center max-w-3xl"
             >
-              {/* Calligraphy script title */}
               <div className="h-[90px] sm:h-[140px] md:h-[180px] flex items-center justify-center mb-2 sm:mb-4">
                 {HERO_SLIDES[currentSlide].logo ? (
                   <img
@@ -244,20 +402,16 @@ function Index() {
                 )}
               </div>
 
-              {/* Subheading/Details */}
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#e0bb9b] leading-tight tracking-wide font-medium mt-2 max-w-4xl">
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#e0bb9b] leading-tight tracking-wide font-medium mt-2 max-w-4xl">
                 {HERO_SLIDES[currentSlide].title}
-              </h2>
+              </h1>
 
-              {/* Gold Ornament Divider */}
               <div className="w-24 h-[2px] bg-[#e0bb9b] my-6 opacity-75" />
 
-              {/* Description */}
               <p className="text-cream/90 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed font-normal tracking-widest uppercase mb-8">
                 {HERO_SLIDES[currentSlide].sub}
               </p>
 
-              {/* CTA Buttons */}
               <div className="flex gap-4">
                 {HERO_SLIDES[currentSlide].link.startsWith("#") ? (
                   <button
@@ -304,14 +458,15 @@ function Index() {
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all ${currentSlide === i ? "bg-party-peach scale-110 w-6" : "bg-white/40 hover:bg-white/60"
-                }`}
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                currentSlide === i ? "bg-party-peach scale-110 w-6" : "bg-white/40 hover:bg-white/60"
+              }`}
               aria-label={`Slide ${i + 1}`}
             />
           ))}
         </div>
 
-        {/* Curved Wave Divider at Bottom (concave upward / dips in middle) */}
+        {/* Curved Wave Divider */}
         <div className="absolute bottom-0 left-0 right-0 h-12 md:h-20 w-full pointer-events-none overflow-hidden z-20">
           <svg viewBox="0 0 1440 100" fill="none" preserveAspectRatio="none" className="w-full h-full text-[#FAF6F0] fill-current">
             <path d="M0,40 C360,95 1080,95 1440,40 L1440,100 L0,100 Z" />
@@ -319,81 +474,356 @@ function Index() {
         </div>
       </section>
 
-      {/* PHILOSOPHY SECTION */}
-      <section className="relative py-28 bg-plum-dark text-cream overflow-hidden">
-        {/* Hanging marigold toran at the top of the section */}
+      {/* ========================================================================= */}
+      {/* 2. STATS PILL BANNER                                                     */}
+      {/* ========================================================================= */}
+      <section className="bg-[#FAF6F0] pt-6 pb-12 px-4 sm:px-8 relative z-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-r from-[#4d1234] via-[#541539] to-[#3f0e2b] rounded-2xl md:rounded-3xl shadow-xl text-white py-6 px-6 sm:px-10 border border-amber-400/30">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-amber-400/20 text-center">
+              
+              {/* Stat 1 */}
+              <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
+                <Target className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
+                <span className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  15+
+                </span>
+                <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
+                  YEARS<br />OF EXPERIENCE
+                </span>
+              </div>
+
+              {/* Stat 2 */}
+              <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
+                <Crown className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
+                <span className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  3000+
+                </span>
+                <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
+                  HAPPY<br />CLIENTS
+                </span>
+              </div>
+
+              {/* Stat 3 */}
+              <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
+                <UtensilsCrossed className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
+                <span className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  4500+
+                </span>
+                <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
+                  EVENTS<br />CATERED
+                </span>
+              </div>
+
+              {/* Stat 4 */}
+              <div className="flex flex-col items-center justify-center py-2 md:py-0 md:px-4">
+                <Sparkles className="w-5 h-5 text-amber-300 mb-1.5 opacity-90" />
+                <span className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white">
+                  120+
+                </span>
+                <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-amber-200/90 uppercase mt-1">
+                  VARIETIES<br />IN MENUS
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 3. SERVICES WE OFFER SECTION                                             */}
+      {/* ========================================================================= */}
+      <section className="py-16 sm:py-20 bg-[#FAF7F2] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
+              SERVICES WE OFFER
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#3A1029] font-bold mt-2">
+              Catering for Every Occasion
+            </h2>
+            
+            <div className="flex items-center justify-center gap-2 mt-3 text-amber-500/80">
+              <div className="w-6 h-px bg-amber-400/40" />
+              <span className="text-xs">❖</span>
+              <div className="w-6 h-px bg-amber-400/40" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+            {SERVICES_OFFERED.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <Link
+                  key={index}
+                  to="/services"
+                  className="bg-white rounded-2xl p-3.5 sm:p-4 border border-amber-900/10 hover:border-amber-400/50 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center relative overflow-hidden"
+                >
+                  <div className="flex items-center gap-1.5 mb-2.5">
+                    <Icon className="w-3.5 h-3.5 text-amber-600 group-hover:scale-110 transition-transform" />
+                    <span className="text-[11px] sm:text-xs font-bold text-slate-800 tracking-wider uppercase font-sans">
+                      {service.title}
+                    </span>
+                  </div>
+
+                  <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-3 relative bg-slate-100">
+                    <img
+                      src={service.img}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <p className="text-[11px] sm:text-xs text-slate-500 leading-snug font-normal mt-auto">
+                    {service.desc}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            >
+              <span>VIEW ALL SERVICES</span>
+              <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <Leaf className="w-3 h-3 text-emerald-400 fill-current" />
+              </div>
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 4. EXPLORE OUR MENUS SECTION                                             */}
+      {/* ========================================================================= */}
+      <section className="py-16 sm:py-20 bg-[#FAF7F2] border-t border-amber-900/5 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-[#541539] font-bold text-xs uppercase tracking-[0.25em] block">
+              EXPLORE OUR MENUS
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-[#3A1029] font-bold mt-2">
+              A Taste for Every Palate
+            </h2>
+            
+            <div className="flex items-center justify-center gap-2 mt-3 text-amber-500/80">
+              <div className="w-6 h-px bg-amber-400/40" />
+              <span className="text-xs">❖</span>
+              <div className="w-6 h-px bg-amber-400/40" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+            {MENU_CATEGORIES.map((menu, index) => (
+              <Link
+                key={index}
+                to="/menu"
+                className="bg-white rounded-2xl p-3.5 sm:p-4 border border-amber-900/10 hover:border-amber-400/50 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center relative overflow-hidden"
+              >
+                <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-3 relative bg-slate-100">
+                  <img
+                    src={menu.img}
+                    alt={menu.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+
+                <span className="text-[11px] sm:text-xs font-bold text-slate-800 tracking-wider uppercase font-sans mt-auto">
+                  {menu.title}
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              to="/menu"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#541539] hover:bg-[#3f0e2b] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            >
+              <span>VIEW ALL MENUS</span>
+              <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <Leaf className="w-3 h-3 text-emerald-400 fill-current" />
+              </div>
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 5. WHY CHOOSE US SECTION                                                 */}
+      {/* ========================================================================= */}
+      <WhyChooseUsSection />
+
+      {/* ========================================================================= */}
+      {/* 6. PHILOSOPHY SECTION WITH TIMED TAMIL TEXT CAROUSEL                      */}
+      {/* ========================================================================= */}
+      <section className="relative py-24 sm:py-28 bg-plum-dark text-cream overflow-hidden">
         <MarigoldGarland count={8} className="absolute top-0 left-0 right-0 z-20 h-5" />
 
-        {/* Traditional Kolam background watermark */}
         <div className="absolute right-[-60px] top-1/2 -translate-y-1/2 opacity-[0.03] text-gold pointer-events-none z-0">
           <CenterKolam size={350} />
         </div>
 
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_80%_30%,rgba(212,175,55,0.25),transparent_60%)]" />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center z-10">
+          
+          {/* PORTRAIT CAROUSEL WITH ENHANCED BACKGROUND */}
           <Reveal>
-            <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-gold/30">
-              <img src={brassLamps} alt="Traditional South Indian brass lamps decorated with flowers" className="w-full h-full object-cover" loading="lazy" />
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-gold/30 via-plum/60 to-gold/20 rounded-[40px] blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-gold/40 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-black/40 backdrop-blur-sm">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={portraitSlide}
+                    initial={{ opacity: 0, scale: 1.08 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.7 }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={PORTRAIT_SLIDES[portraitSlide].img}
+                      alt={PORTRAIT_SLIDES[portraitSlide].title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="absolute bottom-5 left-5 right-5 z-20">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/20 backdrop-blur-md border border-gold/40 text-gold text-[10px] uppercase font-bold tracking-widest mb-1.5">
+                    <Sparkles className="w-3 h-3" />
+                    <span>{PORTRAIT_SLIDES[portraitSlide].title}</span>
+                  </div>
+                  <p className="text-cream/90 text-xs font-serif italic">
+                    {PORTRAIT_SLIDES[portraitSlide].desc}
+                  </p>
+                </div>
+
+                <button
+                  onClick={() =>
+                    setPortraitSlide((prev) => (prev - 1 + PORTRAIT_SLIDES.length) % PORTRAIT_SLIDES.length)
+                  }
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all opacity-80 hover:opacity-100 active:scale-90"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() =>
+                    setPortraitSlide((prev) => (prev + 1) % PORTRAIT_SLIDES.length)
+                  }
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all opacity-80 hover:opacity-100 active:scale-90"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+
+                <div className="absolute top-4 right-4 z-30 flex gap-1.5 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15">
+                  {PORTRAIT_SLIDES.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPortraitSlide(i)}
+                      className={`h-1.5 rounded-full transition-all ${
+                        portraitSlide === i ? "w-5 bg-gold" : "w-1.5 bg-white/40 hover:bg-white/70"
+                      }`}
+                      aria-label={`Go to slide ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </Reveal>
 
-          <div>
+          {/* RIGHT SIDE: PHILOSOPHY TEXT WITH TIMED TAMIL CAROUSEL */}
+          <div className="space-y-6">
             <Reveal>
-              <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">MCC's Philosophy</span>
+              <div className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-full bg-amber-400/20 border border-amber-300/40 p-0.5 shrink-0">
+                  <img src={lotusIcon} alt="Lotus" className="w-full h-full object-contain" />
+                </div>
+                <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">
+                  MCC's PHILOSOPHY
+                </span>
+              </div>
             </Reveal>
+
             <Reveal delay={0.05}>
-              <h2 className="font-serif text-4xl md:text-5xl mt-4 leading-[1.1]">
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl mt-2 leading-[1.15]">
                 The <span className="text-gold-gradient italic">Vedic</span> art of slow cooking.
               </h2>
             </Reveal>
 
-            {/* Banana leaf draw SVG */}
-            <motion.svg
-              viewBox="0 0 240 80"
-              className="w-44 my-7"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <motion.path
-                d="M10 40 Q60 5 120 40 T230 40"
-                stroke="var(--gold)"
-                strokeWidth="1.5"
-                fill="none"
-                variants={leafDraw}
-              />
-              <motion.path
-                d="M120 40 L100 25 M120 40 L100 55 M120 40 L140 25 M120 40 L140 55"
-                stroke="var(--gold)"
-                strokeWidth="1"
-                fill="none"
-                variants={leafDraw}
-              />
-            </motion.svg>
+            {/* Gold ornament stroke */}
+            <div className="w-32 h-[1.5px] bg-gradient-to-r from-gold via-gold/60 to-transparent my-4" />
 
-            <Reveal delay={0.1}>
-              <p className="text-cream/75 leading-relaxed text-lg">
-                Every dish from MCC's kitchen begins before sunrise — fresh spices hand-pounded on
-                stone, lentils tempered in cold-pressed sesame oil, vegetables sourced from local
-                organic farms. Slow-cooked over open flame, the way our grandmothers cooked, the way
-                the Vedas instructed.
-              </p>
-            </Reveal>
+            {/* TIMED TAMIL TEXT CAROUSEL CONTAINER */}
+            <div className="bg-black/30 backdrop-blur-md p-6 rounded-2xl border border-gold/25 relative min-h-[160px] flex flex-col justify-between overflow-hidden shadow-lg">
+              
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={tamilSlide}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.6 }}
+                  className="space-y-3"
+                >
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold/15 border border-gold/30 text-gold text-[10px] uppercase font-bold tracking-widest">
+                    <span>{TAMIL_MESSAGES[tamilSlide].badge}</span>
+                  </div>
 
-            {/* Traditional Auspicious Brass Urli with Floating Flowers */}
+                  {/* Heading */}
+                  <h3 className="font-serif text-xl sm:text-2xl text-amber-200 font-bold leading-tight">
+                    {TAMIL_MESSAGES[tamilSlide].heading}
+                  </h3>
+
+                  {/* Tamil Paragraph */}
+                  <p className="text-cream/90 text-sm sm:text-base leading-relaxed font-sans">
+                    {TAMIL_MESSAGES[tamilSlide].body}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Timed Dots Indicator */}
+              <div className="flex items-center gap-2 pt-4 mt-2 border-t border-gold/15">
+                {TAMIL_MESSAGES.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setTamilSlide(idx)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      tamilSlide === idx ? "w-6 bg-gold" : "w-2 bg-white/30 hover:bg-white/50"
+                    }`}
+                    aria-label={`Tamil slide ${idx + 1}`}
+                  />
+                ))}
+                <span className="text-[10px] text-cream/50 ml-auto font-mono">
+                  {tamilSlide + 1} / {TAMIL_MESSAGES.length}
+                </span>
+              </div>
+
+            </div>
+
             <Reveal delay={0.15}>
-              <div className="flex items-center gap-4 my-6 py-2 border-y border-gold/15">
+              <div className="flex items-center gap-4 py-2 border-y border-gold/15">
                 <svg width="80" height="30" viewBox="0 0 120 40" fill="none" className="text-gold shrink-0">
                   <path d="M10,25 C10,38 110,38 110,25 C104,22 16,22 10,25 Z" fill="currentColor" opacity="0.6" stroke="currentColor" strokeWidth="1.5" />
                   <path d="M45,35 Q60,39 75,35 L68,39 L52,39 Z" fill="currentColor" opacity="0.9" />
                   <circle cx="6" cy="24" r="5" stroke="currentColor" strokeWidth="1.2" />
                   <circle cx="114" cy="24" r="5" stroke="currentColor" strokeWidth="1.2" />
-                  <circle cx="45" cy="25" r="4" fill="#FF9F1C" />
-                  <circle cx="60" cy="25" r="5" fill="#FFBF00" />
-                  <circle cx="75" cy="25" r="4" fill="#FF9F1C" />
-                  <circle cx="35" cy="25" r="3" fill="#FFBF00" />
-                  <circle cx="85" cy="25" r="3" fill="#FF9F1C" />
-                  <path d="M60,18 C58,22 62,22 60,18 Z" fill="#E76F51" />
                 </svg>
                 <span className="text-xs text-gold/80 italic font-serif">
                   A symbol of traditional South Indian hospitality & purity.
@@ -402,7 +832,7 @@ function Index() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-8 sm:mt-10">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-2">
                 {[
                   { i: Leaf, t: "100% Sattvik" },
                   { i: Award, t: "20+ Years" },
@@ -416,97 +846,12 @@ function Index() {
               </div>
             </Reveal>
           </div>
+
         </div>
       </section>
 
-      {/* WHY CHOOSE US SECTION - THEME 2 */}
-      <WhyChooseUsSection />
-
-      {/* CATERING MENUS SECTION - THEME 1 */}
+      {/* CATERING MENUS SECTION */}
       <CateringMenusSection />
-
-      {/* INTERACTIVE MENU CUSTOMIZER */}
-      <MenuBuilder />
-
-      {/* CATERING SERVICES SECTION */}
-      <section className="py-24 bg-cream relative overflow-hidden">
-        {/* Background Traditional Kolam watermark */}
-        <div className="absolute left-[-50px] bottom-10 opacity-[0.02] text-plum pointer-events-none">
-          <CenterKolam size={260} />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
-          <Reveal>
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-[11px] tracking-[0.3em] uppercase text-gold font-bold">
-                SERVING HAPPINESS SINCE YEARS
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl text-plum-dark mt-3 leading-tight">
-                Our Catering Services
-              </h2>
-              {/* Gold Ornament Divider */}
-              <div className="flex items-center justify-center gap-4 mt-4 select-none pointer-events-none">
-                <div className="w-12 h-[1px] bg-gold/50" />
-                <span className="text-gold text-sm">✦</span>
-                <div className="w-12 h-[1px] bg-gold/50" />
-              </div>
-            </div>
-          </Reveal>
-
-          <motion.div
-            variants={staggerContainer(0.08)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {SERVICE_CARDS.map((s) => {
-              const Icon = s.i;
-              return (
-                <Link to={s.link} hash={s.hash} key={s.t} className="block">
-                  <motion.div
-                    variants={fadeInUp}
-                    className="bg-white p-6 sm:p-10 rounded-3xl border border-gold/15 hover:border-gold/30 hover:shadow-[0_15px_30px_rgba(13,46,20,0.06)] transition-all duration-500 group flex flex-col items-center text-center relative overflow-hidden min-h-[200px] sm:min-h-[220px] justify-center cursor-pointer"
-                  >
-                    {/* Leaf-shaped Badge for icon */}
-                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-plum rounded-tl-[24px] rounded-br-[24px] rounded-tr-[5px] rounded-bl-[5px] flex items-center justify-center text-white shadow-sm group-hover:scale-110 transition-transform duration-500 mb-4 sm:mb-5">
-                      <Icon className="w-5 h-5" />
-                    </div>
-
-                    <h3 className="font-serif text-[15px] font-bold uppercase text-plum-dark tracking-widest mt-1">
-                      {s.t}
-                    </h3>
-
-                    {/* Gold separator ornament under card header */}
-                    <div className="flex items-center justify-center gap-1.5 mt-2.5">
-                      <div className="w-4 h-[1px] bg-gold/40" />
-                      <span className="text-[8px] text-gold">✦</span>
-                      <div className="w-4 h-[1px] bg-gold/40" />
-                    </div>
-
-                    {/* Description (visible on mobile, hover disclosure on desktop) */}
-                    <p className="text-xs text-foreground/75 leading-relaxed mt-3 sm:mt-4 max-w-[240px] opacity-100 max-h-none lg:opacity-0 lg:group-hover:opacity-100 lg:max-h-0 lg:group-hover:max-h-20 transition-all duration-500 ease-in-out">
-                      {s.d}
-                    </p>
-                  </motion.div>
-                </Link>
-              );
-            })}
-          </motion.div>
-
-          <div className="text-center mt-14">
-            <Reveal>
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-plum hover:bg-plum-dark text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full shadow-md transition-all group"
-              >
-                View All Services
-                <Leaf className="w-3.5 h-3.5 fill-current text-white/90 group-hover:translate-x-0.5 transition-transform" />
-              </Link>
-            </Reveal>
-          </div>
-        </div>
-      </section>
 
       {/* TESTIMONIALS */}
       <section id="testimonials" className="py-24 bg-plum text-cream">
@@ -541,7 +886,6 @@ function Index() {
 
       {/* GALLERY SECTION */}
       <section id="gallery" className="py-24 bg-cream relative overflow-hidden">
-        {/* Background Traditional Kolam watermark */}
         <div className="absolute right-[-40px] top-10 opacity-[0.02] text-plum pointer-events-none">
           <CenterKolam size={200} />
         </div>
@@ -554,7 +898,6 @@ function Index() {
               <h2 className="font-serif text-4xl md:text-5xl text-plum-dark mt-3 leading-tight">
                 Our Feast Gallery
               </h2>
-              {/* Gold Ornament Divider */}
               <div className="flex items-center justify-center gap-4 mt-4 select-none pointer-events-none">
                 <div className="w-12 h-[1px] bg-gold/50" />
                 <span className="text-gold text-sm">✦</span>

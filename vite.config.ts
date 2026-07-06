@@ -32,7 +32,16 @@ export default defineConfig(({ command }) => {
         defaultPreset: "node-server",
         prerender: {
           crawlLinks: true,
-          routes: ["/", "/about", "/services", "/menu", "/contact"],
+          routes: [
+            "/",
+            "/about",
+            "/services",
+            "/menu",
+            "/gallery",
+            "/contact",
+            "/about-my-chennai-catering",
+            "/wedding-catering-services-in-chennai",
+          ],
         },
       })
     );

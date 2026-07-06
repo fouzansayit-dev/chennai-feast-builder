@@ -8,11 +8,38 @@ import { CenterKolam } from "@/components/Kolam";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "Our Legacy — D. Venkat & 20 Years of Sattvik Catering | MCC" },
-      { name: "description", content: "Two decades of Vedic slow-cooked Brahmin catering across Chennai, guided by the vision of D. Venkat. Discover the story of My Chennai Catering Services." },
-      { property: "og:title", content: "The Legacy of MCC Catering — D. Venkat" },
-      { property: "og:description", content: "From a small Pattabiram kitchen to thousands of sacred celebrations across Chennai." },
+      { title: "About My Chennai Catering | Wedding & Veg Catering Services in Chennai" },
+      { name: "description", content: "My Chennai Catering is Chennai’s trusted South Indian catering service with 20+ years of experience in wedding catering, veg catering, receptions, corporate events, birthday parties, seemantham & traditional Tamil functions. We provide authentic taste, hygienic cooking, customized menus & premium catering services across Chennai." },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" },
+      { property: "og:title", content: "About My Chennai Catering | Wedding & Veg Catering Services in Chennai" },
+      { property: "og:description", content: "My Chennai Catering is Chennai’s trusted South Indian catering service with 20+ years of experience in wedding catering, veg catering, receptions, corporate events, birthday parties, seemantham & traditional Tamil functions." },
+      { property: "og:url", content: "https://mychennaicateringservices.com/about-my-chennai-catering/" },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "About My Chennai Catering Services" },
+      { name: "twitter:description", content: "Chennai's trusted South Indian catering service with 20+ years of experience in wedding & veg catering." },
     ],
+    links: [
+      { rel: "canonical", href: "https://mychennaicateringservices.com/about-my-chennai-catering/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About My Chennai Catering",
+          "url": "https://mychennaicateringservices.com/about-my-chennai-catering/",
+          "mainEntity": {
+            "@type": "CateringService",
+            "name": "My Chennai Catering Services",
+            "founder": "D. Venkat",
+            "description": "Authentic South Indian pure vegetarian catering service with 20+ years of experience in wedding catering across Chennai."
+          }
+        })
+      }
+    ]
   }),
   component: About,
 });
@@ -25,7 +52,7 @@ const TIMELINE = [
   { y: "Today", t: "A Chennai Institution", d: "2000+ events delivered, generations of families served — without ever compromising Sattvik standards." },
 ];
 
-function About() {
+export function About() {
   return (
     <>
       <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">
@@ -37,7 +64,7 @@ function About() {
           <Reveal>
             <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Our Legacy</span>
             <h1 className="font-serif text-5xl md:text-6xl mt-4 leading-[1.05]">
-              A family of <span className="text-gold-gradient italic">flavour-keepers.</span>
+              About <span className="text-gold-gradient italic">My Chennai Catering</span>
             </h1>
             <p className="mt-6 text-cream/75 text-lg leading-relaxed">
               For more than two decades, D. Venkat and the My Chennai Catering Services family have

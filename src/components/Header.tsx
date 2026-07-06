@@ -1,15 +1,16 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, Phone, X, MapPin, Clock, Sparkles } from "lucide-react";
 import logoImg from "@/assets/mcc-logo.png";
+import lotusIcon from "@/assets/lotus icon.png";
 
 const NAV = [
   { to: "/", label: "Home", hash: undefined },
   { to: "/about", label: "About Us", hash: undefined },
   { to: "/services", label: "Services", hash: undefined },
   { to: "/menu", label: "Menu", hash: undefined },
-  { to: "/", hash: "builder", label: "Customizer ✦" },
-  { to: "/", hash: "gallery", label: "Gallery" },
+  { to: "/builder", label: "Customize your own menu ✦", hash: undefined },
+  { to: "/gallery", label: "Gallery", hash: undefined },
   { to: "/", hash: "testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact Us", hash: undefined },
 ] as const;
@@ -17,7 +18,6 @@ const NAV = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -30,16 +30,15 @@ export default function Header() {
   const rightLinks = NAV.slice(4);
 
   const renderNavLink = (n: typeof NAV[number]) => {
-    if (n.label === "Customizer ✦") {
+    if (n.label === "Customize your own menu ✦") {
       return (
         <Link
           key={n.label}
-          to={n.to}
-          hash={n.hash}
-          className="px-4 py-1.5 rounded-full bg-[#3E2E23] hover:bg-[#2A1E16] text-[#FFD700] hover:text-white text-[11px] uppercase tracking-[0.2em] font-extrabold transition-all duration-300 shadow-lg flex items-center gap-1.5 border-2 border-[#FFD700] active:scale-95 shrink-0"
+          to="/builder"
+          className="px-3.5 py-1.5 rounded-full bg-[#3E2E23] hover:bg-[#2A1E16] text-[#FFD700] hover:text-white text-[10px] xl:text-[11px] uppercase tracking-[0.12em] font-extrabold transition-all duration-300 shadow-lg flex items-center gap-1.5 border-2 border-[#FFD700] active:scale-95 shrink-0"
         >
-          <span>CUSTOMIZER</span>
-          <Sparkles className="w-3.5 h-3.5 text-[#FFD700] animate-pulse" />
+          <span>CUSTOMIZE YOUR OWN MENU</span>
+          <Sparkles className="w-3.5 h-3.5 text-[#FFD700] animate-pulse shrink-0" />
         </Link>
       );
     }
@@ -91,7 +90,7 @@ export default function Header() {
         key={n.label}
         to={n.to}
         hash={n.hash}
-        className="text-[11px] uppercase tracking-[0.2em] font-bold text-plum-dark hover:text-white transition-colors relative py-1"
+        className="text-[10px] xl:text-[11px] uppercase tracking-[0.12em] xl:tracking-[0.18em] font-bold text-plum-dark hover:text-white transition-colors relative py-1 whitespace-nowrap shrink-0"
         activeProps={{ className: "text-white border-b-2 border-white" }}
         activeOptions={{ exact: true, includeHash: true }}
       >
@@ -101,16 +100,14 @@ export default function Header() {
   };
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border border-zinc-200/50 border-t-0 shadow-sm rounded-b-[24px] md:rounded-b-[40px]"
-    >
-      {/* Top Row (Desktop Only) */}
-      <div 
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border border-zinc-200/50 border-t-0 shadow-sm rounded-b-[24px] md:rounded-b-[40px]">
+      {/* Top White Row (Desktop Only) */}
+      <div
         className={`hidden lg:block border-b border-zinc-100/80 transition-all duration-300 overflow-hidden ${
-          scrolled ? "max-h-0 opacity-0 py-0" : "max-h-20 py-3.5"
+          scrolled ? "max-h-0 opacity-0 py-0" : "max-h-24 py-3"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-10 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between h-full">
           {/* Left Side: Address & Office Hours */}
           <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-medium tracking-wide uppercase">
             <div className="flex items-center gap-1.5">
@@ -125,9 +122,9 @@ export default function Header() {
           </div>
 
           {/* Center Spacer for absolutely positioned Logo */}
-          <div className="w-24 md:w-32" />
+          <div className="w-28 md:w-36" />
 
-          {/* Right Side: Phone & Request a Quote */}
+          {/* Right Side: Phone, Quote & SINGLE PROMINENT LARGE LOTUS ICON */}
           <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-medium tracking-wide uppercase">
             <div className="flex items-center gap-1.5">
               <Phone className="w-3.5 h-3.5 text-gold-dark shrink-0" />
@@ -136,73 +133,83 @@ export default function Header() {
             <div className="w-px h-3 bg-zinc-200" />
             <Link
               to="/menu"
-              className="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full border border-gold-dark text-gold-dark hover:bg-gold-dark hover:text-white transition-all duration-300 text-[9px] font-bold tracking-widest uppercase shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gold-dark text-gold-dark hover:bg-gold-dark hover:text-white transition-all duration-300 text-[9px] font-bold tracking-widest uppercase shadow-sm"
             >
               Request a Quote
             </Link>
+
+            {/* SINGLE LARGE LOTUS ICON PROPERLY CONTAINED IN CIRCLE */}
+            <div className="relative group/lotus cursor-pointer pl-2 shrink-0">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-amber-50/80 border-2 border-amber-400/80 p-1 shadow-md hover:scale-105 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                <img
+                  src={lotusIcon}
+                  alt="Lotus Auspicious Symbol"
+                  className="w-full h-full object-contain rounded-full filter drop-shadow-sm"
+                />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
 
-      {/* Desktop Split Navbar (Desktop Only) */}
+      {/* Desktop Split Peach Navbar (Desktop Only) */}
       <div className="hidden lg:block relative h-12 select-none">
-        {/* Curved Peach Background */}
+        
+        {/* ONE SINGLE CONTINUOUS SEAMLESS SVG BACKGROUND (Zero Seams, Zero Gaps, Zero White Lines) */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-b-[24px] md:rounded-b-[40px]">
-          {/* Left Solid Part */}
-          <div className="absolute left-0 top-0 bottom-0 w-[calc(50%-80px)] bg-party-peach" />
-          
-          {/* Center Curved SVG Dip */}
-          <svg 
-            viewBox="0 0 160 48" 
-            fill="none" 
-            preserveAspectRatio="none" 
-            className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[160px] h-full text-party-peach fill-current"
+          <svg
+            viewBox="0 0 1000 48"
+            preserveAspectRatio="none"
+            className="w-full h-full text-party-peach fill-current"
           >
-            <path d="M0,0 C50,0 50,28 80,28 C110,28 110,0 160,0 L160,48 L0,48 Z" />
+            <path d="M 0,0 L 410,0 C 455,0 455,28 500,28 C 545,28 545,0 590,0 L 1000,0 L 1000,48 L 0,48 Z" />
           </svg>
-          
-          {/* Right Solid Part */}
-          <div className="absolute right-0 top-0 bottom-0 w-[calc(50%-80px)] bg-party-peach" />
         </div>
 
         {/* Content Row */}
-        <div className="relative max-w-7xl mx-auto px-4 lg:px-8 h-full flex items-center justify-between z-10">
+        <div className="relative max-w-7xl mx-auto px-4 lg:px-6 h-full flex items-center justify-between z-10">
           {/* Left Side Links */}
-          <div className="flex items-center gap-4 xl:gap-6 w-[calc(50%-80px)] justify-end pr-3">
+          <div className="flex items-center gap-2.5 xl:gap-4 w-[calc(50%-90px)] justify-end pr-2">
             {leftLinks.map(renderNavLink)}
           </div>
 
           {/* Center Spacer for the absolutely positioned logo */}
-          <div className="w-[160px] shrink-0" />
+          <div className="w-[180px] shrink-0" />
 
           {/* Right Side Links */}
-          <div className="flex items-center gap-4 xl:gap-6 w-[calc(50%-80px)] justify-start pl-3">
+          <div className="flex items-center gap-2.5 xl:gap-4 w-[calc(50%-90px)] justify-start pl-2">
             {rightLinks.map(renderNavLink)}
           </div>
         </div>
       </div>
 
       {/* Mobile Navbar Row (Mobile Only) */}
-      <div className="lg:hidden max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+      <div className="lg:hidden max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between">
         <Link to="/" className="flex items-center group relative z-10">
-          <div className="w-14 h-14 rounded-full bg-white border-2 border-gold shadow-md overflow-hidden flex items-center justify-center">
-            <img 
-              src={logoImg} 
-              alt="MCC Logo" 
-              className="w-full h-full object-cover scale-[1.10] transition-transform duration-300 group-hover:scale-[1.17]" 
+          <div className="w-14 h-14 rounded-full bg-white border-2 border-gold shadow-md overflow-hidden flex items-center justify-center p-0.5">
+            <img
+              src={logoImg}
+              alt="MCC Logo"
+              className="w-full h-full object-contain rounded-full transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </Link>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
+          {/* Lotus Badge on Mobile Navbar */}
+          <div className="w-9 h-9 rounded-full bg-amber-50 border border-amber-300 p-1 shadow-xs shrink-0 overflow-hidden flex items-center justify-center">
+            <img src={lotusIcon} alt="Lotus Icon" className="w-full h-full object-contain rounded-full" />
+          </div>
+
           <Link
-            to="/"
-            hash="builder"
-            className="px-3 py-1.5 rounded-full bg-[#3E2E23] text-[#FFD700] text-[9px] uppercase tracking-widest font-extrabold flex items-center gap-1 border border-[#FFD700] shadow-sm active:scale-95"
+            to="/builder"
+            className="px-2.5 py-1.5 rounded-full bg-[#3E2E23] text-[#FFD700] text-[8.5px] uppercase tracking-wider font-extrabold flex items-center gap-1 border border-[#FFD700] shadow-sm active:scale-95"
           >
-            <span>Customizer</span>
+            <span>Customize Menu</span>
             <Sparkles className="w-3 h-3 text-[#FFD700]" />
           </Link>
+
           <a
             href="tel:+919940396005"
             className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-plum/10 bg-plum text-white hover:bg-plum-dark transition-all"
@@ -220,21 +227,21 @@ export default function Header() {
       </div>
 
       {/* Desktop Absolutely Positioned Logo Overlay */}
-      <div 
+      <div
         className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
-          scrolled ? "top-[4px]" : "top-[16px] md:top-[20px]"
+          scrolled ? "top-[2px]" : "top-[10px] md:top-[12px]"
         }`}
       >
         <Link to="/" className="group block">
-          <div 
-            className={`rounded-full bg-white border-2 border-gold shadow-md overflow-hidden flex items-center justify-center transition-all duration-300 ${
-              scrolled ? "w-12 h-12 md:w-14 h-14" : "w-20 h-20 md:w-24 md:h-24"
+          <div
+            className={`rounded-full bg-white border-2 border-gold shadow-lg overflow-hidden flex items-center justify-center p-0.5 transition-all duration-300 ${
+              scrolled ? "w-14 h-14 md:w-16 md:h-16" : "w-24 h-24 md:w-28 md:h-28"
             }`}
           >
-            <img 
-              src={logoImg} 
-              alt="MCC Logo" 
-              className="w-full h-full object-cover scale-[1.10] transition-transform duration-300 group-hover:scale-[1.17]" 
+            <img
+              src={logoImg}
+              alt="MCC Logo"
+              className="w-full h-full object-contain rounded-full transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         </Link>
@@ -250,7 +257,7 @@ export default function Header() {
           <div className="lg:hidden relative z-50 bg-white/98 backdrop-blur-xl border-t border-zinc-150 shadow-2xl max-h-[85vh] overflow-y-auto">
             <div className="px-6 py-6 flex flex-col gap-3">
               {NAV.map((n) => {
-                const isCustomizer = n.label === "Customizer ✦";
+                const isCustomizer = n.label === "Customize your own menu ✦";
                 return (
                   <Link
                     key={n.label}

@@ -6,11 +6,44 @@ import { Reveal } from "@/components/Reveal";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact MCC Catering — Book Your Chennai Event" },
-      { name: "description", content: "Call D. Venkat at +91 99403 96005 or send a booking inquiry. MCC Catering serves Pattabiram, Avadi, Ambattur, Thiruverkadu, Poonamallee and all Chennai." },
-      { property: "og:title", content: "Contact MCC Catering" },
-      { property: "og:description", content: "Plan your wedding, reception or pooja with Chennai's most trusted vegetarian caterers." },
+      { title: "Contact Best Catering Services in Chennai | My Chennai Catering" },
+      { name: "description", content: "Need reliable catering in Chennai for your next event? Contact My Chennai Catering today for bookings, custom menus, and inquiries. Let’s make your event memorable!" },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" },
+      { property: "og:title", content: "Contact Best Catering Services in Chennai | My Chennai Catering" },
+      { property: "og:description", content: "Need reliable catering in Chennai for your next event? Contact My Chennai Catering today for bookings, custom menus, and inquiries." },
+      { property: "og:url", content: "https://mychennaicateringservices.com/contact/" },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Contact My Chennai Catering Services" },
+      { name: "twitter:description", content: "Contact My Chennai Catering today for bookings, custom menus, and inquiries." },
     ],
+    links: [
+      { rel: "canonical", href: "https://mychennaicateringservices.com/contact/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact My Chennai Catering",
+          "url": "https://mychennaicateringservices.com/contact/",
+          "mainEntity": {
+            "@type": "CateringService",
+            "name": "My Chennai Catering Services",
+            "telephone": "+919940396005",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Pattabiram",
+              "addressRegion": "Chennai, Tamil Nadu",
+              "postalCode": "600072",
+              "addressCountry": "IN"
+            }
+          }
+        })
+      }
+    ]
   }),
   component: Contact,
 });
@@ -22,7 +55,7 @@ function Contact() {
         <Reveal>
           <span className="text-[11px] uppercase tracking-[0.3em] text-gold">Get in touch</span>
           <h1 className="font-serif text-5xl md:text-6xl text-plum mt-4 leading-[1.05]">
-            Let's plan something <em className="text-gold-gradient not-italic">unforgettable.</em>
+            Contact <em className="text-gold-gradient not-italic">My Chennai Catering</em>
           </h1>
           <p className="mt-5 text-foreground/70 max-w-md">
             Speak directly with D. Venkat or his team — we typically respond within an hour during

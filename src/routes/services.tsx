@@ -13,11 +13,39 @@ import { CenterKolam } from "@/components/Kolam";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Catering Services — Weddings, Receptions, Pooja & Corporate | MCC Chennai" },
-      { name: "description", content: "End-to-end South Indian vegetarian catering — wedding feasts, reception buffets, seemantham, griha pravesham, corporate tiffins, live counters and decor." },
-      { property: "og:title", content: "MCC Catering Services in Chennai" },
-      { property: "og:description", content: "Wedding & event catering with traditional decor, silk-saree hosts and Sattvik menus." },
+      { title: "Wedding Catering Services in Chennai | No.1 Traditional Veg" },
+      { name: "description", content: "Premium wedding catering services in Chennai. 20+ Yrs legacy of authentic banana leaf kalyana saapadu, live counters & custom stalls. Call: 9940396005." },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" },
+      { property: "og:title", content: "Wedding Catering Services in Chennai | No.1 Traditional Veg" },
+      { property: "og:description", content: "Premium wedding catering services in Chennai. 20+ Yrs legacy of authentic banana leaf kalyana saapadu, live counters & custom stalls." },
+      { property: "og:url", content: "https://mychennaicateringservices.com/wedding-catering-services-in-chennai/" },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Wedding Catering Services in Chennai" },
+      { name: "twitter:description", content: "Premium wedding catering services in Chennai. 20+ Yrs legacy of authentic banana leaf saapadu." },
     ],
+    links: [
+      { rel: "canonical", href: "https://mychennaicateringservices.com/wedding-catering-services-in-chennai/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Wedding Catering Services",
+          "name": "Wedding Catering Services in Chennai",
+          "provider": {
+            "@type": "CateringService",
+            "name": "My Chennai Catering Services",
+            "telephone": "+919940396005"
+          },
+          "areaServed": "Chennai",
+          "description": "Authentic banana leaf wedding feasts, reception buffets, live counters and traditional South Indian vegetarian catering."
+        })
+      }
+    ]
   }),
   component: ServicesPage,
 });
@@ -49,7 +77,7 @@ const SERVICES = [
   },
 ];
 
-function ServicesPage() {
+export function ServicesPage() {
   return (
     <>
       <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">
@@ -64,7 +92,9 @@ function ServicesPage() {
         <Reveal>
           <div className="relative text-center max-w-3xl mx-auto px-6 z-10">
             <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Our Services</span>
-            <h1 className="font-serif text-5xl md:text-6xl mt-4">Every occasion, perfectly served.</h1>
+            <h1 className="font-serif text-5xl md:text-6xl mt-4">
+              Premium Veg Catering Services in Chennai <span className="text-gold-gradient italic">for Every Occasion</span>
+            </h1>
             <p className="mt-5 text-cream/75">
               From an intimate Seemantham at home to a 2000-guest grand wedding, MCC handles food,
               decor and hospitality with the same reverence.

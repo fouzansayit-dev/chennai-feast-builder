@@ -1,20 +1,46 @@
-import { createFileRoute } from "@tanstack/react-router";
-import MenuBuilder from "@/components/MenuBuilder";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import { Reveal } from "@/components/Reveal";
 import heroFeast from "@/assets/2_20260624_020643_0001.png";
 import MarigoldGarland from "@/components/MarigoldGarland";
 import { CenterKolam } from "@/components/Kolam";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Menu & Quote Builder — Traditional South Indian Catering | MCC" },
-      { name: "description", content: "Explore MCC's tiffin, moderate and executive vegetarian catering menus. Build a custom quote in seconds with our interactive plate calculator." },
-      { property: "og:title", content: "MCC Catering Menu — Build Your Quote" },
-      { property: "og:description", content: "Authentic Brahmin vegetarian menus for weddings, receptions, and traditional functions across Chennai." },
+      { title: "Premium South Indian Catering Menu in Chennai | My Chennai" },
+      { name: "description", content: "Explore our premium vegetarian catering in Chennai. From traditional banana leaf meals to lavish wedding buffets, we bring authentic flavors to your event." },
+      { name: "robots", content: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" },
+      { property: "og:title", content: "Premium South Indian Catering Menu in Chennai | My Chennai" },
+      { property: "og:description", content: "Explore our premium vegetarian catering in Chennai. From traditional banana leaf meals to lavish wedding buffets, we bring authentic flavors to your event." },
+      { property: "og:url", content: "https://mychennaicateringservices.com/menu/" },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_IN" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Premium South Indian Catering Menu in Chennai" },
+      { name: "twitter:description", content: "Explore traditional banana leaf meals and lavish wedding buffets in Chennai." },
     ],
+    links: [
+      { rel: "canonical", href: "https://mychennaicateringservices.com/menu/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Menu",
+          "name": "My Chennai Catering Vegetarian Menu",
+          "url": "https://mychennaicateringservices.com/menu/",
+          "mainEntity": {
+            "@type": "CateringService",
+            "name": "My Chennai Catering Services",
+            "servesCuisine": "South Indian Pure Vegetarian"
+          }
+        })
+      }
+    ]
   }),
   component: MenuPage,
 });
@@ -66,7 +92,7 @@ function MenuPage() {
           <div className="relative text-center max-w-3xl mx-auto px-6 text-cream z-10">
             <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Feast & Menu</span>
             <h1 className="font-serif text-5xl md:text-6xl mt-4">
-              The <span className="text-gold-gradient italic">Saapadu</span> Catalogue
+              Explore Our <span className="text-gold-gradient italic">Delicious Veg Catering Menu</span>
             </h1>
             <p className="mt-5 text-cream/80">
               Every dish on our menu is hand-pounded, slow-cooked and served fresh. Explore the
@@ -76,10 +102,10 @@ function MenuPage() {
         </Reveal>
       </section>
 
-      {/* CATERING MENUS SECTION - THEME 1 */}
+      {/* CATERING MENUS SECTION */}
       <CateringMenusSection />
 
-      {/* WHY CHOOSE US SECTION - THEME 2 */}
+      {/* WHY CHOOSE US SECTION */}
       <WhyChooseUsSection />
 
       <section className="py-24 bg-cream">
@@ -102,8 +128,30 @@ function MenuPage() {
         </div>
       </section>
 
-      {/* INTERACTIVE MENU CUSTOMIZER */}
-      <MenuBuilder />
+      {/* INTERACTIVE FEAST PLANNER CTA BANNER */}
+      <section className="py-20 bg-gradient-to-r from-[#4d1234] via-[#541539] to-[#3f0e2b] text-white text-center relative overflow-hidden border-t border-amber-400/30">
+        <div className="max-w-3xl mx-auto px-6 relative z-10 space-y-4">
+          <span className="text-amber-300 text-xs uppercase tracking-[0.25em] font-bold inline-flex items-center gap-1.5">
+            <Sparkles className="w-4 h-4" />
+            Interactive Customizer
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+            Want to Build Your Own Custom Feast?
+          </h2>
+          <p className="text-amber-100/90 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+            Use our interactive plate calculator to select packages, toggle custom items, adjust guest counts, and calculate live quotes!
+          </p>
+          <div className="pt-2">
+            <Link
+              to="/builder"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-400 text-plum-dark font-extrabold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl transition-all duration-300 group"
+            >
+              <span>OPEN FEAST BUILDER</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

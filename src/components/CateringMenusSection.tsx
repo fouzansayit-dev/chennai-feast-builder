@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, ArrowRight, Check, Sparkles } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 import realFeastMeal from "@/assets/2_20260624_020643_0001.png";
 import liveCounter from "@/assets/images-31.jpeg";
 import weddingHall from "@/assets/IMG_4558.webp";
@@ -105,19 +106,20 @@ const MENU_OPTIONS: CateringMenuOption[] = [
 
 export default function CateringMenusSection() {
   const [selectedMenu, setSelectedMenu] = useState<CateringMenuOption | null>(null);
+  const navigate = useNavigate();
 
   const handleCustomizeClick = (menu: CateringMenuOption) => {
     setSelectedMenu(null);
-    const builderEl = document.getElementById("builder");
-    if (builderEl) {
-      builderEl.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate({ to: "/builder" });
   };
 
   const handleRequestQuote = () => {
+    setSelectedMenu(null);
     const bookEl = document.getElementById("book");
     if (bookEl) {
       bookEl.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate({ to: "/contact" });
     }
   };
 
@@ -125,7 +127,7 @@ export default function CateringMenusSection() {
     <section id="menus" className="py-24 bg-[#FAF7F2] text-[#3E3127] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
         
-        {/* Section Header matching Image 1 theme */}
+        {/* Section Header */}
         <div className="text-center mb-16">
           <span className="text-[11px] uppercase tracking-[0.35em] text-[#B88E56] font-bold block mb-2">
             EXPLORE MENU OPTIONS
@@ -175,7 +177,7 @@ export default function CateringMenusSection() {
           ))}
         </div>
 
-        {/* Bottom Call & Quote Bar matching Image 1 */}
+        {/* Bottom Call & Quote Bar */}
         <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left">
           <p className="text-sm md:text-base text-[#5C4D40] font-medium font-sans">
             Call us now{" "}
@@ -241,16 +243,16 @@ export default function CateringMenusSection() {
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <button
                   onClick={() => handleCustomizeClick(selectedMenu)}
-                  className="w-full sm:flex-1 py-3.5 bg-[#3E2E23] hover:bg-[#2A1D15] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:flex-1 py-3.5 bg-[#3E2E23] hover:bg-[#2A1D15] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95"
                 >
                   <Sparkles className="w-4 h-4 text-[#DCA46A]" />
-                  Customize in Feast Planner
+                  CUSTOMIZE IN FEAST PLANNER
                 </button>
                 <button
                   onClick={handleRequestQuote}
-                  className="w-full sm:w-auto px-6 py-3.5 bg-[#DCA46A] hover:bg-[#C69258] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all"
+                  className="w-full sm:w-auto px-6 py-3.5 bg-[#DCA46A] hover:bg-[#C69258] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all cursor-pointer shadow-md active:scale-95"
                 >
-                  Get Direct Quote
+                  GET DIRECT QUOTE
                 </button>
               </div>
             </motion.div>
