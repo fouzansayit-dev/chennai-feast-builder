@@ -13,8 +13,12 @@ import { Route as WeddingCateringServicesInChennaiRouteImport } from './routes/w
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as EngagementCateringServicesInChennaiRouteImport } from './routes/engagement-catering-services-in-chennai'
+import { Route as CrmRouteImport } from './routes/crm'
+import { Route as CorporateCateringServicesInChennaiRouteImport } from './routes/corporate-catering-services-in-chennai'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BuilderRouteImport } from './routes/builder'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutMyChennaiCateringRouteImport } from './routes/about-my-chennai-catering'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -40,6 +44,23 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EngagementCateringServicesInChennaiRoute =
+  EngagementCateringServicesInChennaiRouteImport.update({
+    id: '/engagement-catering-services-in-chennai',
+    path: '/engagement-catering-services-in-chennai',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CorporateCateringServicesInChennaiRoute =
+  CorporateCateringServicesInChennaiRouteImport.update({
+    id: '/corporate-catering-services-in-chennai',
+    path: '/corporate-catering-services-in-chennai',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -48,6 +69,11 @@ const ContactRoute = ContactRouteImport.update({
 const BuilderRoute = BuilderRouteImport.update({
   id: '/builder',
   path: '/builder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutMyChennaiCateringRoute = AboutMyChennaiCateringRouteImport.update({
@@ -70,8 +96,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-my-chennai-catering': typeof AboutMyChennaiCateringRoute
+  '/admin': typeof AdminRoute
   '/builder': typeof BuilderRoute
   '/contact': typeof ContactRoute
+  '/corporate-catering-services-in-chennai': typeof CorporateCateringServicesInChennaiRoute
+  '/crm': typeof CrmRoute
+  '/engagement-catering-services-in-chennai': typeof EngagementCateringServicesInChennaiRoute
   '/gallery': typeof GalleryRoute
   '/menu': typeof MenuRoute
   '/services': typeof ServicesRoute
@@ -81,8 +111,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-my-chennai-catering': typeof AboutMyChennaiCateringRoute
+  '/admin': typeof AdminRoute
   '/builder': typeof BuilderRoute
   '/contact': typeof ContactRoute
+  '/corporate-catering-services-in-chennai': typeof CorporateCateringServicesInChennaiRoute
+  '/crm': typeof CrmRoute
+  '/engagement-catering-services-in-chennai': typeof EngagementCateringServicesInChennaiRoute
   '/gallery': typeof GalleryRoute
   '/menu': typeof MenuRoute
   '/services': typeof ServicesRoute
@@ -93,8 +127,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/about-my-chennai-catering': typeof AboutMyChennaiCateringRoute
+  '/admin': typeof AdminRoute
   '/builder': typeof BuilderRoute
   '/contact': typeof ContactRoute
+  '/corporate-catering-services-in-chennai': typeof CorporateCateringServicesInChennaiRoute
+  '/crm': typeof CrmRoute
+  '/engagement-catering-services-in-chennai': typeof EngagementCateringServicesInChennaiRoute
   '/gallery': typeof GalleryRoute
   '/menu': typeof MenuRoute
   '/services': typeof ServicesRoute
@@ -106,8 +144,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-my-chennai-catering'
+    | '/admin'
     | '/builder'
     | '/contact'
+    | '/corporate-catering-services-in-chennai'
+    | '/crm'
+    | '/engagement-catering-services-in-chennai'
     | '/gallery'
     | '/menu'
     | '/services'
@@ -117,8 +159,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-my-chennai-catering'
+    | '/admin'
     | '/builder'
     | '/contact'
+    | '/corporate-catering-services-in-chennai'
+    | '/crm'
+    | '/engagement-catering-services-in-chennai'
     | '/gallery'
     | '/menu'
     | '/services'
@@ -128,8 +174,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/about-my-chennai-catering'
+    | '/admin'
     | '/builder'
     | '/contact'
+    | '/corporate-catering-services-in-chennai'
+    | '/crm'
+    | '/engagement-catering-services-in-chennai'
     | '/gallery'
     | '/menu'
     | '/services'
@@ -140,8 +190,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AboutMyChennaiCateringRoute: typeof AboutMyChennaiCateringRoute
+  AdminRoute: typeof AdminRoute
   BuilderRoute: typeof BuilderRoute
   ContactRoute: typeof ContactRoute
+  CorporateCateringServicesInChennaiRoute: typeof CorporateCateringServicesInChennaiRoute
+  CrmRoute: typeof CrmRoute
+  EngagementCateringServicesInChennaiRoute: typeof EngagementCateringServicesInChennaiRoute
   GalleryRoute: typeof GalleryRoute
   MenuRoute: typeof MenuRoute
   ServicesRoute: typeof ServicesRoute
@@ -178,6 +232,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/engagement-catering-services-in-chennai': {
+      id: '/engagement-catering-services-in-chennai'
+      path: '/engagement-catering-services-in-chennai'
+      fullPath: '/engagement-catering-services-in-chennai'
+      preLoaderRoute: typeof EngagementCateringServicesInChennaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corporate-catering-services-in-chennai': {
+      id: '/corporate-catering-services-in-chennai'
+      path: '/corporate-catering-services-in-chennai'
+      fullPath: '/corporate-catering-services-in-chennai'
+      preLoaderRoute: typeof CorporateCateringServicesInChennaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -190,6 +265,13 @@ declare module '@tanstack/react-router' {
       path: '/builder'
       fullPath: '/builder'
       preLoaderRoute: typeof BuilderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about-my-chennai-catering': {
@@ -220,8 +302,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AboutMyChennaiCateringRoute: AboutMyChennaiCateringRoute,
+  AdminRoute: AdminRoute,
   BuilderRoute: BuilderRoute,
   ContactRoute: ContactRoute,
+  CorporateCateringServicesInChennaiRoute:
+    CorporateCateringServicesInChennaiRoute,
+  CrmRoute: CrmRoute,
+  EngagementCateringServicesInChennaiRoute:
+    EngagementCateringServicesInChennaiRoute,
   GalleryRoute: GalleryRoute,
   MenuRoute: MenuRoute,
   ServicesRoute: ServicesRoute,

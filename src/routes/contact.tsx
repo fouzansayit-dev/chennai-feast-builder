@@ -50,19 +50,19 @@ export const Route = createFileRoute("/contact")({
 
 function Contact() {
   return (
-    <section className="py-20 bg-cream">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-12">
+    <section className="py-12 lg:py-20 bg-cream overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12">
         <Reveal>
           <span className="text-[11px] uppercase tracking-[0.3em] text-gold">Get in touch</span>
-          <h1 className="font-serif text-5xl md:text-6xl text-plum mt-4 leading-[1.05]">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-plum mt-4 leading-[1.1]">
             Contact <em className="text-gold-gradient not-italic">My Chennai Catering</em>
           </h1>
-          <p className="mt-5 text-foreground/70 max-w-md">
+          <p className="mt-4 text-foreground/70 text-sm leading-relaxed max-w-md">
             Speak directly with D. Venkat or his team — we typically respond within an hour during
             working hours.
           </p>
 
-          <div className="mt-10 space-y-4">
+          <div className="mt-8 space-y-3">
             <ContactCard
               icon={Phone}
               label="Call us"
@@ -88,7 +88,7 @@ function Contact() {
             />
           </div>
 
-          <div className="mt-8 rounded-3xl overflow-hidden border border-plum/10 aspect-[16/9]">
+          <div className="mt-8 rounded-2xl overflow-hidden border border-plum/10 w-full aspect-[16/9]">
             <iframe
               title="MCC Catering — Pattabiram"
               src="https://www.google.com/maps?q=Pattabiram,+Chennai&output=embed"

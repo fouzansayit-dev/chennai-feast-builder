@@ -216,3 +216,121 @@
   width: 100%;
 }
 
+/* ========================================================================= */
+/* LEAVES OF LIFE DESIGN SYSTEM & ANIMATIONS                                 */
+/* ========================================================================= */
+
+@keyframes leafSway {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0px) scale(1);
+  }
+  50% {
+    transform: rotate(6deg) translateY(-8px) scale(1.03);
+  }
+}
+
+@keyframes leafFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-15px) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes goldenShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+.animate-leaf-sway {
+  animation: leafSway 6s ease-in-out infinite;
+}
+
+.animate-leaf-sway-reverse {
+  animation: leafSway 7s ease-in-out infinite reverse;
+}
+
+.animate-leaf-float {
+  animation: leafFloat 8s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-sparkle-pulse {
+  animation: sparkle-pulse 3s ease-in-out infinite;
+}
+
+.shimmer-gold {
+  background: linear-gradient(90deg, #d97706 0%, #fbbf24 50%, #d97706 100%);
+  background-size: 200% 100%;
+  animation: goldenShimmer 4s infinite linear;
+}
+
+/* Pulse animation for soft glow effect */
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 4s ease-in-out infinite;
+}
+
+/* Sparkle pulse animation */
+@keyframes sparklePulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.2);
+  }
+}
+
+.animate-sparkle-pulse {
+  animation: sparklePulse 3s ease-in-out infinite;
+}
+
+

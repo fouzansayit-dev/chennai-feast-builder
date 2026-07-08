@@ -7,6 +7,7 @@ import liveCounter from "@/assets/images-31.jpeg";
 import weddingHall from "@/assets/IMG_4558.webp";
 import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
 import buffetCounter from "@/assets/images-32.jpeg";
+import corporateCatering from "@/assets/corporate-catering.jpg";
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
 
 export interface CateringMenuOption {
@@ -25,7 +26,7 @@ export interface CateringMenuOption {
 const MENU_OPTIONS: CateringMenuOption[] = [
   {
     id: "delivery-menu",
-    title: "DELIVERY MENU",
+    title: "EXECUTIVE PACKED MEALS",
     subtitle: "Hygienic Packed Tiffin & Meal Boxes",
     img: realFeastMeal,
     packageKey: "tiffin",
@@ -93,7 +94,7 @@ const MENU_OPTIONS: CateringMenuOption[] = [
     id: "corporate-menu",
     title: "CORPORATE MENU",
     subtitle: "Punctual Executive Buffets & Conferences",
-    img: buffetCounter,
+    img: corporateCatering,
     packageKey: "tiffin",
     description:
       "Seamless corporate hospitality with professional buffet setups, high-tea arrangements, and packaged conference meal boxes.",

@@ -290,8 +290,8 @@ export default function BookingForm() {
             />
           </Field>
           <div className="text-xs text-foreground/60 bg-gold/5 border border-gold/20 rounded-xl p-4 leading-relaxed">
-            Standard packages include Vedic slow-cooked traditional Brahmin vegetarian dishes,
-            hosts in silk sarees, banana-leaf settings, and complete dining setup.
+            Standard packages include traditional South Indian vegetarian dishes,
+            polite traditional servers, banana-leaf settings, and complete dining setup.
           </div>
         </div>
       )}

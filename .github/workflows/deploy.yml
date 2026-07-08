@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build app
-        run: npm run build
+        run: npm run build:hostinger
 
       - name: Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -31,4 +31,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ./
-          local-dir: .output/public/
+          local-dir: dist/

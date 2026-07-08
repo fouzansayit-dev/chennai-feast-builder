@@ -53,33 +53,29 @@ export default function Header() {
           <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-48 opacity-0 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto transition-all duration-200 transform scale-95 origin-top group-hover/menu:scale-100 z-50">
             <div className="bg-white rounded-xl shadow-xl border border-zinc-100 py-2.5 overflow-hidden">
               <Link
-                to="/services"
+                to="/wedding-catering-services-in-chennai"
                 className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
               >
                 Weddings
               </Link>
               <Link
-                to="/services"
+                to="/engagement-catering-services-in-chennai"
                 className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
               >
                 Engagements
               </Link>
               <Link
-                to="/services"
+                to="/corporate-catering-services-in-chennai"
                 className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
               >
                 Corporate Events
               </Link>
-              <a
-                href="/#book"
-                onClick={() => {
-                  const el = document.getElementById("book");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold"
+              <Link
+                to="/services"
+                className="block px-5 py-2.5 text-[10px] text-zinc-700 hover:bg-gold/10 hover:text-gold-dark transition-colors text-left uppercase tracking-wider font-semibold border-t border-zinc-100"
               >
-                Private Parties
-              </a>
+                All Services Showcase →
+              </Link>
             </div>
           </div>
         </div>
@@ -100,13 +96,11 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border border-zinc-200/50 border-t-0 shadow-sm rounded-b-[24px] md:rounded-b-[40px]">
-      {/* Top White Row (Desktop Only) */}
-      <div
-        className={`hidden lg:block border-b border-zinc-100/80 transition-all duration-300 overflow-hidden ${
-          scrolled ? "max-h-0 opacity-0 py-0" : "max-h-24 py-3"
-        }`}
-      >
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md">
+      {/* Top White Row (Desktop Only) - Collapses on scroll */}
+      <div className={`hidden lg:block border-b border-zinc-100/80 transition-all duration-300 overflow-hidden ${
+        scrolled ? "max-h-0 py-0 opacity-0 border-none pointer-events-none" : "max-h-24 py-2 opacity-100"
+      }`}>
         <div className="max-w-7xl mx-auto px-8 flex items-center justify-between h-full">
           {/* Left Side: Address & Office Hours */}
           <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-medium tracking-wide uppercase">
@@ -128,7 +122,16 @@ export default function Header() {
           <div className="flex items-center gap-4 text-[10px] text-zinc-500 font-medium tracking-wide uppercase">
             <div className="flex items-center gap-1.5">
               <Phone className="w-3.5 h-3.5 text-gold-dark shrink-0" />
-              <span>Support: <a href="tel:+919940396005" className="hover:text-gold-dark font-bold text-zinc-700">+91 99403 96005</a></span>
+              <span>
+                Support:{" "}
+                <a href="tel:+919940396005" className="hover:text-gold-dark font-bold text-zinc-700">
+                  +91 99403 96005
+                </a>{" "}
+                /{" "}
+                <a href="tel:+919940832988" className="hover:text-gold-dark font-bold text-zinc-700">
+                  +91 99408 32988
+                </a>
+              </span>
             </div>
             <div className="w-px h-3 bg-zinc-200" />
             <Link
@@ -161,7 +164,7 @@ export default function Header() {
           <svg
             viewBox="0 0 1000 48"
             preserveAspectRatio="none"
-            className="w-full h-full text-party-peach fill-current"
+            className="w-full h-full text-party-peach fill-current filter drop-shadow-sm"
           >
             <path d="M 0,0 L 410,0 C 455,0 455,28 500,28 C 545,28 545,0 590,0 L 1000,0 L 1000,48 L 0,48 Z" />
           </svg>
@@ -229,13 +232,13 @@ export default function Header() {
       {/* Desktop Absolutely Positioned Logo Overlay */}
       <div
         className={`hidden lg:block absolute left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
-          scrolled ? "top-[2px]" : "top-[10px] md:top-[12px]"
+          scrolled ? "top-0" : "top-[10px] md:top-[12px]"
         }`}
       >
         <Link to="/" className="group block">
           <div
             className={`rounded-full bg-white border-2 border-gold shadow-lg overflow-hidden flex items-center justify-center p-0.5 transition-all duration-300 ${
-              scrolled ? "w-14 h-14 md:w-16 md:h-16" : "w-24 h-24 md:w-28 md:h-28"
+              scrolled ? "w-12 h-12 md:w-14 md:h-14" : "w-24 h-24 md:w-28 md:h-28"
             }`}
           >
             <img
@@ -276,13 +279,22 @@ export default function Header() {
                   </Link>
                 );
               })}
-              <a
-                href="tel:+919940396005"
-                className="mt-3 text-center px-5 py-3.5 rounded-full bg-gold text-plum-dark text-xs font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors flex items-center justify-center gap-2"
-              >
-                <Phone className="w-4 h-4 fill-current text-plum-dark" />
-                <span>Call: +91 99403 96005</span>
-              </a>
+              <div className="flex flex-col gap-2 mt-3 w-full">
+                <a
+                  href="tel:+919940396005"
+                  className="text-center px-5 py-3 rounded-full bg-gold text-plum-dark text-[10px] font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors flex items-center justify-center gap-2"
+                >
+                  <Phone className="w-3.5 h-3.5 fill-current text-plum-dark" />
+                  <span>Call: +91 99403 96005</span>
+                </a>
+                <a
+                  href="tel:+919940832988"
+                  className="text-center px-5 py-3 rounded-full bg-gold text-plum-dark text-[10px] font-bold uppercase tracking-[0.18em] shadow-md hover:bg-gold-dark transition-colors flex items-center justify-center gap-2"
+                >
+                  <Phone className="w-3.5 h-3.5 fill-current text-plum-dark" />
+                  <span>Call: +91 99408 32988</span>
+                </a>
+              </div>
             </div>
           </div>
         </>

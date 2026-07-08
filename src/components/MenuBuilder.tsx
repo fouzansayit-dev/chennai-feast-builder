@@ -1,17 +1,16 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Calculator, Check, Sparkles, X, Leaf, GlassWater } from "lucide-react";
+import { ArrowRight, Check, Sparkles, X, Leaf, GlassWater, Send, Users } from "lucide-react";
 
 type PackageKey = "tiffin" | "moderate" | "executive";
 
 const MENU_DATA: Record<
   PackageKey,
-  { title: string; tag: string; basePrice: number; items: Record<string, string[]> }
+  { title: string; tag: string; items: Record<string, string[]> }
 > = {
   tiffin: {
     title: "Mangala Udhayam Tiffin",
     tag: "Morning · Auspicious Tiffin",
-    basePrice: 250,
     items: {
       main: ["Idly", "Mini Idly", "Uthappam", "Rava Dosa", "Idiyappam", "Veg Stew"],
       chutneys: ["Coconut Chutney", "Kara Chutney", "Peanut Chutney", "Sambar"],
@@ -21,7 +20,6 @@ const MENU_DATA: Record<
   moderate: {
     title: "Thala Vazhai Saapadu",
     tag: "Traditional Banana Leaf Feast",
-    basePrice: 450,
     items: {
       sweets: ["Rasagulla", "Gulab Jamun"],
       starters: ["Gobi 65", "Onion Pakoda"],
@@ -45,7 +43,6 @@ const MENU_DATA: Record<
   executive: {
     title: "Raja Bhojanam Feast",
     tag: "Royal Wedding Luxury Feast",
-    basePrice: 650,
     items: {
       sweets: ["Rasamalai", "Malai Roll", "Ghevar", "Raj Bhog", "Elaneer Payasam"],
       starters: ["Veg Spring Roll", "Veg Cutlet", "Veg Fish Fry", "Paneer Tikka"],
@@ -134,17 +131,6 @@ export default function MenuBuilder() {
     return Object.values(current.items).flat().length;
   }, [current]);
 
-  const pricePerPlate = useMemo(() => {
-    if (selectedItems.length === 0) return 0;
-    // 60% base package service + 40% proportional to items selected
-    const baseRatio = 0.6;
-    const itemRatio = 0.4;
-    const selectedRatio = selectedItems.length / totalItemsCount;
-    return Math.round(current.basePrice * (baseRatio + itemRatio * selectedRatio));
-  }, [current, selectedItems, totalItemsCount]);
-
-  const total = useMemo(() => pricePerPlate * guests, [pricePerPlate, guests]);
-
   // Set all items of the selected package by default
   useEffect(() => {
     const allItems = Object.values(current.items).flat();
@@ -174,7 +160,7 @@ export default function MenuBuilder() {
             Build Your Traditional Feast
           </h2>
           <p className="text-foreground/70">
-            Select a package, adjust your guest count, and toggle items. Watch them arrange dynamically on the banana leaf plate!
+            Select a package, toggle your favorite dishes, and customize your headcount. Watch your items arrange dynamically on the banana leaf plate!
           </p>
         </div>
 
@@ -238,7 +224,7 @@ export default function MenuBuilder() {
             </div>
           </div>
 
-          {/* Column 2: Leaf Platter Preview & Quote */}
+          {/* Column 2: Leaf Platter Preview & Menu Request */}
           <div className="space-y-6">
             
             {/* Visual Banana Leaf Platter */}
@@ -267,7 +253,6 @@ export default function MenuBuilder() {
                   
                   {/* Top segment: Salt, Pickle, Poriyals */}
                   <div className="flex justify-between w-full min-h-[75px] border-b border-yellow-300/10 pb-2">
-                    {/* Top Left: Salt, Pickles, Raitha */}
                     <div className="flex flex-col gap-1 w-[45%] items-start pl-1">
                       <span className="text-[7px] text-yellow-300/60 uppercase font-bold tracking-widest">Sides</span>
                       <div className="flex flex-wrap gap-0.5">
@@ -279,7 +264,6 @@ export default function MenuBuilder() {
                       </div>
                     </div>
 
-                    {/* Top Right: Curries, Poriyal */}
                     <div className="flex flex-col gap-1 w-[45%] items-end pr-1 text-right">
                       <span className="text-[7px] text-yellow-300/60 uppercase font-bold tracking-widest">Veggies</span>
                       <div className="flex flex-wrap gap-0.5 justify-end">
@@ -294,7 +278,6 @@ export default function MenuBuilder() {
 
                   {/* Middle segment: Breads, Sweets, Rice courses */}
                   <div className="flex justify-between w-full flex-1 py-3 border-b border-yellow-300/10">
-                    {/* Bottom Left: Sweets, Breads, Tiffin */}
                     <div className="flex flex-col gap-1 w-[45%] items-start pl-1 justify-center">
                       <span className="text-[7px] text-yellow-300/60 uppercase font-bold tracking-widest">Sweets & Breads</span>
                       <div className="flex flex-col gap-0.5 items-start">
@@ -306,7 +289,6 @@ export default function MenuBuilder() {
                       </div>
                     </div>
 
-                    {/* Bottom Right: Main Rice courses & Sambar */}
                     <div className="flex flex-col gap-1.5 w-[45%] items-end pr-1 justify-center text-right">
                       <span className="text-[7px] text-yellow-300/60 uppercase font-bold tracking-widest">Mains (Rice)</span>
                       <div className="flex flex-col gap-0.5 items-end">
@@ -329,7 +311,6 @@ export default function MenuBuilder() {
                       )}
                     </div>
 
-                    {/* Drinks Tumbler */}
                     <div className="flex gap-1 items-end">
                       {selectedItems.filter(item => getItemPlacement(item) === 'drinks').slice(0, 2).map(item => (
                         <div
@@ -348,83 +329,6 @@ export default function MenuBuilder() {
               </div>
             </div>
 
-            {/* Quote Panel */}
-            <div className="bg-plum-dark text-cream rounded-3xl p-8 border border-gold/30 shadow-glow-gold">
-              <div className="flex items-center gap-2 mb-6">
-                <Calculator className="w-4 h-4 text-gold" />
-                <h3 className="font-serif text-xl text-gold">Live Quote Calculator</h3>
-              </div>
-
-              <div className="mb-8">
-                <div className="flex justify-between text-sm mb-3">
-                  <span className="text-cream/70">Number of Guests</span>
-                  <span className="font-semibold text-gold">{guests}</span>
-                </div>
-                <input
-                  type="range"
-                  min={50}
-                  max={2000}
-                  step={10}
-                  value={guests}
-                  onChange={(e) => setGuests(Number(e.target.value))}
-                  className="w-full h-1.5 bg-cream/15 rounded-full appearance-none cursor-pointer accent-gold"
-                />
-                <div className="flex justify-between text-[10px] text-cream/45 mt-2 tracking-widest uppercase">
-                  <span>50</span>
-                  <span>2000+</span>
-                </div>
-              </div>
-
-              <div className="space-y-3 mb-8 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-cream/60">Base rate / plate</span>
-                  <span>₹{current.basePrice}</span>
-                </div>
-                {pricePerPlate !== current.basePrice && (
-                  <div className="flex justify-between text-gold font-semibold">
-                    <span className="text-cream/65">Adjusted rate / plate</span>
-                    <span>₹{pricePerPlate}</span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-cream/60">Estimated count</span>
-                  <span>{guests} pax</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-cream/60">Custom Items Selected</span>
-                  <span className="text-gold">{selectedItems.length} / {totalItemsCount} items</span>
-                </div>
-                <div className="border-t border-gold/20 pt-4 flex justify-between items-end">
-                  <span className="text-cream/70 text-xs uppercase tracking-widest">Total est.</span>
-                  <span className="font-serif text-3xl text-gold-gradient">
-                    ₹{total.toLocaleString("en-IN")}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setModal(true)}
-                className="w-full py-4 bg-gold hover:bg-gold-light text-plum-dark font-semibold rounded-xl flex items-center justify-center gap-2 transition-all group text-sm shadow-md"
-              >
-                Request Custom Feast Proposal
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button
-                onClick={() => {
-                  const text = `Hello MCC Caterers! I customized a menu on your website:\n*Package:* ${current.title}\n*Guests:* ${guests} pax\n*Rate / Plate:* ₹${pricePerPlate}\n*Est. Total:* ₹${total.toLocaleString("en-IN")}\n*Items (${selectedItems.length}):* ${selectedItems.join(", ")}`;
-                  window.open(`https://wa.me/919940396005?text=${encodeURIComponent(text)}`, "_blank");
-                }}
-                className="w-full mt-3 py-3 bg-[#25D366] hover:bg-[#1DA851] text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all text-xs uppercase tracking-wider"
-              >
-                <span>Share Custom Menu via WhatsApp</span>
-              </button>
-
-              <p className="text-[11px] text-cream/50 text-center mt-3">
-                MCC will contact you with a detailed menu pdf within 1 hour.
-              </p>
-            </div>
-
           </div>
 
         </div>
@@ -434,7 +338,6 @@ export default function MenuBuilder() {
         <QuoteModal
           title={current.title}
           guests={guests}
-          total={total}
           itemsCount={selectedItems.length}
           onClose={() => setModal(false)}
         />
@@ -446,13 +349,11 @@ export default function MenuBuilder() {
 function QuoteModal({
   title,
   guests,
-  total,
   itemsCount,
   onClose,
 }: {
   title: string;
   guests: number;
-  total: number;
   itemsCount: number;
   onClose: () => void;
 }) {
@@ -469,8 +370,7 @@ function QuoteModal({
         `• Phone/WhatsApp: ${phone}\n` +
         `• Selected Package: ${title}\n` +
         `• Items Count: ${itemsCount} items\n` +
-        `• Guest Count: ${guests} pax\n` +
-        `• Est. Total: ₹${total.toLocaleString("en-IN")}\n\n` +
+        `• Guest Count: ${guests} pax\n\n` +
         `Please contact me with a formal menu card PDF and availability.\n\nThank you!`
     );
     return `mailto:mychennaicateringservices@gmail.com?subject=${subject}&body=${body}`;
@@ -483,7 +383,6 @@ function QuoteModal({
         `*Package:* ${title}\n` +
         `*Items:* ${itemsCount} items\n` +
         `*Guests:* ${guests} pax\n` +
-        `*Est. Total:* ₹${total.toLocaleString("en-IN")}\n` +
         `*Phone:* ${phone}`
     );
     return `https://wa.me/919940396005?text=${text}`;
@@ -507,7 +406,6 @@ function QuoteModal({
           packageTitle: title,
           itemsCount,
           guestsCount: guests,
-          estimatedTotal: `₹${total.toLocaleString("en-IN")}`,
           _replyto: "mychennaicateringservices@gmail.com",
         }),
       });
@@ -544,7 +442,7 @@ function QuoteModal({
             </div>
             <h4 className="font-serif text-xl text-plum font-semibold mb-2">Request Sent!</h4>
             <p className="text-xs text-foreground/75 mb-5 leading-relaxed">
-              Your customized proposal for <strong>{title}</strong> has been sent to <strong>mychennaicateringservices@gmail.com</strong>.
+              Your customized proposal request for <strong>{title}</strong> has been sent to <strong>mychennaicateringservices@gmail.com</strong>.
               MCC team will contact <strong>{phone}</strong> shortly.
             </p>
 
@@ -577,8 +475,8 @@ function QuoteModal({
         ) : (
           <>
             <p className="text-sm text-foreground/70 mb-5">
-              You customized <strong>{title}</strong> ({itemsCount} items) for <strong>{guests} guests</strong> at ~
-              <strong className="text-leaf">₹{total.toLocaleString("en-IN")}</strong>. Share your contact info to receive the formal proposal call.
+              You customized <strong>{title}</strong> ({itemsCount} items) for <strong>{guests} guests</strong>.
+              Share your contact info to receive the formal proposal call.
             </p>
             <form onSubmit={handleSubmit} className="space-y-3">
               <input

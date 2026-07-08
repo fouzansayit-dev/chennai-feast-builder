@@ -15,6 +15,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CateringChatbot from "../components/CateringChatbot";
 import MobileFloatingBar from "../components/MobileFloatingBar";
+import MobileAppHeader from "../components/MobileAppHeader";
+import MobileAppTabBar from "../components/MobileAppTabBar";
+import { PageFeedbackToolbarCSS as Agentation } from 'agentation';
 
 function NotFoundComponent() {
   return (
@@ -80,14 +83,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "google-site-verification", content: "iskY54kELn4t9PipXtjEGZiUUkiwZaJje7X4ZOefxxM" },
       { name: "google-site-verification", content: "Sf6EtASU8psKTnEPh918aHupgQ3ZU4QjB7dl3Ur1KDg" },
       { title: "MCC Catering — Authentic South Indian Wedding Catering in Chennai" },
-      { name: "description", content: "20+ years of pure Sattvik vegetarian wedding & event catering across Chennai. Banana-leaf feasts, live counters and luxury reception buffets by D. Venkat." },
+      { name: "description", content: "20+ years of premium wedding & event catering across Chennai. Banana-leaf feasts, live counters, and luxury reception buffets by D. Venkat." },
       { name: "author", content: "My Chennai Catering Services" },
       { property: "og:title", content: "MCC Catering — Premium South Indian Wedding Caterers, Chennai" },
-      { property: "og:description", content: "Authentic Brahmin vegetarian catering for weddings, receptions and traditional celebrations in Chennai." },
+      { property: "og:description", content: "Authentic wedding and event catering for weddings, receptions, and traditional celebrations in Chennai." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "MCC Catering — Chennai" },
@@ -124,13 +127,42 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col bg-background text-foreground pb-16 lg:pb-0">
-        <Header />
-        <main className="flex-1 pt-[60px] lg:pt-[132px]">
+      <div className="min-h-screen flex flex-col bg-background text-foreground pb-20 lg:pb-0">
+        {/* Desktop Header */}
+        <div className="hidden lg:block">
+          <Header />
+        </div>
+        
+        {/* Mobile App Header */}
+        <MobileAppHeader />
+
+        <main className="flex-1 pt-[148px] lg:pt-[120px]">
           <Outlet />
         </main>
-        <Footer />
-        <MobileFloatingBar />
+
+        {/* Desktop Footer */}
+        <div className="hidden lg:block">
+          <Footer />
+        </div>
+
+        {/* Mobile App Bottom Tab Bar */}
+        <MobileAppTabBar />
+
+        {/* Agentation Feedback Tool (Development Only) */}
+        {process.env.NODE_ENV === 'development' && (
+          <Agentation
+            onSubmit={(output, annotations) => {
+              console.log('Agentation feedback submitted:', { output, annotations });
+              // In a real app, you might send this to your backend API
+              // fetch('/api/feedback', {
+              //   method: 'POST',
+              //   headers: { 'Content-Type': 'application/json' },
+              //   body: JSON.stringify({ output, annotations })
+              // });
+            }}
+          />
+        )}
+
         <CateringChatbot />
       </div>
     </QueryClientProvider>
