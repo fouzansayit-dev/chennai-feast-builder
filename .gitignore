@@ -33,3 +33,4 @@ dist-ssr
 *.zip
 hostinger_key*
 *.mp4
+.env
