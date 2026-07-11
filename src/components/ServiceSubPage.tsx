@@ -212,8 +212,8 @@ export default function ServiceSubPage({
                 </div>
                 <div>
                   <div className="text-[11px] text-slate-500 uppercase font-semibold">Custom Menu Customizer</div>
-                  <Link to="/builder" className="font-bold text-emerald-800 hover:underline text-sm">
-                    Build Your Custom Menu Interactive Tool →
+                  <Link to="/customize" className="font-bold text-emerald-800 hover:underline text-sm">
+                    Customize Your Custom Menu Interactive Tool →
                   </Link>
                 </div>
               </div>

@@ -9,7 +9,7 @@ const NAV = [
   { to: "/about", label: "About Us", hash: undefined },
   { to: "/services", label: "Services", hash: undefined },
   { to: "/menu", label: "Menu", hash: undefined },
-  { to: "/builder", label: "Customize your own menu ✦", hash: undefined },
+  { to: "/customize", label: "Customize your own menu ✦", hash: undefined },
   { to: "/gallery", label: "Gallery", hash: undefined },
   { to: "/", hash: "testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact Us", hash: undefined },
@@ -34,7 +34,7 @@ export default function Header() {
       return (
         <Link
           key={n.label}
-          to="/builder"
+          to="/customize"
           className="px-3.5 py-1.5 rounded-full bg-[#3E2E23] hover:bg-[#2A1E16] text-[#FFD700] hover:text-white text-[10px] xl:text-[11px] uppercase tracking-[0.12em] font-extrabold transition-all duration-300 shadow-lg flex items-center gap-1.5 border-2 border-[#FFD700] active:scale-95 shrink-0"
         >
           <span>CUSTOMIZE YOUR OWN MENU</span>
@@ -206,7 +206,7 @@ export default function Header() {
           </div>
 
           <Link
-            to="/builder"
+            to="/customize"
             className="px-2.5 py-1.5 rounded-full bg-[#3E2E23] text-[#FFD700] text-[8.5px] uppercase tracking-wider font-extrabold flex items-center gap-1 border border-[#FFD700] shadow-sm active:scale-95"
           >
             <span>Customize Menu</span>

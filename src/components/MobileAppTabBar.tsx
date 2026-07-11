@@ -1,10 +1,11 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { Home, UtensilsCrossed, ChefHat, Image as ImageIcon, PhoneCall } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
 
 const TABS = [
   { to: "/", label: "Home", icon: Home, exact: true },
   { to: "/services", label: "Services", icon: UtensilsCrossed, exact: false },
-  { to: "/builder", label: "Build", icon: ChefHat, exact: false, center: true },
+  { to: "/customize", label: "Customize", icon: ChefHat, exact: false, center: true },
   { to: "/gallery", label: "Gallery", icon: ImageIcon, exact: false },
   { to: "/contact", label: "Contact", icon: PhoneCall, exact: false },
 ];
@@ -12,6 +13,7 @@ const TABS = [
 export default function MobileAppTabBar() {
   const router = useRouter();
   const currentPath = router.state.location.pathname;
+  const { totalCount } = useCart();
 
   const isActive = (to: string, exact: boolean) =>
     exact ? currentPath === to : currentPath.startsWith(to);
@@ -28,13 +30,18 @@ export default function MobileAppTabBar() {
               <div key={tab.label} className="relative -top-5 flex flex-col items-center">
                 <Link
                   to={tab.to}
-                  className={`w-[52px] h-[52px] rounded-2xl flex items-center justify-center shadow-lg active:scale-90 transition-all duration-200 ${
+                  className={`w-[52px] h-[52px] rounded-2xl flex items-center justify-center shadow-lg active:scale-90 transition-all duration-200 relative ${
                     active
                       ? "bg-[#1E1108] ring-4 ring-amber-400/40"
                       : "bg-[#1E1108] hover:bg-[#2e1e10]"
                   }`}
                 >
                   <Icon className="w-6 h-6 text-amber-400" />
+                  {totalCount > 0 && (
+                    <span className="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full shadow-md animate-pulse">
+                      {totalCount}
+                    </span>
+                  )}
                 </Link>
                 <span className={`text-[8px] font-extrabold uppercase tracking-widest mt-1.5 ${
                   active ? "text-amber-600" : "text-neutral-500"

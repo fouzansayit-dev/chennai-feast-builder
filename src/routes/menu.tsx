@@ -90,7 +90,7 @@ function MenuPage() {
         </div>
         <Reveal>
           <div className="relative text-center max-w-3xl mx-auto px-6 text-cream z-10">
-            <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Feast & Menu</span>
+            <span className="text-[11px] uppercase tracking-[0.3em] text-gold font-bold">Saapadu & Menu</span>
             <h1 className="font-serif text-5xl md:text-6xl mt-4">
               Explore Our <span className="text-gold-gradient italic">Delicious Veg Catering Menu</span>
             </h1>
@@ -128,7 +128,7 @@ function MenuPage() {
         </div>
       </section>
 
-      {/* INTERACTIVE FEAST PLANNER CTA BANNER */}
+      {/* INTERACTIVE SAAPADU PLANNER CTA BANNER */}
       <section className="py-20 bg-gradient-to-r from-[#4d1234] via-[#541539] to-[#3f0e2b] text-white text-center relative overflow-hidden border-t border-amber-400/30">
         <div className="max-w-3xl mx-auto px-6 relative z-10 space-y-4">
           <span className="text-amber-300 text-xs uppercase tracking-[0.25em] font-bold inline-flex items-center gap-1.5">
@@ -136,17 +136,17 @@ function MenuPage() {
             Interactive Customizer
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white">
-            Want to Build Your Own Custom Feast?
+            Want to Customize Your Own Saapadu?
           </h2>
           <p className="text-amber-100/90 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
             Use our interactive plate calculator to select packages, toggle custom items, adjust guest counts, and calculate live quotes!
           </p>
           <div className="pt-2">
             <Link
-              to="/builder"
+              to="/customize"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-400 text-plum-dark font-extrabold text-xs uppercase tracking-[0.2em] rounded-full shadow-xl transition-all duration-300 group"
             >
-              <span>OPEN FEAST BUILDER</span>
+              <span>OPEN SAAPADU CUSTOMIZER</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

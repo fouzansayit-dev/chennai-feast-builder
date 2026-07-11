@@ -18,6 +18,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@tanstack/react-start": path.resolve(__dirname, "./src/lib/shims/react-start-shim.ts"),
     },
     dedupe: [
       "react",
@@ -28,8 +29,17 @@ export default defineConfig({
       "@tanstack/query-core",
     ],
   },
+  define: {
+    "process.env": {},
+  },
   build: {
     outDir: "dist",
     emptyOutDir: true,
   },
+  optimizeDeps: {
+    exclude: ['@google/genai']
+  },
+  ssr: {
+    external: ['@google/genai']
+  }
 });

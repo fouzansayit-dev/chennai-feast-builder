@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, Sparkles, X, Leaf, GlassWater, Send, Users } from "lucide-react";
+import { enquiriesAPI } from "@/services/crmApi";
 
 type PackageKey = "tiffin" | "moderate" | "executive";
 
@@ -393,24 +394,19 @@ function QuoteModal({
     setSubmitting(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          _subject: `Custom Menu Proposal: ${title} - ${name}`,
-          name,
-          phone,
-          packageTitle: title,
-          itemsCount,
-          guestsCount: guests,
-          _replyto: "mychennaicateringservices@gmail.com",
-        }),
+      // Save booking directly to admin CRM database (no auth required)
+      await enquiriesAPI.create({
+        name,                     // backend expects: name
+        phone,                    // backend expects: phone
+        event_type: title,
+        event_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0], // default: 30 days from now
+        guests: guests,
+        package: title,
+        special_requests: `Custom Menu Proposal via website. Items selected: ${itemsCount}.`,
       });
     } catch (err) {
-      console.warn("API proposal submission attempt finished.", err);
+      // Non-blocking: submission still "succeeds" from user perspective
+      console.warn("Booking save to CRM failed (backend may be offline):", err);
     } finally {
       setSubmitting(false);
       setSubmitted(true);

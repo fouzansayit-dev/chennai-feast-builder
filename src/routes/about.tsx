@@ -154,11 +154,11 @@ export function About() {
             <Reveal delay={0.2}>
               <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <Link
-                  to="/builder"
+                  to="/customize"
                   className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-amber-300 text-[#3A1029] text-xs font-bold uppercase tracking-wider shadow-lg hover:brightness-105 transition-all flex items-center gap-2"
                 >
                   <Utensils className="w-4 h-4" />
-                  <span>Build Your Custom Menu</span>
+                  <span>Customize Your Custom Menu</span>
                 </Link>
 
                 <a

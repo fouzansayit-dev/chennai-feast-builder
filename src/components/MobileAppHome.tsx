@@ -10,7 +10,10 @@ import {
   Trash,
   Phone,
   ArrowRight,
+  ShoppingCart,
 } from "lucide-react";
+import { useCart, ALL_DISHES } from "@/hooks/useCart";
+import { toast } from "sonner";
 
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
 import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
@@ -28,6 +31,7 @@ import aiWeddingFeast from "@/assets/ai-wedding-feast.png";
 import aiTiffinFeast from "@/assets/ai-tiffin-feast.png";
 import aiSweetsFeast from "@/assets/ai-sweets-feast.png";
 import BookingForm from "./BookingForm";
+import HowItWorksSection from "./HowItWorksSection";
 
 const HERO_CAROUSEL_SLIDES = [
   {
@@ -122,6 +126,7 @@ const PACKAGES = [
     badge: "Premium",
     badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
     highlights: ["Sarkkarai Pongal", "Authentic Sambar", "Elaneer Payasam", "Live Appam"],
+    packageKey: "moderate" as const
   },
   {
     id: "pkg2",
@@ -134,6 +139,7 @@ const PACKAGES = [
     badge: "Special",
     badgeColor: "bg-rose-100 text-rose-800 border-rose-300",
     highlights: ["Bridal Table Setup", "Traditional Saapadu", "Ghee Sweets", "Tender Coconut"],
+    packageKey: "executive" as const
   },
   {
     id: "pkg3",
@@ -146,20 +152,22 @@ const PACKAGES = [
     badge: "Corporate",
     badgeColor: "bg-sky-100 text-sky-800 border-sky-300",
     highlights: ["Live Chat Station", "Veg Biryani", "Tandoori Platters", "Filter Coffee"],
+    packageKey: "tiffin" as const
   },
 ];
 
 const TASTING_ITEMS = [
-  { id: "t1", name: "Elaneer Payasam", category: "Desserts", img: gulabJamun },
-  { id: "t2", name: "Ghee Mysore Pak", category: "Sweets", img: aiSweetsFeast },
-  { id: "t3", name: "Mini Podi Idli", category: "Starters", img: aiTiffinFeast },
-  { id: "t4", name: "Kasi Halwa", category: "Sweets", img: brassLamps },
-  { id: "t5", name: "Banana Leaf Feast", category: "Feast", img: realFeastMeal },
+  { id: "l1", name: "Elaneer Payasam", category: "Desserts", img: gulabJamun },
+  { id: "l2", name: "Ghee Mysore Pak", category: "Sweets", img: aiSweetsFeast },
+  { id: "b5", name: "Mini Podi Idli", category: "Starters", img: aiTiffinFeast },
+  { id: "s1", name: "Chettinad Onion Pakoda", category: "Snacks", img: brassLamps },
+  { id: "l11", name: "Thala Vazhai Ela", category: "Feast", img: realFeastMeal },
 ];
 
 
 
 export default function MobileAppHome() {
+  const { addToCart, removeFromCart, cartItems, totalCount, guestCount } = useCart();
   const [tastingTray, setTastingTray] = useState<typeof TASTING_ITEMS>([]);
   const [activePkg, setActivePkg] = useState(0);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
@@ -186,12 +194,31 @@ export default function MobileAppHome() {
   }, [activePkg]);
 
   const toggleTastingItem = (item: typeof TASTING_ITEMS[number]) => {
-    if (tastingTray.some((t) => t.id === item.id)) {
+    const isAlreadyInTray = tastingTray.some((t) => t.id === item.id);
+    if (isAlreadyInTray) {
       setTastingTray(tastingTray.filter((t) => t.id !== item.id));
+      removeFromCart(item.id);
+      toast.success(`Removed ${item.name} from Cart`);
     } else {
-      if (tastingTray.length >= 4) return;
+      if (tastingTray.length >= 4) {
+        toast.error("You can select up to 4 items for the Tasting Tray!");
+        return;
+      }
       setTastingTray([...tastingTray, item]);
+      addToCart(item.id, 1);
+      toast.success(`Added ${item.name} to Cart`);
     }
+  };
+
+  const addPackageToCart = (packageKey: "tiffin" | "moderate" | "executive", title: string) => {
+    const dishes = ALL_DISHES.filter((d) => {
+      if (packageKey === "tiffin") return d.slot === "breakfast";
+      if (packageKey === "moderate") return d.slot === "lunch";
+      return d.slot === "dinner" || d.slot === "lunch";
+    });
+    
+    dishes.forEach((d) => addToCart(d.id, 1));
+    toast.success(`Added ${dishes.length} items from ${title} package to Cart!`);
   };
 
   const slide = HERO_CAROUSEL_SLIDES[currentHeroSlide];
@@ -354,7 +381,7 @@ export default function MobileAppHome() {
         </Link>
       </div>
 
-      {/* ── FEAST BUILDER CTA ────────────────────────────────────────────── */}
+      {/* ── SAAPADU CUSTOMIZER CTA ────────────────────────────────────────────── */}
       <div className="px-4 py-3">
         <div className="bg-[#1E1108] text-[#FAF7F3] rounded-2xl p-5 border border-amber-900/30 shadow-xl relative overflow-hidden">
           {/* Decorative circle */}
@@ -369,14 +396,14 @@ export default function MobileAppHome() {
                 <Sparkles className="w-2.5 h-2.5" /> Core Feature
               </span>
               <h2 className="font-serif text-[1.1rem] font-bold text-amber-100 leading-snug">
-                Build Your Own<br />Feast Menu
+                Customize Your Own<br />Saapadu Menu
               </h2>
               <p className="text-[10px] text-[#FAF7F3]/60 mt-1.5 leading-relaxed">
                 Pick items, calculate plate costs & get an instant custom quote.
               </p>
             </div>
             <Link
-              to="/builder"
+              to="/customize"
               className="shrink-0 w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-md active:scale-90 transition-transform mt-1"
             >
               <ArrowRight className="w-5 h-5 text-white" />
@@ -384,10 +411,10 @@ export default function MobileAppHome() {
           </div>
 
           <Link
-            to="/builder"
+            to="/customize"
             className="mt-4 flex items-center justify-between w-full bg-amber-500/10 hover:bg-amber-500/15 text-amber-300 px-4 py-2.5 rounded-xl border border-amber-500/20 text-[10px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform relative z-10"
           >
-            <span>Launch Feast Builder</span>
+            <span>Launch Saapadu Customizer</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -476,13 +503,25 @@ export default function MobileAppHome() {
                 <span className="text-[9px] text-neutral-400 font-semibold">
                   {pkg.itemsCount} items
                 </span>
-                <Link
-                  to="/builder"
-                  onClick={(e) => e.stopPropagation()}
-                  className="bg-[#1E1108] text-amber-300 px-3 py-1.5 rounded-full text-[8.5px] font-extrabold uppercase tracking-wide active:scale-90 transition-all border border-amber-900/20"
-                >
-                  Customize
-                </Link>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addPackageToCart(pkg.packageKey, pkg.title);
+                    }}
+                    className="bg-amber-500 hover:bg-amber-600 text-white p-1.5 rounded-full active:scale-90 transition-all flex items-center justify-center shrink-0"
+                    title="Add package to Cart"
+                  >
+                    <ShoppingCart className="w-3.5 h-3.5" />
+                  </button>
+                  <Link
+                    to="/customize"
+                    onClick={(e) => e.stopPropagation()}
+                    className="bg-[#1E1108] text-amber-300 px-3 py-1.5 rounded-full text-[8.5px] font-extrabold uppercase tracking-wide active:scale-90 transition-all border border-amber-900/20"
+                  >
+                    Customize
+                  </Link>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -511,7 +550,7 @@ export default function MobileAppHome() {
               <span className="text-[8.5px] font-extrabold text-amber-700 uppercase tracking-[0.2em] block mb-0.5">
                 Interactive
               </span>
-              <h3 className="font-serif text-base font-bold text-[#1A1208]">Taste Tray Builder</h3>
+              <h3 className="font-serif text-base font-bold text-[#1A1208]">Taste Tray Customizer</h3>
             </div>
             <div className="bg-[#1E1108] text-amber-300 text-[9px] font-extrabold px-2.5 py-1 rounded-full border border-amber-900/20">
               🍽 {tastingTray.length}/4
@@ -589,17 +628,20 @@ export default function MobileAppHome() {
             })}
           </div>
 
-          {tastingTray.length > 0 && (
+          {totalCount > 0 && (
             <Link
-              to="/builder"
-              className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 bg-[#1E1108] text-amber-300 rounded-xl text-[9.5px] font-extrabold uppercase tracking-wider active:scale-95 transition-transform"
+              to="/customize"
+              className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-xl text-[9.5px] font-extrabold uppercase tracking-wider active:scale-95 transition-all shadow-lg"
             >
-              Create Custom Menu with These Items
+              View Cart & Customize ({totalCount} Items)
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           )}
         </div>
       </div>
+
+      {/* ── HOW IT WORKS ─────────────────────────────────────────────────── */}
+      <HowItWorksSection />
 
       {/* ── WHY MCC ──────────────────────────────────────────────────────── */}
       <div className="px-4 py-4">

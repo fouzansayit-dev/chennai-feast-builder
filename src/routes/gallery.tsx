@@ -15,10 +15,10 @@ export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Gallery | Wedding Catering & South Indian Food Setup in Chennai" },
-      { name: "description", content: "VIP Wedding Couple Catering Setup. Explore photo gallery of wedding catering setups, traditional banana leaf feasts, live food counters, and event decor by My Chennai Catering Services." },
+      { name: "description", content: "VIP Wedding Couple Catering Setup. Explore photo gallery of wedding catering setups, traditional banana leaf saapadu, live food counters, and event decor by My Chennai Catering Services." },
       { name: "robots", content: "index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large" },
       { property: "og:title", content: "Gallery | Wedding Catering & South Indian Food Setup in Chennai" },
-      { property: "og:description", content: "VIP Wedding Couple Catering Setup. View catering setups, banana leaf feasts, and live counters." },
+      { property: "og:description", content: "VIP Wedding Couple Catering Setup. View catering setups, banana leaf saapadu, and live counters." },
       { property: "og:url", content: "https://mychennaicateringservices.com/gallery/" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "en_IN" },
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/gallery")({
           "@type": "ImageGallery",
           "name": "My Chennai Catering Event Gallery",
           "url": "https://mychennaicateringservices.com/gallery/",
-          "description": "Photo gallery showcasing VIP wedding catering setups, traditional South Indian banana leaf feasts, live counters, and dessert stalls in Chennai."
+          "description": "Photo gallery showcasing VIP wedding catering setups, traditional South Indian banana leaf saapadu, live counters, and dessert stalls in Chennai."
         })
       }
     ]
@@ -54,15 +54,15 @@ const GALLERY_ITEMS = [
   },
   {
     title: "Authentic Thala Vazhai Saapadu",
-    category: "Traditional Feasts",
+    category: "Traditional Saapadu",
     img: realFeastMeal,
     desc: "Traditional course-by-course South Indian banana leaf wedding meal."
   },
   {
-    title: "Grand Wedding Banquet Feast",
-    category: "Traditional Feasts",
+    title: "Grand Wedding Banquet Saapadu",
+    category: "Traditional Saapadu",
     img: bananaLeafFeastBlended,
-    desc: "20+ item Sattvik Brahmin feast served with pure ghee."
+    desc: "20+ item Sattvik Brahmin saapadu served with pure ghee."
   },
   {
     title: "Live Dosa & Chaat Counter",

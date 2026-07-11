@@ -15,6 +15,7 @@
   "dependencies": {
     "@fontsource/playfair-display": "^5.2.8",
     "@fontsource/poppins": "^5.2.7",
+    "@google/genai": "^2.10.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -58,6 +59,7 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.575.0",
     "motion": "^12.42.2",
+    "nodemailer": "^9.0.3",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
     "react-dom": "^19.2.0",
@@ -77,6 +79,7 @@
     "@types/animejs": "^3.1.13",
     "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.16.5",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.2.0",

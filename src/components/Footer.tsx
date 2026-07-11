@@ -62,10 +62,10 @@ export default function Footer() {
                 Leaves of Life Tradition
               </div>
               <h3 className="font-serif text-2xl sm:text-3xl font-bold tracking-wide text-white drop-shadow-sm flex items-center justify-center lg:justify-start gap-2.5">
-                <span>Planning a Royal Grand Feast?</span>
+                <span>Planning a Royal Grand Virundhu?</span>
               </h3>
               <p className="text-amber-100/90 text-xs sm:text-sm font-normal max-w-xl leading-relaxed">
-                Experience authentic grand feasts served with love on fresh banana leaves.
+                Experience authentic grand Saapadu served with love on fresh banana leaves.
               </p>
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function Footer() {
               className="relative inline-flex items-center justify-center px-6 py-3 text-xs sm:text-sm font-bold tracking-wider uppercase text-emerald-950 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300 hover:from-amber-200 hover:to-amber-300 rounded-full shadow-[0_4px_25px_rgba(245,158,11,0.5)] hover:shadow-[0_6px_30px_rgba(245,158,11,0.7)] transform hover:-translate-y-0.5 transition-all duration-300 border border-amber-200 shrink-0"
             >
               <Leaf className="w-4 h-4 mr-2 text-emerald-900" />
-              <span>EXPLORE FEAST MENUS</span>
+              <span>EXPLORE SAAPADU MENUS</span>
               <ArrowUpRight className="w-4 h-4 ml-1.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
 
@@ -152,7 +152,7 @@ export default function Footer() {
               </div>
 
               <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-                Crafting royal South Indian banana-leaf feasts with authentic flavors & traditional hospitality.
+                Crafting royal South Indian banana-leaf Saapadu with authentic flavors & traditional hospitality.
               </p>
 
               {/* Eco-Friendly Sattvik Leaf Tag */}
@@ -210,7 +210,7 @@ export default function Footer() {
                   { label: "Home", path: "/" },
                   { label: "About Us", path: "/about" },
                   { label: "Catering Services", path: "/services" },
-                  { label: "Feast Menus", path: "/menu" },
+                  { label: "Saapadu Menus", path: "/menu" },
                   { label: "Event Gallery", path: "/gallery" },
                   { label: "Contact Us", path: "/contact" },
                   { label: "Catering CRM Portal", path: "/crm" },
@@ -236,7 +236,7 @@ export default function Footer() {
               </h4>
               <ul className="space-y-2.5 text-xs sm:text-sm font-medium text-slate-700">
                 {[
-                  "Wedding Virundhu Feasts",
+                  "Wedding Virundhu Saapadu",
                   "Premium Veg & Non-Veg Catering",
                   "Engagement & Reception Buffets",
                   "Live Tiffin & Sweet Counters",

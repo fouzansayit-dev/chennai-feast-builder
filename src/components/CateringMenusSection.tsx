@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, X, ArrowRight, Check, Sparkles } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
@@ -106,12 +106,59 @@ const MENU_OPTIONS: CateringMenuOption[] = [
 ];
 
 export default function CateringMenusSection() {
+  const [menuOptions, setMenuOptions] = useState<CateringMenuOption[]>(MENU_OPTIONS);
   const [selectedMenu, setSelectedMenu] = useState<CateringMenuOption | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${base}/menu-packages`);
+        const result = await res.json();
+        if (result.success && Array.isArray(result.data)) {
+          const dbPkgs = result.data;
+          
+          const updatedOptions = MENU_OPTIONS.map(opt => {
+            const match = dbPkgs.find((p: any) => p.name.toLowerCase() === opt.title.toLowerCase());
+            if (match) {
+              return {
+                ...opt,
+                description: match.description || opt.description,
+                subtitle: match.price ? `₹${match.price} per plate` : opt.subtitle
+              };
+            }
+            return opt;
+          });
+
+          dbPkgs.forEach((p: any) => {
+            const exists = MENU_OPTIONS.some(opt => opt.title.toLowerCase() === p.name.toLowerCase());
+            if (!exists) {
+              updatedOptions.push({
+                id: `db-pkg-${p.id}`,
+                title: p.name,
+                subtitle: p.price ? `₹${p.price} per plate` : "Custom Premium Package",
+                img: realFeastMeal,
+                description: p.description || "Premium catering services customized to your event requirements.",
+                courses: [
+                  { category: "Menu Details", items: [p.description || "Customized catering menu options"] }
+                ]
+              });
+            }
+          });
+
+          setMenuOptions(updatedOptions);
+        }
+      } catch (err) {
+        console.warn("Failed to fetch menu packages from database, using static options:", err);
+      }
+    };
+    fetchPackages();
+  }, []);
+
   const handleCustomizeClick = (menu: CateringMenuOption) => {
     setSelectedMenu(null);
-    navigate({ to: "/builder" });
+    navigate({ to: "/customize" });
   };
 
   const handleRequestQuote = () => {
@@ -141,7 +188,7 @@ export default function CateringMenusSection() {
 
         {/* 6 Menu Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {MENU_OPTIONS.map((menu) => (
+          {menuOptions.map((menu) => (
             <motion.div
               key={menu.id}
               whileHover={{ y: -6 }}
@@ -247,7 +294,7 @@ export default function CateringMenusSection() {
                   className="w-full sm:flex-1 py-3.5 bg-[#3E2E23] hover:bg-[#2A1D15] text-white font-bold text-xs uppercase tracking-[0.2em] rounded-full transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95"
                 >
                   <Sparkles className="w-4 h-4 text-[#DCA46A]" />
-                  CUSTOMIZE IN FEAST PLANNER
+                  CUSTOMIZE IN SAAPADU PLANNER
                 </button>
                 <button
                   onClick={handleRequestQuote}

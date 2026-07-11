@@ -59,13 +59,6 @@ export default function MobileAppHeader() {
             <Phone className="w-2.5 h-2.5 text-amber-600 shrink-0" />
             99403 96005
           </a>
-          <a
-            href="tel:+919940832988"
-            className="flex items-center gap-1 text-[10px] font-extrabold text-[#1E1108] hover:text-amber-700 transition-colors tracking-wide leading-none mt-0.5"
-          >
-            <Phone className="w-2.5 h-2.5 text-amber-600 shrink-0" />
-            99408 32988
-          </a>
         </div>
       </div>
 
@@ -86,10 +79,10 @@ export default function MobileAppHeader() {
           <MessageCircle className="w-3 h-3" /> WhatsApp
         </a>
         <Link
-          to="/builder"
+          to="/customize"
           className="flex items-center gap-1.5 bg-amber-500 text-white px-4 py-1.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest active:scale-95 transition-transform"
         >
-          Build Menu
+          Customize Menu
         </Link>
       </div>
     </header>

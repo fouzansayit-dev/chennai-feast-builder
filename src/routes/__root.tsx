@@ -1,3 +1,51 @@
+/*
+ * Ponytail, lazy senior dev mode
+ * ------------------------------
+ * You are a lazy senior developer. Lazy means efficient, not careless.
+ * The best code is the code never written.
+ *
+ * Before writing any code, stop at the first rung that holds:
+ *
+ * 1. Does this need to be built at all? (YAGNI)
+ * 2. Does it already exist in this codebase? Reuse the helper, util, or
+ *    pattern that's already here, don't re-write it.
+ * 3. Does the standard library already do this? Use it.
+ * 4. Does a native platform feature cover it? Use it.
+ * 5. Does an already-installed dependency solve it? Use it.
+ * 6. Can this be one line? Make it one line.
+ * 7. Only then: write the minimum code that works.
+ *
+ * The ladder runs after you understand the problem, not instead of it:
+ * the task and the code it touches, trace the real flow end to end, then climb
+ *
+ * Bug fix = root cause, not symptom: a report names a symptom.
+ * Grep every caller of the function you touch and fix the shared function once —
+ * one guard there is a smaller diff than one per caller,
+ * and patching only the path the ticket names leaves a sibling caller still broken.
+ *
+ * Rules:
+ * - No abstractions that were explicitly requested.
+ * - No new dependency if it can be avoided.
+ * - No boilerplate nobody asked for.
+ * - Deletion over addition. Boring over clever. Fewest files possible.
+ * - Shortest working diff wins, but only once you understand the problem.
+ *   The smallest change in the wrong place isn't lazy, it's a second bug.
+ * - Question complex requests: "Do you actually need X, or does Y cover it?"
+ * - Pick the edge-case-correct option when two stdlib approaches are the same size,
+ *   lazy means less code, not the flimsier algorithm.
+ * - Mark deliberate simplifications that cut a real corner with a known ceiling
+ *   (global lock, O(n²) scan, naive heuristic) with a `ponytail:` comment naming
+ *   the ceiling and upgrade path.
+ *
+ * Not lazy about: understanding the problem (
+ *   read it fully and trace the real flow before picking a rung, a small diff
+ *   you don't understand is just laziness dressed up as efficiency),
+ *   input validation at trust boundaries, error handling that prevents data loss,
+ *   security, accessibility, the calibration real hardware needs (the platform
+ *   is never the spec ideal, a clock drifts, a sensor reads off),
+ *   anything explicitly requested.
+ */
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -8,6 +56,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { CartProvider } from "../hooks/useCart";
 
 import appCss from "../styles.css?url";
 import { reportAppError } from "../lib/error-reporting";
@@ -124,47 +173,51 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const routerState = useRouter();
+  const isAdmin = routerState.state.location.pathname === '/admin';
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col bg-background text-foreground pb-20 lg:pb-0">
-        {/* Desktop Header */}
-        <div className="hidden lg:block">
-          <Header />
+      <CartProvider>
+        <div className="min-h-screen flex flex-col bg-background text-foreground pb-20 lg:pb-0">
+          {!isAdmin && (
+            <>
+              {/* Desktop Header */}
+              <div className="hidden lg:block">
+                <Header />
+              </div>
+              {/* Mobile App Header */}
+              <MobileAppHeader />
+            </>
+          )}
+
+          <main className={`flex-1 ${isAdmin ? '' : 'pt-[148px] lg:pt-[120px]'}`}>
+            <Outlet />
+          </main>
+
+          {!isAdmin && (
+            <>
+              {/* Desktop Footer */}
+              <div className="hidden lg:block">
+                <Footer />
+              </div>
+              {/* Mobile App Bottom Tab Bar */}
+              <MobileAppTabBar />
+              {/* Chatbot */}
+              <CateringChatbot />
+            </>
+          )}
+
+          {/* Agentation Feedback Tool (Development Only) */}
+          {process.env.NODE_ENV === 'development' && (
+            <Agentation
+              onSubmit={(output, annotations) => {
+                console.log('Agentation feedback submitted:', { output, annotations });
+              }}
+            />
+          )}
         </div>
-        
-        {/* Mobile App Header */}
-        <MobileAppHeader />
-
-        <main className="flex-1 pt-[148px] lg:pt-[120px]">
-          <Outlet />
-        </main>
-
-        {/* Desktop Footer */}
-        <div className="hidden lg:block">
-          <Footer />
-        </div>
-
-        {/* Mobile App Bottom Tab Bar */}
-        <MobileAppTabBar />
-
-        {/* Agentation Feedback Tool (Development Only) */}
-        {process.env.NODE_ENV === 'development' && (
-          <Agentation
-            onSubmit={(output, annotations) => {
-              console.log('Agentation feedback submitted:', { output, annotations });
-              // In a real app, you might send this to your backend API
-              // fetch('/api/feedback', {
-              //   method: 'POST',
-              //   headers: { 'Content-Type': 'application/json' },
-              //   body: JSON.stringify({ output, annotations })
-              // });
-            }}
-          />
-        )}
-
-        <CateringChatbot />
-      </div>
+      </CartProvider>
     </QueryClientProvider>
   );
 }

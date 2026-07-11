@@ -44,6 +44,7 @@ import banner2 from "@/assets/banner 2.jpg";
 import banner3 from "@/assets/banner 3.jpg";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
 import BookingForm from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
 import { leafDraw } from "@/lib/animations";
@@ -338,11 +339,11 @@ const HERO_SLIDES: HeroSlide[] = [
     link: "#book",
   },
   {
-    t: "Traditional Feasts",
+    t: "Traditional Virundhu",
     bg: bananaLeafFeastBlended,
-    title: "Authentic Banana Leaf Feast",
+    title: "Authentic Banana Leaf Saapadu",
     sub: "Traditional sit-down virundhu saapadu served with pure ghee and love.",
-    d: "Experience a royal South Indian wedding feast with 20+ traditional delicacies cooked by traditional chefs.",
+    d: "Experience a royal South Indian wedding Saapadu with 20+ traditional delicacies cooked by traditional chefs.",
     cta: "Explore Menus",
     link: "/menu",
   },
@@ -351,7 +352,7 @@ const HERO_SLIDES: HeroSlide[] = [
     bg: gulabJamun,
     title: "Traditional Sweets & Divine Payasam",
     sub: "Indulge in pure ghee sweets and creamy tender coconut payasam.",
-    d: "Stone-ground ingredients and rich desserts cooked to round off your auspicious feast perfectly.",
+    d: "Stone-ground ingredients and rich desserts cooked to round off your auspicious Saapadu perfectly.",
     cta: "View Sweets",
     link: "/menu",
   },
@@ -370,12 +371,12 @@ const PORTRAIT_SLIDES = [
   {
     img: aiWeddingFeast,
     title: "Royal Banana Leaf Virundhu",
-    desc: "Grand South Indian wedding feast with 20+ traditional delicacies on fresh banana leaf.",
+    desc: "Grand South Indian wedding Saapadu with 20+ traditional delicacies on fresh banana leaf.",
   },
   {
     img: bananaLeafFeastBlended,
     title: "Thala Vazhai Saapadu",
-    desc: "Authentic course-by-course feast served with pure ghee and hand-pounded spices.",
+    desc: "Authentic course-by-course Saapadu served with pure ghee and hand-pounded spices.",
   },
   {
     img: aiTiffinFeast,
@@ -384,7 +385,7 @@ const PORTRAIT_SLIDES = [
   },
   {
     img: realFeastMeal,
-    title: "Traditional Indian Feast",
+    title: "Traditional Indian Saapadu",
     desc: "Traditional recipes slow-cooked over open flames for rich, authentic taste.",
   },
   {
@@ -395,7 +396,7 @@ const PORTRAIT_SLIDES = [
   {
     img: gulabJamun,
     title: "Traditional Desserts",
-    desc: "Stone-ground ingredients and rich desserts cooked to round off your feast.",
+    desc: "Stone-ground ingredients and rich desserts cooked to round off your Saapadu.",
   },
 ];
 
@@ -1085,6 +1086,11 @@ function Index() {
         </section>
 
         {/* ========================================================================= */}
+        {/* HOW IT WORKS SECTION                                                     */}
+        {/* ========================================================================= */}
+        <HowItWorksSection />
+
+        {/* ========================================================================= */}
         {/* 5. WHY CHOOSE US SECTION                                                 */}
         {/* ========================================================================= */}
         <WhyChooseUsSection />
@@ -1319,10 +1325,10 @@ function Index() {
                   CAPTURED MOMENTS
                 </span>
                 <h2 className="font-serif text-4xl md:text-5xl text-plum-dark mt-3 leading-tight">
-                  Our Feast Gallery
+                  Our Saapadu Gallery
                 </h2>
                 <p className="text-slate-600 text-sm mt-3 max-w-xl mx-auto font-normal">
-                  Browse our collection of beautifully arranged wedding feasts, buffet setups, traditional banana leaf meals, live counters, and memorable celebrations.
+                  Browse our collection of beautifully arranged wedding saapadu, buffet setups, traditional banana leaf meals, live counters, and memorable celebrations.
                 </p>
                 <div className="flex items-center justify-center gap-4 mt-4 select-none pointer-events-none">
                   <div className="w-12 h-[1px] bg-gold/50" />
@@ -1490,7 +1496,7 @@ function Index() {
             <Reveal>
               <span className="text-[11px] tracking-[0.3em] uppercase text-gold">Begin Your Inquiry</span>
               <h2 className="font-serif text-4xl md:text-5xl text-plum mt-3 leading-tight">
-                Let MCC curate <em className="text-gold-gradient not-italic">your sacred feast.</em>
+                Let MCC curate <em className="text-gold-gradient not-italic">your sacred Virundhu.</em>
               </h2>
               <p className="mt-5 text-foreground/70 leading-relaxed">
                 Share a few details and our team will respond with a tailored proposal — menu cards,
