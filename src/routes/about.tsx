@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import aboutImage from "@/assets/1.jpg";
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
+import { useMediaImages } from "@/hooks/useMediaImages";
 import { Reveal } from "@/components/Reveal";
 import MarigoldGarland from "@/components/MarigoldGarland";
 import { CenterKolam } from "@/components/Kolam";
@@ -123,6 +124,7 @@ const TIMELINE = [
 ];
 
 export function About() {
+  const { getImg } = useMediaImages();
   return (
     <div className="min-h-screen bg-[#FAF7F0] text-slate-800 font-sans">
       
@@ -176,7 +178,7 @@ export function About() {
             <Reveal delay={0.15}>
               <div className="relative w-full max-w-sm aspect-[4/5] rounded-3xl overflow-hidden border-4 border-amber-300/40 shadow-2xl group">
                 <img 
-                  src={aboutImage} 
+                  src={getImg("about_hero", aboutImage)} 
                   alt="My Chennai Catering grand banquet events setup" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                   loading="lazy" 

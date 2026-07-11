@@ -32,87 +32,9 @@ import aiTiffinFeast from "@/assets/ai-tiffin-feast.png";
 import aiSweetsFeast from "@/assets/ai-sweets-feast.png";
 import BookingForm from "./BookingForm";
 import HowItWorksSection from "./HowItWorksSection";
+import { useMediaImages } from "@/hooks/useMediaImages";
 
-const HERO_CAROUSEL_SLIDES = [
-  {
-    eyebrow: "Premium Catering",
-    title: "Authentic Flavours",
-    sub: "Expert catering for weddings, corporate events & all celebrations.",
-    img: banner2,
-    cta: "Get Free Quote",
-    link: "#book",
-    accent: "from-amber-900/70 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "Engagement Catering",
-    title: "Engagement\nCatering",
-    sub: "Elegant sit-down feasts on banana leaves with floral décor & warm hospitality.",
-    img: engagementCatering,
-    cta: "Book Your Engagement",
-    link: "/engagement-catering-services-in-chennai",
-    accent: "from-orange-900/60 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "Wedding Specialists",
-    title: "Wedding\nCelebrations",
-    sub: "Customised menus crafted with tradition, taste, and care.",
-    img: banner3,
-    cta: "Explore Services",
-    link: "/services",
-    accent: "from-purple-900/60 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "20+ Years Legacy",
-    title: "Trusted\nSince 2004",
-    sub: "Over two decades of delivering quality food & professional hospitality.",
-    img: banner1,
-    cta: "Book Your Event",
-    link: "#book",
-    accent: "from-red-900/60 via-black/40 to-transparent",
-  },
-  {
-    eyebrow: "Traditional Feasts",
-    title: "Traditional\nFeasts",
-    sub: "Pure ghee, fresh ingredients, 24+ items — served with love.",
-    img: bananaLeafReal,
-    cta: "View Menus",
-    link: "/menu",
-    accent: "from-green-900/60 via-black/40 to-transparent",
-  },
-];
-
-const STORIES = [
-  {
-    label: "Weddings",
-    img: weddingHall,
-    to: "/wedding-catering-services-in-chennai",
-    emoji: "💒",
-  },
-  {
-    label: "Engagements",
-    img: engagementCatering,
-    to: "/engagement-catering-services-in-chennai",
-    emoji: "💍",
-  },
-  {
-    label: "Corporate",
-    img: corporateCatering,
-    to: "/corporate-catering-services-in-chennai",
-    emoji: "🏢",
-  },
-  {
-    label: "Feast Menus",
-    img: realFeastMeal,
-    to: "/menu",
-    emoji: "🍃",
-  },
-  {
-    label: "Gallery",
-    img: brassLamps,
-    to: "/gallery",
-    emoji: "🖼️",
-  },
-];
+// HERO_CAROUSEL_SLIDES and STORIES are declared dynamically inside MobileAppHome using useMediaImages()
 
 const PACKAGES = [
   {
@@ -167,6 +89,89 @@ const TASTING_ITEMS = [
 
 
 export default function MobileAppHome() {
+  const { getImg } = useMediaImages();
+
+  const HERO_CAROUSEL_SLIDES = [
+    {
+      eyebrow: "Premium Catering",
+      title: "Authentic Flavours",
+      sub: "Expert catering for weddings, corporate events & all celebrations.",
+      img: getImg("mobile_hero_1", banner2),
+      cta: "Get Free Quote",
+      link: "#book",
+      accent: "from-amber-900/70 via-black/40 to-transparent",
+    },
+    {
+      eyebrow: "Engagement Catering",
+      title: "Engagement\nCatering",
+      sub: "Elegant sit-down feasts on banana leaves with floral décor & warm hospitality.",
+      img: getImg("mobile_hero_2", engagementCatering),
+      cta: "Book Your Engagement",
+      link: "/engagement-catering-services-in-chennai",
+      accent: "from-orange-900/60 via-black/40 to-transparent",
+    },
+    {
+      eyebrow: "Wedding Specialists",
+      title: "Wedding\nCelebrations",
+      sub: "Customised menus crafted with tradition, taste, and care.",
+      img: getImg("hero_slide_2", banner3),
+      cta: "Explore Services",
+      link: "/services",
+      accent: "from-purple-900/60 via-black/40 to-transparent",
+    },
+    {
+      eyebrow: "20+ Years Legacy",
+      title: "Trusted\nSince 2004",
+      sub: "Over two decades of delivering quality food & professional hospitality.",
+      img: getImg("mobile_hero_3", banner1),
+      cta: "Book Your Event",
+      link: "#book",
+      accent: "from-red-900/60 via-black/40 to-transparent",
+    },
+    {
+      eyebrow: "Traditional Feasts",
+      title: "Traditional\nFeasts",
+      sub: "Pure ghee, fresh ingredients, 24+ items — served with love.",
+      img: getImg("portrait_2", bananaLeafReal),
+      cta: "View Menus",
+      link: "/menu",
+      accent: "from-green-900/60 via-black/40 to-transparent",
+    },
+  ];
+
+  const STORIES = [
+    {
+      label: "Weddings",
+      img: getImg("home_services_wedding", weddingHall),
+      to: "/wedding-catering-services-in-chennai",
+      emoji: "💒",
+    },
+    {
+      label: "Engagements",
+      img: getImg("mobile_hero_2", engagementCatering),
+      to: "/engagement-catering-services-in-chennai",
+      emoji: "💍",
+    },
+    {
+      label: "Corporate",
+      img: getImg("home_services_corporate", corporateCatering),
+      to: "/corporate-catering-services-in-chennai",
+      emoji: "🏢",
+    },
+    {
+      label: "Feast Menus",
+      img: getImg("portrait_4", realFeastMeal),
+      to: "/menu",
+      emoji: "🍃",
+    },
+    {
+      label: "Gallery",
+      img: getImg("gallery_1", weddingHall),
+      to: "/gallery",
+      emoji: "📸",
+    },
+  ];
+
   const { addToCart, removeFromCart, cartItems, totalCount, guestCount } = useCart();
   const [tastingTray, setTastingTray] = useState<typeof TASTING_ITEMS>([]);
   const [activePkg, setActivePkg] = useState(0);

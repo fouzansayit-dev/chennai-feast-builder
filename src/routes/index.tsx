@@ -42,6 +42,7 @@ import lotusIcon from "@/assets/lotus icon.png";
 import banner1 from "@/assets/banner1.jpg";
 import banner2 from "@/assets/banner 2.jpg";
 import banner3 from "@/assets/banner 3.jpg";
+import engagementCatering from "@/assets/engagement-catering.jpg";
 import CateringMenusSection from "@/components/CateringMenusSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
@@ -51,6 +52,7 @@ import { leafDraw } from "@/lib/animations";
 import { CenterKolam } from "@/components/Kolam";
 import MarigoldGarland from "@/components/MarigoldGarland";
 import MobileAppHome from "@/components/MobileAppHome";
+import { useMediaImages } from "@/hooks/useMediaImages";
 
 interface FloatingDecorProps {
   style?: any;
@@ -310,95 +312,10 @@ interface HeroSlide {
   logo?: string;
 }
 
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    t: "Authentic Flavours",
-    bg: banner2,
-    title: "Premium Catering Services in Chennai",
-    sub: "Authentic flavours, exceptional service, and memorable celebrations.",
-    d: "Experience the authentic flavor of Chennai with our hygienic, delicious and memorable catering services.",
-    cta: "Get a Free Quote",
-    link: "#book",
-  },
-  {
-    t: "Memorable Events",
-    bg: banner3,
-    title: "Weddings ❖ Corporate Events ❖ Celebrations",
-    sub: "Customized menus crafted with tradition, taste, and care.",
-    d: "Modern reception spreads, premium buffet counters, and traditional sit-down services styled to perfection.",
-    cta: "Explore Services",
-    link: "/services",
-  },
-  {
-    t: "20+ Years Legacy",
-    bg: banner1,
-    title: "Trusted Catering Partner in Chennai",
-    sub: "Over 20 years of delivering quality food and professional hospitality.",
-    d: "Premium veg and non-veg taste prepared with strict hygiene by experienced traditional chefs.",
-    cta: "Book Your Event",
-    link: "#book",
-  },
-  {
-    t: "Traditional Virundhu",
-    bg: bananaLeafFeastBlended,
-    title: "Authentic Banana Leaf Saapadu",
-    sub: "Traditional sit-down virundhu saapadu served with pure ghee and love.",
-    d: "Experience a royal South Indian wedding Saapadu with 20+ traditional delicacies cooked by traditional chefs.",
-    cta: "Explore Menus",
-    link: "/menu",
-  },
-  {
-    t: "Divine Desserts",
-    bg: gulabJamun,
-    title: "Traditional Sweets & Divine Payasam",
-    sub: "Indulge in pure ghee sweets and creamy tender coconut payasam.",
-    d: "Stone-ground ingredients and rich desserts cooked to round off your auspicious Saapadu perfectly.",
-    cta: "View Sweets",
-    link: "/menu",
-  },
-  {
-    t: "Corporate Catering",
-    bg: buffetCounter,
-    title: "Professional Corporate Catering",
-    sub: "Hygienic packed meals and premium buffets delivered punctually.",
-    d: "Hygienic corporate lunch packs, buffet stations, and tea-break catering for offices.",
-    cta: "Get a Custom Quote",
-    link: "#book",
-  },
-];
+// HERO_SLIDES and PORTRAIT_SLIDES are built dynamically inside Index() using
+// useMediaImages() so uploaded images override the static fallbacks at runtime.
 
-const PORTRAIT_SLIDES = [
-  {
-    img: aiWeddingFeast,
-    title: "Royal Banana Leaf Virundhu",
-    desc: "Grand South Indian wedding Saapadu with 20+ traditional delicacies on fresh banana leaf.",
-  },
-  {
-    img: bananaLeafFeastBlended,
-    title: "Thala Vazhai Saapadu",
-    desc: "Authentic course-by-course Saapadu served with pure ghee and hand-pounded spices.",
-  },
-  {
-    img: aiTiffinFeast,
-    title: "Mangala Udhayam Tiffin",
-    desc: "Piping hot Idlis, ghee Dosa, Medu Vada, chutneys and authentic Filter Coffee.",
-  },
-  {
-    img: realFeastMeal,
-    title: "Traditional Indian Saapadu",
-    desc: "Traditional recipes slow-cooked over open flames for rich, authentic taste.",
-  },
-  {
-    img: aiSweetsFeast,
-    title: "Elaneer Payasam & Sweets",
-    desc: "Creamy tender coconut payasam and traditional pure ghee South Indian sweets.",
-  },
-  {
-    img: gulabJamun,
-    title: "Traditional Desserts",
-    desc: "Stone-ground ingredients and rich desserts cooked to round off your Saapadu.",
-  },
-];
+// portrait slides built in Index()
 
 // TAMIL WELCOME / PHILOSOPHY TIMED CAROUSEL STATEMENTS
 const TAMIL_MESSAGES = [
@@ -424,79 +341,7 @@ const TAMIL_MESSAGES = [
   },
 ];
 
-// SERVICES WE OFFER DATA
-const SERVICES_OFFERED = [
-  {
-    title: "Wedding Catering",
-    desc: "Complete wedding catering with traditional taste and exceptional service",
-    img: weddingHall,
-    icon: UtensilsCrossed,
-  },
-  {
-    title: "Engagement & Reception Catering",
-    desc: "Customized menus to make your engagement and reception memorable",
-    img: aiWeddingFeast,
-    icon: Heart,
-  },
-  {
-    title: "Corporate Event Catering",
-    desc: "Professional catering and custom food menus for corporate events",
-    img: corporateCatering,
-    icon: Briefcase,
-  },
-  {
-    title: "Housewarming Catering",
-    desc: "Traditional feasts and catering for your auspicious new home celebrations",
-    img: brassLamps,
-    icon: Home,
-  },
-  {
-    title: "Traditional Banana Leaf Meal Service",
-    desc: "Authentic South Indian banana leaf meals served for traditional events and gatherings",
-    img: realFeastMeal,
-    icon: Utensils,
-  },
-  {
-    title: "Festival & Special Occasion Catering",
-    desc: "Special menus and catering services for traditional festivals and family functions",
-    img: buffetCounter,
-    icon: Sparkles,
-  },
-];
-
-// EXPLORE OUR MENUS DATA
-const MENU_CATEGORIES = [
-  {
-    title: "Traditional Banana Leaf Meals",
-    img: realFeastMeal,
-    icon: Utensils,
-  },
-  {
-    title: "Breakfast Specials",
-    img: aiTiffinFeast,
-    icon: Coffee,
-  },
-  {
-    title: "Lunch & Dinner Menus",
-    img: buffetCounter,
-    icon: ChefHat,
-  },
-  {
-    title: "Signature Sweets & Desserts",
-    img: gulabJamun,
-    icon: IceCream,
-  },
-  {
-    title: "Live Food Counters",
-    img: liveCounter,
-    icon: Soup,
-  },
-  {
-    title: "Seasonal Special Menus",
-    img: aiSweetsFeast,
-    icon: Sparkles,
-  },
-];
+// SERVICES_OFFERED and MENU_CATEGORIES are built dynamically inside Index() using useMediaImages()
 
 const FAQS = [
   {
@@ -519,11 +364,100 @@ const FAQS = [
 
 function Index() {
   const ref = useRef<HTMLDivElement>(null);
+  const { getImg } = useMediaImages();
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [portraitSlide, setPortraitSlide] = useState(0);
   const [tamilSlide, setTamilSlide] = useState(0);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+  // Dynamic hero slides — use uploaded image or static fallback
+  const HERO_SLIDES: HeroSlide[] = [
+    {
+      t: "Authentic Flavours",
+      bg: getImg("hero_slide_1", banner2),
+      title: "Premium Catering Services in Chennai",
+      sub: "Authentic flavours, exceptional service, and memorable celebrations.",
+      d: "Experience the authentic flavor of Chennai with our hygienic, delicious and memorable catering services.",
+      cta: "Get a Free Quote",
+      link: "#book",
+    },
+    {
+      t: "Memorable Events",
+      bg: getImg("hero_slide_2", banner3),
+      title: "Weddings ❖ Corporate Events ❖ Celebrations",
+      sub: "Customized menus crafted with tradition, taste, and care.",
+      d: "Modern reception spreads, premium buffet counters, and traditional sit-down services styled to perfection.",
+      cta: "Explore Services",
+      link: "/services",
+    },
+    {
+      t: "20+ Years Legacy",
+      bg: getImg("hero_slide_3", banner1),
+      title: "Trusted Catering Partner in Chennai",
+      sub: "Over 20 years of delivering quality food and professional hospitality.",
+      d: "Premium veg and non-veg taste prepared with strict hygiene by experienced traditional chefs.",
+      cta: "Book Your Event",
+      link: "#book",
+    },
+    {
+      t: "Traditional Virundhu",
+      bg: getImg("hero_slide_4", bananaLeafFeastBlended),
+      title: "Authentic Banana Leaf Saapadu",
+      sub: "Traditional sit-down virundhu saapadu served with pure ghee and love.",
+      d: "Experience a royal South Indian wedding Saapadu with 20+ traditional delicacies cooked by traditional chefs.",
+      cta: "Explore Menus",
+      link: "/menu",
+    },
+    {
+      t: "Divine Desserts",
+      bg: getImg("hero_slide_5", gulabJamun),
+      title: "Traditional Sweets & Divine Payasam",
+      sub: "Indulge in pure ghee sweets and creamy tender coconut payasam.",
+      d: "Stone-ground ingredients and rich desserts cooked to round off your auspicious Saapadu perfectly.",
+      cta: "View Sweets",
+      link: "/menu",
+    },
+    {
+      t: "Corporate Catering",
+      bg: getImg("hero_slide_6", buffetCounter),
+      title: "Professional Corporate Catering",
+      sub: "Hygienic packed meals and premium buffets delivered punctually.",
+      d: "Hygienic corporate lunch packs, buffet stations, and tea-break catering for offices.",
+      cta: "Get a Custom Quote",
+      link: "#book",
+    },
+  ];
+
+  // Dynamic portrait slides
+  const PORTRAIT_SLIDES = [
+    { img: getImg("portrait_1", aiWeddingFeast),       title: "Royal Banana Leaf Virundhu",      desc: "Grand South Indian wedding Saapadu with 20+ traditional delicacies on fresh banana leaf." },
+    { img: getImg("portrait_2", bananaLeafFeastBlended), title: "Thala Vazhai Saapadu",          desc: "Authentic course-by-course Saapadu served with pure ghee and hand-pounded spices." },
+    { img: getImg("portrait_3", aiTiffinFeast),         title: "Mangala Udhayam Tiffin",         desc: "Piping hot Idlis, ghee Dosa, Medu Vada, chutneys and authentic Filter Coffee." },
+    { img: getImg("portrait_4", realFeastMeal),         title: "Traditional Indian Saapadu",     desc: "Traditional recipes slow-cooked over open flames for rich, authentic taste." },
+    { img: getImg("portrait_5", aiSweetsFeast),         title: "Elaneer Payasam & Sweets",       desc: "Creamy tender coconut payasam and traditional pure ghee South Indian sweets." },
+    { img: getImg("portrait_6", gulabJamun),            title: "Traditional Desserts",           desc: "Stone-ground ingredients and rich desserts cooked to round off your Saapadu." },
+  ];
+
+  // Dynamic services grid
+  const SERVICES_OFFERED = [
+    { title: "Wedding Catering",                   desc: "Complete wedding catering with traditional taste and exceptional service",                              img: getImg("home_services_wedding",      weddingHall),       icon: UtensilsCrossed },
+    { title: "Engagement & Reception Catering",    desc: "Customized menus to make your engagement and reception memorable",                                     img: getImg("home_services_engagement",   aiWeddingFeast),    icon: Heart },
+    { title: "Corporate Event Catering",           desc: "Professional catering and custom food menus for corporate events",                                    img: getImg("home_services_corporate",    corporateCatering), icon: Briefcase },
+    { title: "Housewarming Catering",              desc: "Traditional feasts and catering for your auspicious new home celebrations",                           img: getImg("home_services_housewarming", brassLamps),        icon: Home },
+    { title: "Traditional Banana Leaf Meal Service",desc: "Authentic South Indian banana leaf meals served for traditional events and gatherings",              img: getImg("home_services_banana_leaf",  realFeastMeal),     icon: Utensils },
+    { title: "Festival & Special Occasion Catering",desc: "Special menus and catering services for traditional festivals and family functions",                 img: getImg("home_services_festival",     buffetCounter),     icon: Sparkles },
+  ];
+
+  // Dynamic menu categories (reuse portrait images)
+  const MENU_CATEGORIES = [
+    { title: "Traditional Banana Leaf Meals", img: getImg("portrait_4", realFeastMeal),         icon: Utensils },
+    { title: "Breakfast Specials",            img: getImg("portrait_3", aiTiffinFeast),          icon: Coffee },
+    { title: "Lunch & Dinner Menus",          img: getImg("home_services_festival", buffetCounter), icon: ChefHat },
+    { title: "Signature Sweets & Desserts",   img: getImg("portrait_6", gulabJamun),            icon: IceCream },
+    { title: "Live Food Counters",            img: getImg("gallery_4", liveCounter),            icon: Soup },
+    { title: "Seasonal Special Menus",        img: getImg("portrait_5", aiSweetsFeast),         icon: Sparkles },
+  ];
 
   const { scrollYProgress } = useScroll();
 

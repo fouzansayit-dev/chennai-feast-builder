@@ -2,9 +2,11 @@ import React, { useRef } from "react";
 import { Leaf, Utensils, ShieldCheck, ChefHat } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import buffetCounterImage from "@/assets/banner 3.jpg";
+import { useMediaImages } from "@/hooks/useMediaImages";
 
 export default function WhyChooseUsSection() {
   const containerRef = useRef<HTMLElement>(null);
+  const { getImg } = useMediaImages();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -95,7 +97,7 @@ export default function WhyChooseUsSection() {
           <div className="lg:col-span-6 flex justify-center lg:justify-end relative">
             <div className="w-full max-w-md aspect-square rounded-l-[16rem] rounded-r-[4rem] overflow-hidden border-4 border-white shadow-2xl relative group">
               <img
-                src={buffetCounterImage}
+                src={getImg("why_choose_us", buffetCounterImage)}
                 alt="Premium Catering Event Buffet Setup"
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
                 loading="lazy"

@@ -97,7 +97,25 @@ export default function CateringChatbot() {
         if (data.inquiryDetails) {
           setIsLoading(true);
           try {
-            const emailData = await sendEmailFn({ data: data.inquiryDetails });
+            // 1. Post chatbot lead/enquiry directly into CRM database
+            const details = data.inquiryDetails;
+            try {
+              const { enquiriesAPI } = await import('@/services/crmApi');
+              await enquiriesAPI.create({
+                name: details.name,
+                phone: details.phone,
+                event_type: details.location || "Chatbot Enquiry",
+                event_date: details.eventDate,
+                venue: "Chatbot Lead Capture",
+                guests: Number(details.guestCount) || 0,
+                special_requests: "Submitted via AI Chatbot Assistant"
+              });
+            } catch (crmErr) {
+              console.warn("CRM Chatbot Lead entry failed (non-blocking):", crmErr);
+            }
+
+            // 2. Fallback notification email
+            const emailData = await sendEmailFn({ data: details });
             
             const finalMsg: Message = {
               role: 'assistant',

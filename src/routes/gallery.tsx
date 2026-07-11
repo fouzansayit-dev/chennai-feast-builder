@@ -10,6 +10,7 @@ import buffetCounter from "@/assets/images-32.jpeg";
 import gulabJamun from "@/assets/IMG-20260327-WA0010.jpg.jpeg";
 import founder from "@/assets/IMG-20260331-WA0002.jpg.jpeg";
 import brassLamps from "@/assets/IMG-20260601-WA0053.jpg.jpeg";
+import { useMediaImages } from "@/hooks/useMediaImages";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -45,58 +46,22 @@ export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-const GALLERY_ITEMS = [
-  {
-    title: "VIP Wedding Couple Catering Setup",
-    category: "Wedding Dinners",
-    img: weddingHall,
-    desc: "Luxury flower & silk curtain dining table arrangement for newlyweds."
-  },
-  {
-    title: "Authentic Thala Vazhai Saapadu",
-    category: "Traditional Saapadu",
-    img: realFeastMeal,
-    desc: "Traditional course-by-course South Indian banana leaf wedding meal."
-  },
-  {
-    title: "Grand Wedding Banquet Saapadu",
-    category: "Traditional Saapadu",
-    img: bananaLeafFeastBlended,
-    desc: "20+ item Sattvik Brahmin saapadu served with pure ghee."
-  },
-  {
-    title: "Live Dosa & Chaat Counter",
-    category: "Live Counters",
-    img: liveCounter,
-    desc: "Hot chef stations with piping hot mini dosas and tiffins."
-  },
-  {
-    title: "Chandelier Buffet Setup",
-    category: "Reception Buffets",
-    img: buffetCounter,
-    desc: "Modern luxury buffet line with gold-chafing dishes and floral decor."
-  },
-  {
-    title: "Pure Ghee Traditional Sweets",
-    category: "Desserts & Sweets",
-    img: gulabJamun,
-    desc: "Stone-ground Gulab Jamun, Elaneer Payasam & traditional sweets."
-  },
-  {
-    title: "Founder D. Venkat & Team",
-    category: "Our Legacy",
-    img: founder,
-    desc: "Master caterer D. Venkat supervising pure Sattvik cooking."
-  },
-  {
-    title: "Traditional Brass Lamps & Decor",
-    category: "Event Styling",
-    img: brassLamps,
-    desc: "Sacred brass lamps, marigold garlands and traditional mandapam styling."
-  }
-];
+// Gallery items built dynamically in GalleryPage() using useMediaImages()
 
 function GalleryPage() {
+  const { getImg } = useMediaImages();
+
+  const GALLERY_ITEMS = [
+    { title: "VIP Wedding Couple Catering Setup",  category: "Wedding Dinners",       img: getImg("gallery_1", weddingHall),           desc: "Luxury flower & silk curtain dining table arrangement for newlyweds." },
+    { title: "Authentic Thala Vazhai Saapadu",     category: "Traditional Saapadu",   img: getImg("gallery_2", realFeastMeal),         desc: "Traditional course-by-course South Indian banana leaf wedding meal." },
+    { title: "Grand Wedding Banquet Saapadu",      category: "Traditional Saapadu",   img: getImg("gallery_3", bananaLeafFeastBlended), desc: "20+ item Sattvik Brahmin saapadu served with pure ghee." },
+    { title: "Live Dosa & Chaat Counter",          category: "Live Counters",         img: getImg("gallery_4", liveCounter),           desc: "Hot chef stations with piping hot mini dosas and tiffins." },
+    { title: "Chandelier Buffet Setup",            category: "Reception Buffets",     img: getImg("gallery_5", buffetCounter),         desc: "Modern luxury buffet line with gold-chafing dishes and floral decor." },
+    { title: "Pure Ghee Traditional Sweets",       category: "Desserts & Sweets",     img: getImg("gallery_6", gulabJamun),            desc: "Stone-ground Gulab Jamun, Elaneer Payasam & traditional sweets." },
+    { title: "Founder D. Venkat & Team",           category: "Our Legacy",            img: getImg("gallery_7", founder),              desc: "Master caterer D. Venkat supervising pure Sattvik cooking." },
+    { title: "Traditional Brass Lamps & Decor",   category: "Event Styling",         img: getImg("gallery_8", brassLamps),            desc: "Sacred brass lamps, marigold garlands and traditional mandapam styling." },
+  ];
+
   return (
     <>
       <section className="relative py-24 bg-plum-dark text-cream overflow-hidden">

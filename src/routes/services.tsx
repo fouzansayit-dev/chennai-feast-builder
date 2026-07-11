@@ -16,6 +16,7 @@ import buffetSetup from "@/assets/1.jpg";
 import liveStall from "@/assets/F.jpg";
 import bananaLeafFeast from "@/assets/images-23.jpeg";
 import dessertStation from "@/assets/images-69.jpg";
+import { useMediaImages } from "@/hooks/useMediaImages";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -85,56 +86,56 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
 });
 
-const EXPANDED_SERVICES = [
-  {
-    id: "weddings",
-    num: "01",
-    badge: "Weddings",
-    title: "Exquisite Wedding Catering Services in Chennai",
-    route: "/wedding-catering-services-in-chennai",
-    img: bananaLeafFeast,
-    imgAlt: "Traditional South Indian wedding banquet featuring authentic banana leaf saapadu",
-    summary: "Your wedding is a once-in-a-lifetime celebration, and we are here to make it truly unforgettable. We specialize in traditional South Indian wedding catering, offering authentic Thala Vazhai Ilai Saapadu that your guests will cherish.",
-    highlights: [
-      { t: "Customized Wedding Packages", d: "Tailored packages covering pre-wedding rituals, main ceremony, and post-wedding receptions." },
-      { t: "The MCC Signature Experience", d: "From initial planning to final serve—rich Arachuvitta Sambar to sweet Elaneer Payasam." },
-      { t: "Logistics & Management", d: "End-to-end event management ensuring seamless execution of the dining experience." },
-      { t: "Quality Commitment", d: "Fresh, high-quality ingredients meeting the highest standards of taste and tradition." }
-    ]
-  },
-  {
-    id: "engagements",
-    num: "02",
-    badge: "Engagements",
-    title: "Bespoke Engagement Catering in Chennai",
-    route: "/engagement-catering-services-in-chennai",
-    img: liveStall,
-    imgAlt: "Bespoke engagement catering event setup in Chennai with live counter and fresh marigolds",
-    summary: "Celebrate your commitment with our personalized engagement catering services. We understand that an engagement function requires a perfect balance of style, comfort, and authentic flavor.",
-    highlights: [
-      { t: "Curated Menu Design", d: "Working closely with you to match the unique vibe of your celebration." },
-      { t: "Scalable Solutions", d: "Dedicated service for intimate family gatherings to large-scale engagement celebrations." },
-      { t: "Professional Presentation", d: "Elegant, visually stunning presentation and gracious hospitality." }
-    ]
-  },
-  {
-    id: "corporate",
-    num: "03",
-    badge: "Corporate Events",
-    title: "Professional Corporate Catering Services in Chennai",
-    route: "/corporate-catering-services-in-chennai",
-    img: buffetSetup,
-    imgAlt: "Professional corporate event catering buffet setup in Chennai",
-    summary: "Elevate your business meetings, conferences, and office celebrations with our premium corporate catering services. We recognize that professionalism, punctuality, and efficiency are key to successful business events.",
-    highlights: [
-      { t: "Reliable Scheduling", d: "Guaranteed timely food delivery and setup keeping your corporate itinerary on track." },
-      { t: "Tailored Business Menus", d: "Light breakfast spreads, working lunches, and formal corporate dinner setups." },
-      { t: "Stress-Free Operations", d: "Experienced management handling entire dining setups while you focus on business." }
-    ]
-  }
-];
+// EXPANDED_SERVICES data is built dynamically inside ServicesPage() using useMediaImages()
 
 export function ServicesPage() {
+  const { getImg } = useMediaImages();
+
+  const EXPANDED_SERVICES = [
+    {
+      id: "weddings",   num: "01", badge: "Weddings",
+      title: "Exquisite Wedding Catering Services in Chennai",
+      route: "/wedding-catering-services-in-chennai",
+      img: getImg("service_wedding", bananaLeafFeast),
+      imgAlt: "Traditional South Indian wedding banquet featuring authentic banana leaf saapadu",
+      summary: "Your wedding is a once-in-a-lifetime celebration, and we are here to make it truly unforgettable. We specialize in traditional South Indian wedding catering, offering authentic Thala Vazhai Ilai Saapadu that your guests will cherish.",
+      highlights: [
+        { t: "Customized Wedding Packages", d: "Tailored packages covering pre-wedding rituals, main ceremony, and post-wedding receptions." },
+        { t: "The MCC Signature Experience", d: "From initial planning to final serve—rich Arachuvitta Sambar to sweet Elaneer Payasam." },
+        { t: "Logistics & Management", d: "End-to-end event management ensuring seamless execution of the dining experience." },
+        { t: "Quality Commitment", d: "Fresh, high-quality ingredients meeting the highest standards of taste and tradition." },
+      ],
+    },
+    {
+      id: "engagements", num: "02", badge: "Engagements",
+      title: "Bespoke Engagement Catering in Chennai",
+      route: "/engagement-catering-services-in-chennai",
+      img: getImg("service_engagement", liveStall),
+      imgAlt: "Bespoke engagement catering event setup in Chennai with live counter and fresh marigolds",
+      summary: "Celebrate your commitment with our personalized engagement catering services. We understand that an engagement function requires a perfect balance of style, comfort, and authentic flavor.",
+      highlights: [
+        { t: "Curated Menu Design", d: "Working closely with you to match the unique vibe of your celebration." },
+        { t: "Scalable Solutions", d: "Dedicated service for intimate family gatherings to large-scale engagement celebrations." },
+        { t: "Professional Presentation", d: "Elegant, visually stunning presentation and gracious hospitality." },
+      ],
+    },
+    {
+      id: "corporate",  num: "03", badge: "Corporate Events",
+      title: "Professional Corporate Catering Services in Chennai",
+      route: "/corporate-catering-services-in-chennai",
+      img: getImg("service_corporate", buffetSetup),
+      imgAlt: "Professional corporate event catering buffet setup in Chennai",
+      summary: "Elevate your business meetings, conferences, and office celebrations with our premium corporate catering services. We recognize that professionalism, punctuality, and efficiency are key to successful business events.",
+      highlights: [
+        { t: "Reliable Scheduling", d: "Guaranteed timely food delivery and setup keeping your corporate itinerary on track." },
+        { t: "Tailored Business Menus", d: "Light breakfast spreads, working lunches, and formal corporate dinner setups." },
+        { t: "Stress-Free Operations", d: "Experienced management handling entire dining setups while you focus on business." },
+      ],
+    },
+  ];
+
+  const [expanded, setExpanded] = useState<string | null>(null);
+
   return (
     <>
       {/* HERO SECTION */}

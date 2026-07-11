@@ -18,11 +18,9 @@ async function apiFetch(endpoint: string, options: RequestInit = {}, isPublic = 
   
   if (res.status === 401 && !endpoint.includes('/auth/login')) {
     removeToken();
-    // Use window redirect only if we are in a browser context
-    if (typeof window !== 'undefined') {
-      window.location.href = '/admin';
-    }
-    return;
+    // Don't redirect here — the CRM component handles auth state itself.
+    // A global redirect would wrongly send public website visitors to /admin.
+    throw new Error('Session expired. Please log in again.');
   }
   
   const data = await res.json();
@@ -173,6 +171,8 @@ export const mediaAPI = {
     return apiUpload('/media/upload', fd);
   },
   list: () => apiFetch('/media/list'),
+  // Public — no auth required (website pages use this to show uploaded images)
+  listPublic: () => apiFetch('/media/list', {}, true),
   delete: (key: string) => apiFetch(`/media/${encodeURIComponent(key)}`, { method: 'DELETE' }),
 };
 

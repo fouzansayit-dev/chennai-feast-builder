@@ -10,6 +10,7 @@ import {
   Users,
 } from "lucide-react";
 import { CornerKolam } from "./Kolam";
+import { enquiriesAPI } from "@/services/crmApi";
 
 type FormState = {
   name: string;
@@ -84,6 +85,23 @@ export default function BookingForm() {
     setSubmitting(true);
 
     try {
+      // 1. Send to CRM backend — creates an ENQ order visible in the admin panel
+      await enquiriesAPI.create({
+        name: form.name,
+        phone: form.phone,
+        event_type: form.eventType,
+        event_date: form.date,
+        venue: form.venue,
+        guests: Number(form.guests) || 0,
+        special_requests: `Budget per plate: ${form.budget}`,
+      });
+    } catch (err) {
+      // Best-effort: don't block the customer if the backend is unreachable
+      console.warn("CRM enquiry submission failed (non-blocking):", err);
+    }
+
+    try {
+      // 2. Also send via email (formsubmit.co) as a backup notification
       await fetch("https://formsubmit.co/ajax/mychennaicateringservices@gmail.com", {
         method: "POST",
         headers: {
@@ -103,13 +121,14 @@ export default function BookingForm() {
         }),
       });
     } catch (err) {
-      console.warn("API submission attempt completed with fallback option ready.", err);
+      console.warn("Email submission attempt completed with fallback option ready.", err);
     } finally {
       setSubmitting(false);
       setSubmitted(true);
       celebrate();
     }
   };
+
 
   if (submitted) {
     return (
