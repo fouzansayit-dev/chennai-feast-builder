@@ -98,9 +98,34 @@ export default function MenuCustomizer() {
     return cartItemsList.filter(item => (item.tag || item.category.includes("Sweets") || item.category.includes("Payasam") || item.category.includes("Dessert") || item.category.includes("Starters"))).reduce((sum, item) => sum + item.qty, 0);
   }, [cartItemsList]);
 
-  const handleSendWhatsApp = (e: React.FormEvent) => {
+  const handleSendWhatsApp = async (e: React.FormEvent) => {
     e.preventDefault();
     const dishNames = cartItemsList.map((d) => `${d.name} (${d.qty}x)`).join(", ");
+    
+    // Save to CRM Database
+    try {
+      const { enquiriesAPI } = await import('@/services/crmApi');
+      const items = cartItemsList.map(item => ({
+        menu_item_id: isNaN(Number(item.id)) ? null : Number(item.id),
+        item_name: item.name,
+        quantity: item.qty,
+        unit_price: item.price.startsWith('₹') ? Number(item.price.replace('₹', '')) : 0,
+        total_price: (item.price.startsWith('₹') ? Number(item.price.replace('₹', '')) : 0) * item.qty
+      }));
+      await enquiriesAPI.create({
+        name: customerName,
+        phone: customerPhone,
+        event_type: eventType,
+        event_date: eventDate,
+        venue: notes || "Website Menu Customizer",
+        guests: Number(guestCount) || 0,
+        special_requests: `Custom Feast Proposal built via Customizer. Plate Price: ₹${estimatedPricePerPlate}`,
+        items: items
+      });
+    } catch (crmErr) {
+      console.warn("CRM custom menu entry failed (non-blocking):", crmErr);
+    }
+
     const text = `Hello MCC Catering! I compiled an e-commerce cart menu quotation:\n\n*Name:* ${customerName}\n*Phone:* ${customerPhone}\n*Event Date:* ${eventDate}\n*Event Type:* ${eventType}\n*Estimated Guests:* ${guestCount} pax\n\n*Selected Items (${cartItemsList.length} unique dishes, Total Qty: ${totalCount}):*\n${dishNames}\n\n*Estimated Rate:* ₹${estimatedPricePerPlate}/plate\n*Estimated Total Budget:* ₹${estimatedTotalCost.toLocaleString("en-IN")}\n\n*Notes:* ${notes || "None"}\n\nPlease share a formal price quotation PDF for this menu!`;
     window.open(`https://wa.me/919940396005?text=${encodeURIComponent(text)}`, "_blank");
     setSubmitted(true);

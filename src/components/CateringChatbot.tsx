@@ -17,6 +17,7 @@ export default function CateringChatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const initialMessage: Message = {
@@ -26,6 +27,14 @@ export default function CateringChatbot() {
   };
 
   useEffect(() => {
+    // Initialize or load session ID
+    let sid = localStorage.getItem('mcc_chat_session_id');
+    if (!sid) {
+      sid = 'session_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now();
+      localStorage.setItem('mcc_chat_session_id', sid);
+    }
+    setSessionId(sid);
+
     try {
       const stored = localStorage.getItem('mcc_chat_history');
       if (stored) {
@@ -84,6 +93,17 @@ export default function CateringChatbot() {
 
       // Call TanStack Start server function directly
       const data = await chatFn({ data: { message: textToSend, history: formattedHistory } });
+
+      // Log messages to SQLite DB
+      try {
+        const { chatAPI } = await import('@/services/crmApi');
+        await chatAPI.logMessage(sessionId, 'user', textToSend);
+        if (data.success) {
+          await chatAPI.logMessage(sessionId, 'assistant', data.text);
+        }
+      } catch (logErr) {
+        console.warn("Failed to log chat to database:", logErr);
+      }
 
       if (data.success) {
         const assistantMsg: Message = {

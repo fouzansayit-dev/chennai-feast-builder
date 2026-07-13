@@ -176,3 +176,13 @@ export const mediaAPI = {
   delete: (key: string) => apiFetch(`/media/${encodeURIComponent(key)}`, { method: 'DELETE' }),
 };
 
+export const chatAPI = {
+  logMessage: (sessionId: string, sender: 'user' | 'assistant', message: string) =>
+    apiFetch('/chat/log', {
+      method: 'POST',
+      body: JSON.stringify({ session_id: sessionId, sender, message })
+    }, true),
+  getSessions: () => apiFetch('/chat/sessions'),
+  getSessionMessages: (sessionId: string) => apiFetch(`/chat/sessions/${sessionId}`),
+};
+

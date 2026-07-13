@@ -44,7 +44,8 @@ import {
   Upload,
   RefreshCw,
   CheckSquare,
-  XSquare
+  XSquare,
+  MessageSquare
 } from "lucide-react";
 import logoImg from "@/assets/mcc-logo.png";
 import lotusIcon from "@/assets/lotus icon.png";
@@ -63,6 +64,7 @@ import {
   eventCategoriesAPI,
   eventStallItemsAPI,
   mediaAPI,
+  chatAPI,
   getToken,
   removeToken
 } from "@/services/crmApi";
@@ -82,6 +84,7 @@ type TabType =
   | "eventCategories"
   | "eventStallItems"
   | "media"
+  | "chatLogs"
   | "settings";
 
 interface QuotationItem {
@@ -426,6 +429,42 @@ export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustom
   const [eventCategories, setEventCategories] = useState<any[]>([]);
   const [eventStallItems, setEventStallItems] = useState<any[]>([]);
 
+  // Chat log states
+  const [chatSessions, setChatSessions] = useState<any[]>([]);
+  const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
+  const [sessionMessages, setSessionMessages] = useState<any[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(false);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+
+  const fetchSessions = async () => {
+    setLoadingSessions(true);
+    try {
+      const res = await chatAPI.getSessions();
+      if (res.success && res.data) {
+        setChatSessions(res.data);
+      }
+    } catch (e) {
+      console.error("Failed to fetch chat sessions:", e);
+    } finally {
+      setLoadingSessions(false);
+    }
+  };
+
+  const fetchSessionMessages = async (sessionId: string) => {
+    setLoadingMessages(true);
+    try {
+      const res = await chatAPI.getSessionMessages(sessionId);
+      if (res.success && res.data) {
+        setSessionMessages(res.data);
+        setSelectedSessionId(sessionId);
+      }
+    } catch (e) {
+      console.error("Failed to fetch chat messages:", e);
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -562,6 +601,12 @@ export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustom
       fetchData();
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (isAuthenticated && activeTab === "chatLogs") {
+      fetchSessions();
+    }
+  }, [isAuthenticated, activeTab]);
 
   const handleCreateQuotation = async (newQuo: any) => {
     try {
@@ -782,6 +827,7 @@ export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustom
               </span>
               {[
                 { id: "media", label: "Media & Images", icon: Image },
+                { id: "chatLogs", label: "AI Chat Logs", icon: MessageSquare },
                 { id: "settings", label: "Company Settings", icon: Settings },
               ].map((item) => {
                 const Icon = item.icon;
@@ -843,7 +889,8 @@ export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustom
                       activeTab === "menuTypes" ? "Menu Types" :
                         activeTab === "packages" ? "Our Menu Packages" :
                           activeTab === "orders" ? "Customer Orders" :
-                            activeTab}
+                            activeTab === "chatLogs" ? "AI Chat Logs" :
+                              activeTab}
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">
               My Chennai Catering Administration Portal
@@ -1742,6 +1789,117 @@ export default function CateringCRM({ onSwitchToCustomizer }: { onSwitchToCustom
           {/* TAB: MEDIA & IMAGES */}
           {activeTab === "media" && (
             <MediaManagerTab />
+          )}
+
+          {/* TAB: AI CHAT LOGS */}
+          {activeTab === "chatLogs" && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-220px)]">
+              {/* Left Column: Sessions List */}
+              <div className="bg-white rounded-2xl border border-amber-900/10 shadow-sm overflow-hidden flex flex-col h-full">
+                <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+                  <h3 className="font-serif text-sm font-bold text-[#3A1029]">AI Chat Sessions</h3>
+                  <button 
+                    onClick={fetchSessions}
+                    className="p-1.5 rounded-lg hover:bg-slate-200 text-slate-500 transition-colors"
+                    title="Refresh Sessions"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${loadingSessions ? "animate-spin" : ""}`} />
+                  </button>
+                </div>
+                
+                <div className="flex-1 overflow-y-auto divide-y divide-slate-100 select-none">
+                  {loadingSessions ? (
+                    <div className="text-center py-10 text-xs text-slate-400">Loading sessions...</div>
+                  ) : chatSessions.length === 0 ? (
+                    <div className="text-center py-10 text-xs text-slate-400">No chat sessions logged yet.</div>
+                  ) : (
+                    chatSessions.map((session) => {
+                      const active = selectedSessionId === session.session_id;
+                      return (
+                        <div
+                          key={session.session_id}
+                          onClick={() => fetchSessionMessages(session.session_id)}
+                          className={`p-3.5 cursor-pointer hover:bg-amber-50/40 transition-colors flex flex-col gap-1.5 border-l-4 ${
+                            active ? "bg-amber-50/70 border-amber-500" : "border-transparent"
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <h4 className="text-xs font-bold text-slate-800 line-clamp-1 flex-1">
+                              {session.title || "Catering Inquiry"}
+                            </h4>
+                            <span className="bg-amber-100 text-amber-900 text-[9px] font-bold px-1.5 py-0.2 rounded-full shrink-0">
+                              {session.message_count} msgs
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center text-[10px] text-slate-400">
+                            <span>ID: ...{session.session_id.substring(8, 17)}</span>
+                            <span>{new Date(session.last_active_at).toLocaleString("en-IN", { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}</span>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+
+              {/* Right Column: Chat History Viewer */}
+              <div className="lg:col-span-2 bg-white rounded-2xl border border-amber-900/10 shadow-sm overflow-hidden flex flex-col h-full">
+                {selectedSessionId ? (
+                  <>
+                    <div className="p-4 border-b border-slate-100 bg-[#FAF7F2] flex items-center justify-between">
+                      <div>
+                        <h3 className="font-serif text-sm font-bold text-[#3A1029]">
+                          Conversation Details
+                        </h3>
+                        <p className="text-[10px] text-slate-500">Session ID: {selectedSessionId}</p>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-100 text-emerald-800 font-bold border border-emerald-300">
+                        Active Log
+                      </span>
+                    </div>
+
+                    <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-[#FAF8F5] select-text">
+                      {loadingMessages ? (
+                        <div className="text-center py-20 text-xs text-slate-400">Loading messages...</div>
+                      ) : (
+                        sessionMessages.map((msg) => {
+                          const isUser = msg.sender === "user";
+                          return (
+                            <div
+                              key={msg.id}
+                              className={`flex flex-col max-w-[85%] ${
+                                isUser ? "ml-auto items-end" : "mr-auto items-start"
+                              }`}
+                            >
+                              <div
+                                className={`p-3 rounded-2xl text-xs leading-relaxed ${
+                                  isUser
+                                    ? "bg-[#3A1029] text-white rounded-tr-none"
+                                    : "bg-white border border-slate-200 text-slate-800 rounded-tl-none"
+                                }`}
+                              >
+                                {msg.message}
+                              </div>
+                              <span className="text-[9px] text-slate-400 mt-1 px-1">
+                                {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                            </div>
+                          );
+                        })
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400 space-y-2">
+                    <MessageSquare className="w-12 h-12 text-slate-300" />
+                    <h3 className="font-serif text-base font-bold text-slate-600">No Session Selected</h3>
+                    <p className="text-xs max-w-sm">
+                      Select a chat session on the left to monitor the conversation log between the user and the AI assistant in real-time.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
 
         </div>
