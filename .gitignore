@@ -34,3 +34,9 @@ dist-ssr
 hostinger_key*
 *.mp4
 .env
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.bak
+uploads/
+
